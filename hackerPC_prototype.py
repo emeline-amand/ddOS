@@ -1,6 +1,6 @@
 #Prototype du PC du hacker
 
-#Arbre de dossier créé avec des dictionnaires imbriqués
+#Arbre de dossier créé avec des dictionnaires imbriqués (nom du dossier = clé et contenu du dossier = dictionnaire)
 files = {'C:':{'dossier1':{'fichier1':1, 'dossier2':{}},'dossier3':{'fichier2':2, 'dossier4':{'fichier3':3, 'fichier4':4}}}}
 
 
