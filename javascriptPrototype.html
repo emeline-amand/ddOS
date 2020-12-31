@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <style>
+            #computer {
+                margin-top:100px;
+                margin-left:10%;
+                /*Met la police comme il faut*/
+                font-family: "Courier new", "american typewriter";
+                font-weight: 400;
+                font-size: .8em;
+                line-height: 2;
+                letter-spacing: 1.2px;
+            }
+            #screen input {
+                /*Retire toutes les bordures du champs d'entrée*/
+                border: none;
+                outline: none;
+                /*Met la police comme il faut*/
+                font-family: "Courier new", "american typewriter";
+            }
+        </style>
+        <script>
+            
+            var ligne = 1; //Compteur de ligne pour print comme il faut
+            var path = "dossier1/dossier1.1"; //Chemin dans l'arbre de dossier
+            var files = { "dossier1": {"dossier1.1":{"file1.1.1":"Bonjour","file1.1.2":"Monde"},"file1.2":"Yop à la fraise"},"dossier2": {"file2.1":"Meh","file2.2":"Moh"}}; //Création du dictionnaire qui servira d'arbre de dossier
+
+            function ls(p) {
+                p.split("/");
+                tempP = "";
+                for (i in length(p)) {
+                    tempP = tempP[i];
+                }
+                $("#output").html(tempP);
+            }
+
+            window.onload = function() {
+                $("#screen input").focus();
+                $("#screen input").on('keydown', function(event) {
+                    if (event.which === 13) { // if enter key pressed
+                        var input = $(this),
+                        val = input.val().split(" ");
+                        input.focus().val('');
+                        switch(val[0]) {
+                            case "helloWorld":
+                                alert("you found the easter egg!");
+                                $("#output").html("yeeeee")
+                                break;
+                            case "ls": 
+                                ls(path);
+                        }
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="computer">
+            <!-- <div id="screen">test &gt;Fylltekst Fylltekst Fylltekst</div> -->
+            <div id="screen">C:&gt;<input></input></div>
+            <div id="output"></div>
+        </div>
+    </body>
+</html>
