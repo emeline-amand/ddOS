@@ -9,4 +9,4 @@ L'interface du jeu sera un ordinateur très sommaire entièrement simulé via du
 L'intégration dy python dans le HTML se fait via un server python et CGI
 
 ### Répartition des tâches
-Émeline s'occupe de faire une version fonctionnelle du bureau du héro dans le serveur python et Anatole s'occupe d'y intégrer le PC du hacker (faux terminal)
+Maintenant que la base du jeu est faite (PC du héro), il faut faire les applications qui s'y attachent, Émeline s'occupe de faire une application de message, l'application d'indices (donc un moyen pour le programme de voir la progression du joueur), et le l'explorateur de fichier du PC du héro (très sommaire), et Anatole s'occupe de faire le PC du hacker, ce qui signifie : faire un terminal, faire une application annexe pour afficher les commandes pour naviguer dedans, faire la nivgation dans les fichiers, faire l'endroit où il faut rentrer les 5 codes pour gagner, faire l'assistant personnel qui permettra de récupérer un des codes, et empêcher cette application se reset lorsqu'elle est basculée en second plan
