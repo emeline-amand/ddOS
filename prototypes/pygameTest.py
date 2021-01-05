@@ -7,11 +7,11 @@ pygame.init()
 fenetre = pygame.display.set_mode((640, 480))
 
 #Chargement et collage du fond
-fond = pygame.image.load("background.jpg").convert()
+fond = pygame.image.load("background2.jpg").convert()
 fenetre.blit(fond, (0,0))
 
 #Chargement et collage du personnage
-perso = pygame.image.load("perso.png").convert_alpha()
+perso = pygame.image.load("icon.jpg").convert_alpha()
 position_perso = perso.get_rect()
 fenetre.blit(perso, position_perso)
 
@@ -21,14 +21,14 @@ pygame.display.flip()
 pygame.key.set_repeat(1, 30)
 
 #BOUCLE INFINIE
-continuer = 1
+continuer = True
 while continuer:
 	for event in pygame.event.get():	#Attente des événements
 		if event.type == QUIT:
-			continuer = 0
+			continuer = False
 		elif event.type == MOUSEBUTTONDOWN:
 					if event.button == 1:	#Si clic gauche
-						continuer = 0
+						continuer = False
 		elif event.type == KEYDOWN:
 			if event.key == K_DOWN:	#Si "flèche bas"
 				#On descend le perso
