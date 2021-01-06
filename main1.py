@@ -134,6 +134,16 @@ def ls(p) :
 	keys = getDictKeys(current)
 	return keys
 
+def scrolling(l, lign, imag, p) :
+	if len(l) > 17 :
+		while len(l) > 17 :
+			del l[0]
+			lign -=20
+		printLog(l, imag)
+		screen.blit(terminal.render(p+" > ", False, (0, 175, 0)), (250,lign))
+		pygame.display.flip()
+	return l, lign
+
 def PChacker(imag) :
 	path = 'C:/'
 	appli = True
@@ -161,6 +171,7 @@ def PChacker(imag) :
 				if event.key == K_RETURN:
 					input = text
 					log.append(path+" > "+text)
+					log, ligne = scrolling(log, ligne, imag, path)
 					printLog(log, imag)
 					text = ''
 					ligne+=20
@@ -181,6 +192,9 @@ def PChacker(imag) :
 			elif input[0] == 'ls' :
 				outp = ls(path)
 				output=""
+				ligne+=40
+				log.append("Fichiers depuis : "+path)
+				log.append("")
 				for key in outp :
 					log.append(key)
 					ligne+=20
@@ -192,18 +206,13 @@ def PChacker(imag) :
 			input = None
 		if output != None :
 			log.append(output)
+			log, ligne = scrolling(log, ligne, imag, path)
 			printLog(log, imag)
 			ligne+=20
 			output=None
 			screen.blit(terminal.render(path+" > ", False, (0, 175, 0)), (250,ligne))
 			pygame.display.flip()
-		if len(log) > 17 :
-			while len(log) > 17 :
-				del log[0]
-				ligne -=20
-			printLog(log, imag)
-			screen.blit(terminal.render(path+" > ", False, (0, 175, 0)), (250,ligne))
-			pygame.display.flip()
+		log, ligne = scrolling(log, ligne, imag, path)
 
 	return imag, conti
 
