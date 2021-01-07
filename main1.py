@@ -181,7 +181,8 @@ def PChacker(imag) :
 					screen.blit(terminal.render(path+" > "+text, False, (0, 175, 0)), (250,ligne))
 					pygame.display.flip()
 				else:
-					text += event.unicode
+					if len(path+" > "+text)<60 :
+						text += event.unicode
 					printLog(log, imag)
 					screen.blit(terminal.render(path+" > "+text, False, (0, 175, 0)), (250,ligne))
 					pygame.display.flip()
@@ -201,6 +202,10 @@ def PChacker(imag) :
 				output=""
 			elif input[0] == 'cd' and len(input)>1 :
 				path = cd(path, input[1])
+			elif input[0] == 'clear' :
+				log = []
+				ligne = 160
+				printLog(log, imag)
 			screen.blit(terminal.render(path+" > ", False, (0, 175, 0)), (250,ligne))
 			pygame.display.flip()
 			input = None
