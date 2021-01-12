@@ -33,10 +33,10 @@ def appli1(imag) :
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
 				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon, fenIconCoords))
+					imag = render(imag, (fenIcon, fen_icon_coords))
 					appli = False
-				elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1  : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon2, fenIcon2Coords))
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1  : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					imag = render(imag, (fen_message, fen_message_coords))
 					appli = False
 				elif event.button == 3 :
 					increment*= -1
@@ -67,28 +67,29 @@ def appli2(imag) :
 					appli = False
 
 	return imag, conti
-	
-	
-def message(imag) :
+
+
+def message(_imag) :
+	"""permet d'afficher les messages sur une fenetre en séparant l'émetteur du message et son objet"""
 	appli = True
 	conti = True
 #definition variable avec objets et contenu des messages
 	messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
-	
+
 	y=200
 	for i in range (len(messages)):
 #on fait afficher l'émetteur des messages
 		screen.blit(myfont.render(messages[i][0],False,(0,0,0)),(350,y))
 		pygame.display.flip()
 		messages[i].append(y-30)
-		
-		
+
+
 #on fait afficher l'objet des messages
 		screen.blit(myfont.render(messages[i][1],False,(0,0,0)),(600,y))
 		pygame.display.flip()
 		messages[i].append(y-30)
 		y+=40
-		
+
 #truc commun à toutes les applis
 	while appli :
 		for event in pygame.event.get(): #Attente des événements
@@ -97,17 +98,17 @@ def message(imag) :
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
 				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon, fenIconCoords))
+					_imag = render(_imag, (fenIcon, fen_icon_coords))
 					appli = False
-				elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon2, fenIcon2Coords))
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					_imag = render(_imag, (fen_message, fen_message_coords))
 					appli = False
 				for i in range(len(messages)):
 					if event.pos[1]>messages[i][3] and event.pos[1]>messages[i][3]+30:
 						print("ça marche")
-						
 
-	return imag, conti
+
+	return _imag, conti
 
 
 
@@ -133,26 +134,26 @@ iconCoords = (100,639)
 iconDim = icon.get_size()
 screen.blit(icon, iconCoords)
 
-#Icone de test 2
-icon2 = pygame.image.load("img/icon2.png").convert()
-icon2Coords = (150,639)
-icon2Dim = icon2.get_size()
-screen.blit(icon2, icon2Coords)
+#Icone des messages
+iconmessage = pygame.image.load("img/iconmessage.png").convert()
+iconmessage_coords = (150,639)
+iconmessage_dim = iconmessage.get_size()
+screen.blit(iconmessage, iconmessage_coords)
 
 #Fenêtre qui apparaît lorsqu'icon est cliqué
 fenIcon = pygame.image.load("img/fenetreICON.png").convert()
 fenIconDim = fenIcon.get_size()
-fenIconCoords = ((screenDim[0]-fenIconDim[0])/2, (screenDim[1]-fenIconDim[1])/2)
+fen_icon_coords = ((screenDim[0]-fenIconDim[0])/2, (screenDim[1]-fenIconDim[1])/2)
 
 #Fenêtre qui apparaît lorsqu'icon est cliqué
-fenIcon2 = pygame.image.load("img/fenetreICON2.png").convert()
-fenIcon2Dim = fenIcon2.get_size()
-fenIcon2Coords = ((screenDim[0]-fenIcon2Dim[0])/2, (screenDim[1]-fenIcon2Dim[1])/2)
+fen_message = pygame.image.load("img/fenetreICON2.png").convert()
+fen_message_dim = fen_message.get_size()
+fen_message_coords = ((screenDim[0]-fen_message_dim[0])/2, (screenDim[1]-fenIconDim[1])/2)
 
 #Rafraîchissement de l'écran
 pygame.display.flip()
 
-images = [(fond, (0,0)), (icon, iconCoords), (icon2, icon2Coords)]
+images = [(fond, (0,0)), (icon, iconCoords), (iconmessage, iconmessage_coords)]
 
 continuer = True
 #BOUCLE INFINIE
@@ -163,9 +164,9 @@ while continuer :
 			continuer = False
 		elif event.type == MOUSEBUTTONDOWN:
 			if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-				images = render(images, (fenIcon, fenIconCoords))
-			elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-				images = render(images, (fenIcon2, fenIcon2Coords))
+				images = render(images, (fenIcon, fen_icon_coords))
+			elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				images = render(images, (fen_message, fen_message_coords))
 
 	#Re-collage
 	render(images, None)
@@ -173,7 +174,7 @@ while continuer :
 	pygame.display.flip()
 	if images[len(images)-1][0] == fenIcon:
 		images, continuer = appli1(images)
-	elif images[len(images)-1][0] == fenIcon2:
+	elif images[len(images)-1][0] == fen_message:
 		images, continuer = message(images)
 
 pygame.quit()
