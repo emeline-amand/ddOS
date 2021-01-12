@@ -4,77 +4,64 @@ from pygame.locals import *
 files = {'C:':{'dossier1':{'fichier1':1, 'dossier2':{}},'dossier3':{'fichier2':2, 'dossier4':{'fichier3':3, 'fichier4':4}}}}
 
 def render(toBlit, firstPlan) :
-	"""Fonction qui affiche les images spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'image spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
-	#Si l'image à mettre en 1er plan l'est déjà
+	"""Fonction qui affiche les _imageses spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'_imagese spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
+	#Si l'_imagese à mettre en 1er plan l'est déjà
 	if firstPlan==toBlit[len(toBlit)-1]:
 		#ne plus l'afficher
 		del toBlit[len(toBlit)-1]
 	#Sinon si il y un premier plan spécifié
 	elif firstPlan!=None:
-		#Supprimer de la liste des images le premier plan spécifié puis le réajouter tout à la fin
+		#Supprimer de la liste des _imageses le premier plan spécifié puis le réajouter tout à la fin
 		for i in range(len(toBlit)) :
 			if toBlit[i]==firstPlan:
 				del toBlit[i]
 				break
 		toBlit.append(firstPlan)
-	#afficher les images dans l'ordre croissant
-	for image in toBlit:
-		screen.blit(image[0], image[1])
+	#afficher les _imageses dans l'ordre croissant
+	for _imagese in toBlit:
+		screen.blit(_imagese[0], _imagese[1])
 	return toBlit
 
-def appli1(imag) :
+def appli1(_images) :
 	appli = True
-	conti = True
+	_continuer = True
 	coo = (300,200)
 	increment = 0.2
 	screen.blit(text1,coo)
 	while appli :
 		for event in pygame.event.get(): #Attente des événements
 			if event.type == QUIT:
-				conti = False
+				_continuer = False
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
-				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon, fenIconCoords))
-					appli = False
-				elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1  : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon2, fenIcon2Coords))
-					appli = False
+				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "icon"
+					_images = render(_images, (fen_iconterminal, fen_iconterminal_coords))
+					appli=False
+				elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur icon2
+					_images = render(_images, (fenIcon2, fenIcon2Coords))
+					appli=False
 				elif event.button == 3 :
 					increment*= -1
-		render(imag, None)
+		render(_images, None)
 		coo = (coo[0]+increment,coo[1])
 		screen.blit(text1, coo)
 		pygame.display.flip()
 
-	return imag, conti
+	return _images, _continuer
 
+#=========================================================================#
+#=========================== PC HACKER/TERMINAL ==========================#
+#=========================================================================#
 
-def appli2(imag) :
-	appli = True
-	conti = True
-	screen.blit(text2, (350,400))
-	pygame.display.flip()
-	while appli :
-		for event in pygame.event.get(): #Attente des événements
-			if event.type == QUIT:
-				conti = False
-				appli = False
-			elif event.type == MOUSEBUTTONDOWN:
-				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon, fenIconCoords))
-					appli = False
-				elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon2, fenIcon2Coords))
-					appli = False
-
-	return imag, conti
-
-def printLog(l, imag) :
+#Toutes les fonctions ci-dessous servent pour l'application terminal (ou anciennement PChacker)
+def printLog(_log, _images) :
+	"""Affiche la liste 'log' qui contient toutes les anciennes lignes du terminal"""
 	ligne=160
-	render(imag, None)
-	for line in l:
-		screen.blit(terminal.render(line, False, (0, 175, 0)), (250,ligne))
+	render(_images, None)
+	for line in _log:
+		screen.blit(terminalFont.render(line, False, (0, 175, 0)), (250,ligne))
 		ligne+=20
 	pygame.display.flip()
 
@@ -85,106 +72,109 @@ def getDictKeys(dict) :
 		k.append(key)
 	return k
 
-def convertPath(p) :
+def convertPath(_path) :
 	'''fonction qui transforme le path string spécifié en path list utilisable par les autres fonctions. Prend en param le path string'''
-	p = p.split('/')
-	if p[len(p)-1] == '' : #Dans le cas où path = "C:/"
+	_path = _path.split('/')
+	if _path[len(_path)-1] == '' : #Dans le cas où path = "C:/"
 		#supprimer la dernière valeur de la liste p (car vide et gène pour le len(p) plus tard)
-		del p[len(p)-1]
-	return p
+		del _path[len(_path)-1]
+	return _path
 
-def goto(p) :
+def goto(_path) :
 	'''fonction qui retourne le dictionnaire au bout du chemin spécifié. Prend en param le chemin qui mène au dictionnaire'''
 	#prépare le path pour la navigation à travers le dictionnaire
-	p = convertPath(p)
+	_path = convertPath(_path)
 	#Va jusqu'au chemin spécifié en redéfinissant plusieurs fois current pour être le dictionnaire de fin demandé
-	current = files[p[0]]
-	for i in range(len(p)-1):
-		current = current[p[i+1]]
+	current = files[_path[0]]
+	for i in range(len(_path)-1):
+		current = current[_path[i+1]]
 	return current
 
-def cd(p, target) :
-	'''fonction qui simule la commande qui accède à un dossier en mettant à jour la variable chemin. Prend en param1 le chemin d'origine et en param2 le dossier à entrer'''
+def cd(_path, target) :
+	'''Simule la commande 'cd'. Prend en param1 le chemin d'origine et en param2 le dossier à entrer'''
 	if target == '..' : #Remonter d'un dossier
-		p = p[:p.rfind('/')]
-		if p  == 'C:' : #Si déjà au minimum alors
-			p += '/' #Réajoute le '/' de fin uniquement présent au dossier racine de l'arbre
-		return p
+		_path = _path[:_path.rfind('/')]
+		if _path  == 'C:' : #Si déjà au minimum alors
+			_path += '/' #Réajoute le '/' de fin uniquement présent au dossier racine de l'arbre
+		return _path
 	else : #Avancer d'un dossier
 		exist = False
-		for key in goto(p).keys() : #Test si dossier cible existe
+		for key in goto(_path).keys() : #Test si dossier cible existe
 			if key == target :
 				exist = True
 		if not exist :
-			return p
-		if p  == 'C:/' : #Si au minimum alors
-			p = p[:len(p)-1] #retire le '/' de fin uniquement présent au dossier racine de l'arbre
-		p = p+'/'+target
-		return p
+			return _path
+		if _path  == 'C:/' : #Si au minimum alors
+			_path = _path[:len(_path)-1] #retire le '/' de fin uniquement présent au dossier racine de l'arbre
+		_path = _path+'/'+target
+		return _path
 
-def ls(p) :
-	'''fonction qui simule la commande qui liste les fichiers et dossier présents dans le dossier où l'on se trouve. Prend en param le chemin actuel'''
+def ls(_path) :
+	'''Simule la commande 'dir' (sous windows) ou 'ls' (sous mac). Prend en param le chemin actuel'''
 	#prépare le path pour la navigation à travers le dictionnaire
-	p = convertPath(p)
+	_path = convertPath(_path)
 	#Va jusqu'au chemin spécifié en redéfinissant plusieurs fois current pour être le dictionnaire de fin demandé
-	current = files[p[0]]
-	for i in range(len(p)-1):
-		current = current[p[i+1]]
+	current = files[_path[0]]
+	for i in range(len(_path)-1):
+		current = current[_path[i+1]]
 	#Affiche les clés présentes dans le chemin demandé
 	keys = getDictKeys(current)
 	return keys
 
-def scrolling(l, lign, imag, p) :
-	if len(l) > 17 :
-		while len(l) > 17 :
-			del l[0]
-			lign -=20
-		printLog(l, imag)
-		screen.blit(terminal.render(p+" > ", False, (0, 175, 0)), (250,lign))
+def scrolling(_log, _ligne, _images, _path) :
+	"""Renvoie la variable 'log' modifiée pour simuler un scrolling de l'écran (retire l'élément le plus ancien lorsque que celle-ci dépasse une longueur de 17)"""
+	if len(_log) > 17 :
+		while len(_log) > 17 :
+			del _ligne[0]
+			_ligne -=20
+		printLog(_log, _images)
+		screen.blit(terminalFont.render(_path+" > ", False, (0, 175, 0)), (250,_ligne))
 		pygame.display.flip()
-	return l, lign
+	return _log, _ligne
 
-def PChacker(imag) :
+def Terminal(_images) :
 	path = 'C:/'
 	appli = True
-	conti = True
+	_continuer = True
 	text=""
 	log=[]
 	input=None
 	output=None
 	ligne=160
-	screen.blit(terminal.render(path+" > ", False, (0, 175, 0)), (250,ligne))
+	screen.blit(terminalFont.render(path+" > ", False, (0, 175, 0)), (250,ligne))
 	pygame.display.flip()
 	while appli :
 		for event in pygame.event.get(): #Attente des événements
 			if event.type == QUIT:
-				conti = False
+				_continuer = False
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
-				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon, fenIconCoords))
-					appli = False
+				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "icon"
+					_images = render(_images, (fen_iconterminal, fen_iconterminal_coords))
+					appli=False
 				elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-					imag = render(imag, (fenIcon2, fenIcon2Coords))
-					appli = False
+					#Clic gauche sur icon2
+					_images = render(_images, (fenIcon2, fenIcon2Coords))
+					appli=False
 			elif event.type == KEYDOWN :
 				if event.key == K_RETURN:
 					input = text
 					log.append(path+" > "+text)
-					log, ligne = scrolling(log, ligne, imag, path)
-					printLog(log, imag)
+					log, ligne = scrolling(log, ligne, _images, path)
+					printLog(log, _images)
 					text = ''
 					ligne+=20
 				elif event.key == K_BACKSPACE:
 					text = text[:-1]
-					printLog(log, imag)
-					screen.blit(terminal.render(path+" > "+text, False, (0, 175, 0)), (250,ligne))
+					printLog(log, _images)
+					screen.blit(terminalFont.render(path+" > "+text, False, (0, 175, 0)), (250,ligne))
 					pygame.display.flip()
 				else:
 					if len(path+" > "+text)<60 :
 						text += event.unicode
-					printLog(log, imag)
-					screen.blit(terminal.render(path+" > "+text, False, (0, 175, 0)), (250,ligne))
+					printLog(log, _images)
+					screen.blit(terminalFont.render(path+" > "+text, False, (0, 175, 0)), (250,ligne))
 					pygame.display.flip()
 		if input != None :
 			input = input.split(" ")
@@ -205,88 +195,93 @@ def PChacker(imag) :
 			elif input[0] == 'clear' :
 				log = []
 				ligne = 160
-				printLog(log, imag)
-			screen.blit(terminal.render(path+" > ", False, (0, 175, 0)), (250,ligne))
+				printLog(log, _images)
+			screen.blit(terminalFont.render(path+" > ", False, (0, 175, 0)), (250,ligne))
 			pygame.display.flip()
 			input = None
 		if output != None :
 			log.append(output)
-			log, ligne = scrolling(log, ligne, imag, path)
-			printLog(log, imag)
+			log, ligne = scrolling(log, ligne, _images, path)
+			printLog(log, _images)
 			ligne+=20
 			output=None
-			screen.blit(terminal.render(path+" > ", False, (0, 175, 0)), (250,ligne))
+			screen.blit(terminalFont.render(path+" > ", False, (0, 175, 0)), (250,ligne))
 			pygame.display.flip()
-		log, ligne = scrolling(log, ligne, imag, path)
+		log, ligne = scrolling(log, ligne, _images, path)
 
-	return imag, conti
+	return _images, _continuer
 
-
+#=========================================================================#
+#======================= VARIABLES ET INITALISATIONS =====================#
+#=========================================================================#
 pygame.init()
 pygame.font.init()
 
+#Polices
+defaultFont = pygame.font.SysFont('Arial', 20)
+terminalFont = pygame.font.Font('img/SLC_.ttf', 20)
 
-myfont = pygame.font.SysFont('Arial', 20)
-terminal = pygame.font.Font('img/SLC_.ttf', 20)
-text1 = myfont.render("I'm moving", False, (0, 0, 0))
-text2 = myfont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", False, (0,0,0))
+#Textes placeholders pour les test
+text1 = defaultFont.render("I'm moving", False, (0, 0, 0))
+text2 = defaultFont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", False, (0,0,0))
 
 #Ouverture de la fenêtre Pygame
-screenDim = (1200, 675)
-screen = pygame.display.set_mode(screenDim)
+# --screen_dim = (pygame.display.Info().current_w, pygame.display.Info().current_h)
+screen_dim = (1200, 675)
+screen = pygame.display.set_mode(screen_dim)
 
-#Chargement et collage du fond
-fond = pygame.image.load("img/desktop.png").convert()
-screen.blit(fond, (0,0))
+#Chargement du fond
+background = pygame.image.load("img/desktop.png").convert()
 
-#Icone de test 1
-icon = pygame.image.load("img/icon.png").convert()
-iconCoords = (100,640)
-iconDim = icon.get_size()
-screen.blit(icon, iconCoords)
+#Chargement de l'icone du terminal
+iconterminal = pygame.image.load("img/icon.png").convert()
+iconterminal_coords = (100,640)
+iconterminal_dim = iconterminal.get_size()
 
-#Icone de test 2
+#Chargement de l'icone de [WIP]
 icon2 = pygame.image.load("img/icon2.png").convert()
 icon2Coords = (150,639)
 icon2Dim = icon2.get_size()
-screen.blit(icon2, icon2Coords)
 
-#Fenêtre qui apparaît lorsqu'icon est cliqué
-fenIcon = pygame.image.load("img/fenetreICON.png").convert()
-fenIconDim = fenIcon.get_size()
-fenIconCoords = ((screenDim[0]-fenIconDim[0])/2, (screenDim[1]-fenIconDim[1])/2)
+#Chargement de la fenêtre d'application de terminal
+fen_iconterminal = pygame.image.load("img/fenetreICON.png").convert()
+fen_iconterminal_dim = fen_iconterminal.get_size()
+fen_iconterminal_coords = ((screen_dim[0]-fen_iconterminal_dim[0])/2, (screen_dim[1]-fen_iconterminal_dim[1])/2)
 
-#Fenêtre qui apparaît lorsqu'icon est cliqué
+#Chargement de la fenêtre d'application de [WIP]
 fenIcon2 = pygame.image.load("img/fenetreICON2.png").convert()
 fenIcon2Dim = fenIcon2.get_size()
-fenIcon2Coords = ((screenDim[0]-fenIcon2Dim[0])/2, (screenDim[1]-fenIcon2Dim[1])/2)
+fenIcon2Coords = ((screen_dim[0]-fenIcon2Dim[0])/2, (screen_dim[1]-fenIcon2Dim[1])/2)
 
-#Rafraîchissement de l'écran
-pygame.display.flip()
+images = [(background, (0,0)), (iconterminal, iconterminal_coords), (icon2, icon2Coords)] #Prépare la liste pour l'affichage des éléments
+pygame.key.set_repeat(400, 30) #Active la possibilité de rester appuyer sur une touche
 
-images = [(fond, (0,0)), (icon, iconCoords), (icon2, icon2Coords)]
 
-pygame.key.set_repeat(400, 30)
-
+#=========================================================================#
+#=================================== JEU =================================#
+#=========================================================================#
 continuer = True
-#BOUCLE INFINIE
 while continuer :
-	#Attente des événements
+	#Gestion des événements
 	for event in pygame.event.get():
-		if event.type == QUIT:
+		if event.type == QUIT: 
+			#Clic sur la croix pour fermer la fenêtre
 			continuer = False
-		elif event.type == MOUSEBUTTONDOWN:
-			if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-				images = render(images, (fenIcon, fenIconCoords))
+		elif event.type == MOUSEBUTTONDOWN: 
+			#Clic de souris
+			if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+				#Clic sur gauche sur "icon"
+				images = render(images, (fen_iconterminal, fen_iconterminal_coords))
 			elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				#Clic gauche sur icon2
 				images = render(images, (fenIcon2, fenIcon2Coords))
 
-	#Re-collage
+	#Affichage du jeu (affichage des _imageses dans l'ordre + rafraichissement de l'écran)
 	render(images, None)
-	#Rafraichissement
 	pygame.display.flip()
-	if images[len(images)-1][0] == fenIcon:
-		images, continuer = PChacker(images)
+	#Appel des fonctions associés à l'application en premier plan
+	if images[len(images)-1][0] == fen_iconterminal:
+		images, continuer = Terminal(images)
 	elif images[len(images)-1][0] == fenIcon2:
 		images, continuer = appli1(images)
 
