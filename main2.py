@@ -97,15 +97,20 @@ def message(_imag) :
 				conti = False
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
+				y=200
+				for i in range (len(messages)):
+					if 350<event.pos[0]<800 and y<event.pos[1]<y+40:
+						print(messages[i][2])
+					y+=40
+				#quitter l'appli
 				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 					_imag = render(_imag, (fenIcon, fen_icon_coords))
 					appli = False
-				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 :
+				#Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					_imag = render(_imag, (fen_message, fen_message_coords))
 					appli = False
-				for i in range(len(messages)):
-					if event.pos[1]>messages[i][3] and event.pos[1]>messages[i][3]+30:
-						print("ça marche")
+
 
 
 	return _imag, conti
