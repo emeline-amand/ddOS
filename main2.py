@@ -1,4 +1,4 @@
-import pygame
+import pygame, os, math
 from pygame.locals import *
 
 def render(toBlit, firstPlan) :
@@ -76,8 +76,7 @@ def message(_imag) :
 #definition variable avec objets et contenu des messages
 	messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
 
-	#y=200
-	y=400
+	y=270
 	for i in range (len(messages)):
 #on fait afficher l'émetteur des messages
 		screen.blit(myfont.render(messages[i][0],False,(0,0,0)),(350,y))
@@ -87,6 +86,10 @@ def message(_imag) :
 
 #on fait afficher l'objet des messages
 		screen.blit(myfont.render(messages[i][1],False,(0,0,0)),(600,y))
+#ne marche pas
+		COULEUR_NOIRE = pygame.Color(0, 0, 0)
+		pygame.draw.line(screen,COULEUR_NOIRE,(600,40),(800,40,),width = 1)
+
 		pygame.display.flip()
 		messages[i].append(y-30)
 		y+=40
@@ -98,7 +101,7 @@ def message(_imag) :
 				conti = False
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
-				y=400
+				y=270
 				for i in range (len(messages)):
 					#on regarde la position de la souris
 					if 350<event.pos[0]<800 and y<event.pos[1]<y+40:
@@ -106,15 +109,15 @@ def message(_imag) :
 						render(_imag, None)
 
 						#affiche texte à l'écran, precisez coordonnées
-						screen.blit(myfont.render(messages[i][2],True,(0,0,0)),(350,400))
-						screen.blit(myfont.render("return",True,(0,0,0)),(850,750))
+						screen.blit(myfont.render(messages[i][2],True,(0,0,0)),(350,310))
+						screen.blit(myfont.render("return",True,(0,0,0)),(870,680))
 						#refresh écran
 						pygame.display.flip()
 					y+=40
 				#touche return qui permet de revenir à la liste des mails
-				if 850<event.pos[0]<950 and 750<event.pos[1]<780:
+				if 850<event.pos[0]<950 and 700<event.pos[1]<750:
 					render(_imag, None)
-					y=400
+					y=270
 					for i in range (len(messages)):
 #on fait afficher l'émetteur des messages
 						screen.blit(myfont.render(messages[i][0],True,(0,0,0)),(350,y))
@@ -153,8 +156,10 @@ text = myfont.render("I'm moving", False, (0, 0, 0))
 text2 = myfont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", False, (0,0,0))
 
 #Ouverture de la fenêtre Pygame
+w = math.floor(pygame.display.Info().current_w/2-1280/2)
+os.environ['SDL_VIDEO_WINDOW_POS'] = str(w)+",-10"
 screenDim = (1280, 1024)
-screen = pygame.display.set_mode(screenDim)
+screen = pygame.display.set_mode(screenDim, pygame.NOFRAME)
 
 #Chargement et collage du fond
 fond = pygame.image.load("img/desktop.png").convert()
@@ -162,13 +167,13 @@ screen.blit(fond, (0,0))
 
 #Icone de test 1
 icon = pygame.image.load("img/icon.png").convert()
-iconCoords = (100,639)
+iconCoords = (100,989)
 iconDim = icon.get_size()
 screen.blit(icon, iconCoords)
 
 #Icone des messages
 iconmessage = pygame.image.load("img/iconmessage.png").convert()
-iconmessage_coords = (150,639)
+iconmessage_coords = (150,989)
 iconmessage_dim = iconmessage.get_size()
 screen.blit(iconmessage, iconmessage_coords)
 
