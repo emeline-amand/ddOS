@@ -76,7 +76,8 @@ def message(_imag) :
 #definition variable avec objets et contenu des messages
 	messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
 
-	y=200
+	#y=200
+	y=400
 	for i in range (len(messages)):
 #on fait afficher l'émetteur des messages
 		screen.blit(myfont.render(messages[i][0],False,(0,0,0)),(350,y))
@@ -97,11 +98,37 @@ def message(_imag) :
 				conti = False
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
-				y=200
+				y=400
 				for i in range (len(messages)):
+					#on regarde la position de la souris
 					if 350<event.pos[0]<800 and y<event.pos[1]<y+40:
-						print(messages[i][2])
+						#efface texte à l'écran
+						render(_imag, None)
+						
+						#affiche texte à l'écran, precisez coordonnées
+						screen.blit(myfont.render(messages[i][2],True,(0,0,0)),(350,400))
+						screen.blit(myfont.render("return",True,(0,0,0)),(850,750))
+						#refresh écran
+						pygame.display.flip()
 					y+=40
+				#touche return qui permet de revenir à la liste des mails
+				if 850<event.pos[0]<950 and 750<event.pos[1]<780:
+					render(_imag, None)
+					y=400
+					for i in range (len(messages)):
+#on fait afficher l'émetteur des messages
+						screen.blit(myfont.render(messages[i][0],True,(0,0,0)),(350,y))
+						messages[i].append(y-30)
+#on fait afficher l'objet des messages
+						screen.blit(myfont.render(messages[i][1],True,(0,0,0)),(600,y))
+						messages[i].append(y-30)
+						y+=40
+					pygame.display.flip()
+				
+					
+					
+				
+				
 				#quitter l'appli
 				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 					_imag = render(_imag, (fenIcon, fen_icon_coords))
@@ -126,7 +153,7 @@ text = myfont.render("I'm moving", False, (0, 0, 0))
 text2 = myfont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", False, (0,0,0))
 
 #Ouverture de la fenêtre Pygame
-screenDim = (1200, 675)
+screenDim = (1280, 1024)
 screen = pygame.display.set_mode(screenDim)
 
 #Chargement et collage du fond
