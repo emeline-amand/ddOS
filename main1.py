@@ -193,6 +193,7 @@ def Terminal(_images, _path, log, ligne, text) :
 					if event.type == QUIT:
 						_continuer = False
 						appli = False
+						firstBoucle = False
 						break
 					elif event.type == MOUSEBUTTONDOWN:
 						if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
