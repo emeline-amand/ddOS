@@ -1,7 +1,12 @@
 import pygame
 from pygame.locals import *
 
-files = {'C:':{'dossier1':{'fichier1':1, 'dossier2':{}},'dossier3':{'fichier2':2, 'dossier4':{'fichier3':3, 'fichier4':4}}}}
+files = {'C:':{'dossier1':{'réinitialiser.exe':"réinit", 'dossier2':{}},'dossier3':{'fichier2':2, 'dossier4':{'fichier3':3, 'fichier4':4}}}}
+path = ""
+g_log = []
+g_log.append("Username : [insérer énigme]")
+g_ligne = 180
+g_text = ""
 
 def render(toBlit, firstPlan) :
 	"""Fonction qui affiche les _imageses spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'_imagese spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
@@ -61,7 +66,7 @@ def printLog(_log, _images) :
 	ligne=160
 	render(_images, None)
 	for line in _log:
-		screen.blit(terminalFont.render(line, False, (0, 175, 0)), (250,ligne))
+		screen.blit(terminalFont.render(line, True, (0, 175, 0)), (250,ligne))
 		ligne+=20
 	pygame.display.flip()
 
@@ -125,24 +130,22 @@ def scrolling(_log, _ligne, _images, _path) :
 	"""Renvoie la variable 'log' modifiée pour simuler un scrolling de l'écran (retire l'élément le plus ancien lorsque que celle-ci dépasse une longueur de 17)"""
 	if len(_log) > 17 :
 		while len(_log) > 17 :
-			del _ligne[0]
+			del _log[0]
 			_ligne -=20
 		printLog(_log, _images)
-		screen.blit(terminalFont.render(_path+" > ", False, (0, 175, 0)), (250,_ligne))
+		screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,_ligne))
 		pygame.display.flip()
 	return _log, _ligne
 
-def Terminal(_images) :
-	path = 'C:/'
+def Terminal(_images, _path, log, ligne, text) :
 	appli = True
 	_continuer = True
-	text=""
-	log=[]
 	input=None
 	output=None
-	ligne=160
-	screen.blit(terminalFont.render(path+" > ", False, (0, 175, 0)), (250,ligne))
+	printLog(log, _images)
+	screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (250,ligne))
 	pygame.display.flip()
+	#Boucle de qui fait tourner l'appli
 	while appli :
 		for event in pygame.event.get(): #Attente des événements
 			if event.type == QUIT:
@@ -157,59 +160,131 @@ def Terminal(_images) :
 					#Clic gauche sur icon2
 					_images = render(_images, (fenIcon2, fenIcon2Coords))
 					appli=False
-			elif event.type == KEYDOWN :
+					
+			#Pour écrire dans la console
+			elif event.type == KEYDOWN and _path != "" :
 				if event.key == K_RETURN:
 					input = text
-					log.append(path+" > "+text)
-					log, ligne = scrolling(log, ligne, _images, path)
+					log.append(_path+" > "+text)
+					log, ligne = scrolling(log, ligne, _images, _path)
 					printLog(log, _images)
 					text = ''
 					ligne+=20
 				elif event.key == K_BACKSPACE:
 					text = text[:-1]
 					printLog(log, _images)
-					screen.blit(terminalFont.render(path+" > "+text, False, (0, 175, 0)), (250,ligne))
+					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (250,ligne))
 					pygame.display.flip()
 				else:
-					if len(path+" > "+text)<60 :
+					if len(_path+" > "+text)<60 :
 						text += event.unicode
 					printLog(log, _images)
-					screen.blit(terminalFont.render(path+" > "+text, False, (0, 175, 0)), (250,ligne))
+					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (250,ligne))
 					pygame.display.flip()
-		if input != None :
+		
+		#Premier lancer de l'application ou quand "exit" est utilisé			
+		if _path == "" :
+			firstBoucle = True
+			printLog(log, _images)
+			screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (250,ligne))
+			pygame.display.flip()
+			while firstBoucle :
+				for event in pygame.event.get(): #Attente des événements
+					if event.type == QUIT:
+						_continuer = False
+						appli = False
+						break
+					elif event.type == MOUSEBUTTONDOWN:
+						if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+							#Clic sur gauche sur "icon"
+							_images = render(_images, (fen_iconterminal, fen_iconterminal_coords))
+							appli=False
+							firstBoucle = False
+							break
+						elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+							#Clic gauche sur icon2
+							_images = render(_images, (fenIcon2, fenIcon2Coords))
+							appli=False
+							firstBoucle = False
+							break
+							
+					#Pour écrire dans la console
+					elif event.type == KEYDOWN :
+						if event.key == K_RETURN:
+							input = text
+							log.append("Password : "+text)
+							log, ligne = scrolling(log, ligne, _images, _path)
+							printLog(log, _images)
+							text = ''
+							ligne+=20
+						elif event.key == K_BACKSPACE:
+							text = text[:-1]
+							printLog(log, _images)
+							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (250,ligne))
+							pygame.display.flip()
+						else:
+							if len("Password : "+text)<60 :
+								text += event.unicode
+							printLog(log, _images)
+							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (250,ligne))
+							pygame.display.flip()
+				if input == "password" :
+					log.append("Accès autorisé, bienvenue [insérer username]")
+					log.append("")
+					_path = "C:/"
+					ligne+=40
+					input = None
+					log, ligne = scrolling(log, ligne, _images, _path)
+					printLog(log, _images)
+					screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,ligne))
+					pygame.display.flip()
+					break
+				if input != None:
+					screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (250,ligne))
+					pygame.display.flip()
+					input = None
+					
+		#S'exécute uniquement quand la touche "enter" est appuyée (voir plus haut pourquoi)
+		elif input != None :
 			input = input.split(" ")
 			if input[0]=="test":
 				output="1, 2, test !"
 			elif input[0] == 'ls' :
-				outp = ls(path)
+				outp = ls(_path)
 				output=""
 				ligne+=40
-				log.append("Fichiers depuis : "+path)
+				log.append("Fichiers depuis : "+_path)
 				log.append("")
 				for key in outp :
 					log.append(key)
 					ligne+=20
 				output=""
 			elif input[0] == 'cd' and len(input)>1 :
-				path = cd(path, input[1])
+				_path = cd(_path, input[1])
 			elif input[0] == 'clear' :
 				log = []
 				ligne = 160
 				printLog(log, _images)
-			screen.blit(terminalFont.render(path+" > ", False, (0, 175, 0)), (250,ligne))
+			elif input[0] == 'exit' :
+				log.append("")
+				log.append("Username : [insérer énigme]")
+				ligne+=40
+				_path=""
+				printLog(log, _images)
+			screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,ligne))
 			pygame.display.flip()
 			input = None
 		if output != None :
 			log.append(output)
-			log, ligne = scrolling(log, ligne, _images, path)
+			log, ligne = scrolling(log, ligne, _images, _path)
 			printLog(log, _images)
 			ligne+=20
 			output=None
-			screen.blit(terminalFont.render(path+" > ", False, (0, 175, 0)), (250,ligne))
+			screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,ligne))
 			pygame.display.flip()
-		log, ligne = scrolling(log, ligne, _images, path)
+		log, ligne = scrolling(log, ligne, _images, _path)
 
-	return _images, _continuer
+	return _images, _continuer, _path, log, ligne, text
 
 #=========================================================================#
 #======================= VARIABLES ET INITALISATIONS =====================#
@@ -226,8 +301,7 @@ text1 = defaultFont.render("I'm moving", False, (0, 0, 0))
 text2 = defaultFont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", False, (0,0,0))
 
 #Ouverture de la fenêtre Pygame
-# --screen_dim = (pygame.display.Info().current_w, pygame.display.Info().current_h)
-screen_dim = (1200, 675)
+screen_dim = (1280, 1024)
 screen = pygame.display.set_mode(screen_dim)
 
 #Chargement du fond
@@ -281,7 +355,7 @@ while continuer :
 	pygame.display.flip()
 	#Appel des fonctions associés à l'application en premier plan
 	if images[len(images)-1][0] == fen_iconterminal:
-		images, continuer = Terminal(images)
+		images, continuer, path, g_log, g_ligne, g_text = Terminal(images, path, g_log, g_ligne, g_text)
 	elif images[len(images)-1][0] == fenIcon2:
 		images, continuer = appli1(images)
 
