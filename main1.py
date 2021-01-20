@@ -30,7 +30,7 @@ def render(toBlit, firstPlan) :
 def appli1(_images) :
 	appli = True
 	_continuer = True
-	coo = (300,200)
+	coo = (512,300)
 	increment = 0.2
 	screen.blit(text1,coo)
 	while appli :
@@ -298,8 +298,8 @@ defaultFont = pygame.font.SysFont('Arial', 23)
 terminalFont = pygame.font.Font('img/SLC_.ttf', 23)
 
 #Textes placeholders pour les test
-text1 = defaultFont.render("I'm moving", False, (0, 0, 0))
-text2 = defaultFont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", False, (0,0,0))
+text1 = defaultFont.render("I'm moving", True, (0, 0, 0))
+text2 = defaultFont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", True, (0,0,0))
 
 #Ouverture de la fenêtre Pygame
 w = math.floor(pygame.display.Info().current_w/2-1280/2)
