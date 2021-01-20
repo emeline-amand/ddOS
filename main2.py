@@ -62,7 +62,7 @@ def appli2(imag) :
 				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 					imag = render(imag, (fenIcon, fenIconCoords))
 					appli = False
-				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur iconmessage (zone de clic définie par la position et taille de celui-ci)
 					imag = render(imag, (fen_message, fen_message_coords))
 					appli = False
 
@@ -104,7 +104,7 @@ def message(_imag) :
 					if 350<event.pos[0]<800 and y<event.pos[1]<y+40:
 						#efface texte à l'écran
 						render(_imag, None)
-						
+
 						#affiche texte à l'écran, precisez coordonnées
 						screen.blit(myfont.render(messages[i][2],True,(0,0,0)),(350,400))
 						screen.blit(myfont.render("return",True,(0,0,0)),(850,750))
@@ -124,17 +124,17 @@ def message(_imag) :
 						messages[i].append(y-30)
 						y+=40
 					pygame.display.flip()
-				
-					
-					
-				
-				
+
+
+
+
+
 				#quitter l'appli
 				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 					_imag = render(_imag, (fenIcon, fen_icon_coords))
 					appli = False
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 :
-				#Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				#Si clic sur iconmessage (zone de clic définie par la position et taille de celui-ci)
 					_imag = render(_imag, (fen_message, fen_message_coords))
 					appli = False
 
@@ -178,7 +178,7 @@ fenIconDim = fenIcon.get_size()
 fen_icon_coords = ((screenDim[0]-fenIconDim[0])/2, (screenDim[1]-fenIconDim[1])/2)
 
 #Fenêtre qui apparaît lorsqu'icon est cliqué
-fen_message = pygame.image.load("img/fenetreICON2.png").convert()
+fen_message = pygame.image.load("img/fen_message.png").convert()
 fen_message_dim = fen_message.get_size()
 fen_message_coords = ((screenDim[0]-fen_message_dim[0])/2, (screenDim[1]-fenIconDim[1])/2)
 
