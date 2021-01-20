@@ -1,11 +1,11 @@
-import pygame
+import pygame, os, math
 from pygame.locals import *
 
 files = {'C:':{'dossier1':{'réinitialiser.exe':"réinit", 'dossier2':{}},'dossier3':{'fichier2':2, 'dossier4':{'fichier3':3, 'fichier4':4}}}}
 path = ""
 g_log = []
 g_log.append("Username : [insérer énigme]")
-g_ligne = 180
+g_ligne = 290
 g_text = ""
 
 def render(toBlit, firstPlan) :
@@ -63,10 +63,10 @@ def appli1(_images) :
 #Toutes les fonctions ci-dessous servent pour l'application terminal (ou anciennement PChacker)
 def printLog(_log, _images) :
 	"""Affiche la liste 'log' qui contient toutes les anciennes lignes du terminal"""
-	ligne=160
+	ligne=270
 	render(_images, None)
 	for line in _log:
-		screen.blit(terminalFont.render(line, True, (0, 175, 0)), (250,ligne))
+		screen.blit(terminalFont.render(line, True, (0, 175, 0)), (125,ligne))
 		ligne+=20
 	pygame.display.flip()
 
@@ -128,8 +128,8 @@ def ls(_path) :
 
 def scrolling(_log, _ligne, _images, _path) :
 	"""Renvoie la variable 'log' modifiée pour simuler un scrolling de l'écran (retire l'élément le plus ancien lorsque que celle-ci dépasse une longueur de 17)"""
-	if len(_log) > 17 :
-		while len(_log) > 17 :
+	if len(_log) > 24 :
+		while len(_log) > 24 :
 			del _log[0]
 			_ligne -=20
 		printLog(_log, _images)
@@ -143,7 +143,7 @@ def Terminal(_images, _path, log, ligne, text) :
 	input=None
 	output=None
 	printLog(log, _images)
-	screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (250,ligne))
+	screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (125,ligne))
 	pygame.display.flip()
 	#Boucle de qui fait tourner l'appli
 	while appli :
@@ -173,20 +173,20 @@ def Terminal(_images, _path, log, ligne, text) :
 				elif event.key == K_BACKSPACE:
 					text = text[:-1]
 					printLog(log, _images)
-					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (250,ligne))
+					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 				else:
-					if len(_path+" > "+text)<60 :
+					if len(_path+" > "+text)<80 :
 						text += event.unicode
 					printLog(log, _images)
-					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (250,ligne))
+					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 		
 		#Premier lancer de l'application ou quand "exit" est utilisé			
 		if _path == "" :
 			firstBoucle = True
 			printLog(log, _images)
-			screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (250,ligne))
+			screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
 			while firstBoucle :
 				for event in pygame.event.get(): #Attente des événements
@@ -221,13 +221,13 @@ def Terminal(_images, _path, log, ligne, text) :
 						elif event.key == K_BACKSPACE:
 							text = text[:-1]
 							printLog(log, _images)
-							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (250,ligne))
+							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 							pygame.display.flip()
 						else:
-							if len("Password : "+text)<60 :
+							if len("Password : "+text)<80 :
 								text += event.unicode
 							printLog(log, _images)
-							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (250,ligne))
+							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 							pygame.display.flip()
 				if input == "password" :
 					log.append("Accès autorisé, bienvenue [insérer username]")
@@ -237,11 +237,11 @@ def Terminal(_images, _path, log, ligne, text) :
 					input = None
 					log, ligne = scrolling(log, ligne, _images, _path)
 					printLog(log, _images)
-					screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,ligne))
+					screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					break
 				if input != None:
-					screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (250,ligne))
+					screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					input = None
 					
@@ -272,7 +272,7 @@ def Terminal(_images, _path, log, ligne, text) :
 				ligne+=40
 				_path=""
 				printLog(log, _images)
-			screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,ligne))
+			screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
 			input = None
 		if output != None :
@@ -281,7 +281,7 @@ def Terminal(_images, _path, log, ligne, text) :
 			printLog(log, _images)
 			ligne+=20
 			output=None
-			screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,ligne))
+			screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
 		log, ligne = scrolling(log, ligne, _images, _path)
 
@@ -294,28 +294,30 @@ pygame.init()
 pygame.font.init()
 
 #Polices
-defaultFont = pygame.font.SysFont('Arial', 20)
-terminalFont = pygame.font.Font('img/SLC_.ttf', 20)
+defaultFont = pygame.font.SysFont('Arial', 23)
+terminalFont = pygame.font.Font('img/SLC_.ttf', 23)
 
 #Textes placeholders pour les test
 text1 = defaultFont.render("I'm moving", False, (0, 0, 0))
 text2 = defaultFont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", False, (0,0,0))
 
 #Ouverture de la fenêtre Pygame
+w = math.floor(pygame.display.Info().current_w/2-1280/2)
+os.environ['SDL_VIDEO_WINDOW_POS'] = str(w)+",-10"
 screen_dim = (1280, 1024)
-screen = pygame.display.set_mode(screen_dim)
+screen = pygame.display.set_mode(screen_dim, pygame.NOFRAME)
 
 #Chargement du fond
 background = pygame.image.load("img/desktop.png").convert()
 
 #Chargement de l'icone du terminal
 iconterminal = pygame.image.load("img/icon.png").convert()
-iconterminal_coords = (100,640)
+iconterminal_coords = (100,989)
 iconterminal_dim = iconterminal.get_size()
 
 #Chargement de l'icone de [WIP]
 icon2 = pygame.image.load("img/icon2.png").convert()
-icon2Coords = (150,639)
+icon2Coords = (150,989)
 icon2Dim = icon2.get_size()
 
 #Chargement de la fenêtre d'application de terminal
