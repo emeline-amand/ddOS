@@ -1,12 +1,16 @@
 import pygame, os, math
 from pygame.locals import *
 
+#Pour l'appli terminal
 files = {'C:':{'dossier1':{'réinitialiser.exe':"réinit", 'dossier2':{}},'dossier3':{'fichier2':2, 'dossier4':{'fichier3':3, 'fichier4':4}}}}
-path = ""
+g_path = ""
 g_log = []
 g_log.append("Username : [insérer énigme]")
 g_ligne = 290
 g_text = ""
+
+#Pour l'appli message
+messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
 
 def render(toBlit, firstPlan) :
 	"""Fonction qui affiche les _imageses spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'_imagese spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
@@ -27,34 +31,98 @@ def render(toBlit, firstPlan) :
 		screen.blit(_imagese[0], _imagese[1])
 	return toBlit
 
-def appli1(_images) :
+#=========================================================================#
+#================================= MESSAGE ===============================#
+#=========================================================================#
+
+def message(_images, _messages) :
+	"""permet d'afficher les messages sur une fenetre en séparant l'émetteur du message et son objet"""
 	appli = True
 	_continuer = True
-	coo = (512,300)
+	coor = (700,700)
 	increment = 0.2
-	screen.blit(text1,coo)
+	popup = messageFont.render("pop up", True, (0, 0, 0))
+	#screen.blit(popup,coor)
+
+	#definition variable avec objets et contenu des messages
+	_messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
+
+	y=300
+	pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
+	pygame.draw.line(screen,(0,0,0), (340, 270), (340, 910), 2)
+	screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,265))
+	screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,265))
+
+	for i in range (len(_messages)):
+		#on fait afficher l'émetteur des messages
+		screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
+		_messages[i].append(y-30)
+
+		#on fait afficher l'objet des messages
+		screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
+		_messages[i].append(y-30)
+
+		#on fait afficher ligne de séparation
+		y+=40
+		pygame.draw.line(screen,(0,0,0),(340, y),(750, y), 2)
+
+
+	pygame.display.flip()
+	#on fait afficher séparation entre chaque lignes
+
+	#truc commun à toutes les applis
 	while appli :
 		for event in pygame.event.get(): #Attente des événements
 			if event.type == QUIT:
 				_continuer = False
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
+				y=300
+				for i in range (len(_messages)):
+					#on regarde la position de la souris
+					if 350<event.pos[0]<800 and y<event.pos[1]<y+40:
+						#efface texte à l'écran
+						render(_images, None)
+
+						#affiche texte à l'écran, precisez coordonnées
+						screen.blit(messageFont.render(_messages[i][2],True,(0,0,0)),(350,310))
+						screen.blit(messageFont.render("return",True,(0,0,0)),(990,850))
+
+						#refresh écran
+						pygame.display.flip()
+					y+=40
+				#touche return qui permet de revenir à la liste des mails
+				if 990<event.pos[0]<1070 and 820<event.pos[1]<900:
+					render(_images, None)
+					y=300
+					pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
+					pygame.draw.line(screen,(0,0,0), (340, 270), (340, 910), 2)
+					screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,265))
+					screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,265))
+
+					for i in range (len(_messages)):
+					#on fait afficher l'émetteur des messages
+						screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
+						_messages[i].append(y-30)
+						#on fait afficher l'objet des messages
+						screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
+						_messages[i].append(y-30)
+						y+=40
+						#on fait afficher ligne de séparation
+						pygame.draw.line(screen,(0,0,0),(340, y),(750, y), 2)
+					pygame.display.flip()
+
+				#quitter l'appli
 				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 					#Clic sur gauche sur "icon"
-					_images = render(_images, (fen_iconterminal, fen_iconterminal_coords))
+					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
-				elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur icon2
-					_images = render(_images, (fenIcon2, fenIcon2Coords))
+					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-				elif event.button == 3 :
-					increment*= -1
-		render(_images, None)
-		coo = (coo[0]+increment,coo[1])
-		screen.blit(text1, coo)
-		pygame.display.flip()
 
-	return _images, _continuer
+	return _images, _continuer, _messages
 
 #=========================================================================#
 #=========================== PC HACKER/TERMINAL ==========================#
@@ -154,11 +222,11 @@ def Terminal(_images, _path, log, ligne, text) :
 			elif event.type == MOUSEBUTTONDOWN:
 				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 					#Clic sur gauche sur "icon"
-					_images = render(_images, (fen_iconterminal, fen_iconterminal_coords))
+					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
-				elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur icon2
-					_images = render(_images, (fenIcon2, fenIcon2Coords))
+					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
 					
 			#Pour écrire dans la console
@@ -198,13 +266,13 @@ def Terminal(_images, _path, log, ligne, text) :
 					elif event.type == MOUSEBUTTONDOWN:
 						if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 							#Clic sur gauche sur "icon"
-							_images = render(_images, (fen_iconterminal, fen_iconterminal_coords))
+							_images = render(_images, (fen_terminal, fen_terminal_coords))
 							appli=False
 							firstBoucle = False
 							break
-						elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+						elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 							#Clic gauche sur icon2
-							_images = render(_images, (fenIcon2, fenIcon2Coords))
+							_images = render(_images, (fen_message, fen_message_coords))
 							appli=False
 							firstBoucle = False
 							break
@@ -294,43 +362,42 @@ pygame.init()
 pygame.font.init()
 
 #Polices
-defaultFont = pygame.font.SysFont('Arial', 23)
+messageFont = pygame.font.SysFont('Arial', 30)
 terminalFont = pygame.font.Font('img/SLC_.ttf', 23)
 
-#Textes placeholders pour les test
-text1 = defaultFont.render("I'm moving", True, (0, 0, 0))
-text2 = defaultFont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", True, (0,0,0))
 
 #Ouverture de la fenêtre Pygame
-w = math.floor(pygame.display.Info().current_w/2-1280/2)
-os.environ['SDL_VIDEO_WINDOW_POS'] = str(w)+",-10"
-screen_dim = (1280, 1024)
-screen = pygame.display.set_mode(screen_dim, pygame.NOFRAME)
+w = math.floor(pygame.display.Info().current_w/2-1280/2) #Calcule les coordonnées de la fenetre pygame en fonction de la taille de l'écran
+os.environ['SDL_VIDEO_WINDOW_POS'] = str(w)+",-10" #Applique les calculs précédent
+screen_dim = (1280, 1024) #Taille de la fenetre
+screen = pygame.display.set_mode(screen_dim, pygame.NOFRAME) #Ouvre la fenetre en borderless window
 
 #Chargement du fond
 background = pygame.image.load("img/desktop.png").convert()
 
 #Chargement de l'icone du terminal
-iconterminal = pygame.image.load("img/icon.png").convert()
+iconterminal = pygame.image.load("img/iconterminal.png").convert()
 iconterminal_coords = (100,989)
 iconterminal_dim = iconterminal.get_size()
 
-#Chargement de l'icone de [WIP]
-icon2 = pygame.image.load("img/icon2.png").convert()
-icon2Coords = (150,989)
-icon2Dim = icon2.get_size()
+#Chargement de l'icone des messages
+iconmessage = pygame.image.load("img/iconmessage.png").convert()
+iconmessage_coords = (150,989)
+iconmessage_dim = iconmessage.get_size()
+screen.blit(iconmessage, iconmessage_coords)
 
-#Chargement de la fenêtre d'application de terminal
-fen_iconterminal = pygame.image.load("img/fenetreICON.png").convert()
-fen_iconterminal_dim = fen_iconterminal.get_size()
-fen_iconterminal_coords = ((screen_dim[0]-fen_iconterminal_dim[0])/2, (screen_dim[1]-fen_iconterminal_dim[1])/2)
+#Chargement de la fenêtre de terminal
+fen_terminal = pygame.image.load("img/fen_terminal.png").convert()
+fen_terminal_dim = fen_terminal.get_size()
+fen_terminal_coords = ((screen_dim[0]-fen_terminal_dim[0])/2, (screen_dim[1]-fen_terminal_dim[1])/2)
 
-#Chargement de la fenêtre d'application de [WIP]
-fenIcon2 = pygame.image.load("img/fenetreICON2.png").convert()
-fenIcon2Dim = fenIcon2.get_size()
-fenIcon2Coords = ((screen_dim[0]-fenIcon2Dim[0])/2, (screen_dim[1]-fenIcon2Dim[1])/2)
+#Chargement de la fenêtre de message
+fen_message = pygame.image.load("img/fen_message.png").convert()
+fen_message_dim = fen_message.get_size()
+fen_message_coords = ((screen_dim[0]-fen_message_dim[0])/2, (screen_dim[1]-fen_message_dim[1])/2)
 
-images = [(background, (0,0)), (iconterminal, iconterminal_coords), (icon2, icon2Coords)] #Prépare la liste pour l'affichage des éléments
+
+images = [(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords)] #Prépare la liste pour l'affichage des éléments
 pygame.key.set_repeat(400, 30) #Active la possibilité de rester appuyer sur une touche
 
 
@@ -348,18 +415,18 @@ while continuer :
 			#Clic de souris
 			if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 				#Clic sur gauche sur "icon"
-				images = render(images, (fen_iconterminal, fen_iconterminal_coords))
-			elif event.pos[0]>icon2Coords[0] and event.pos[0]<icon2Coords[0]+icon2Dim[0] and event.pos[1]>icon2Coords[1] and event.pos[1]<icon2Coords[1]+icon2Dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				images = render(images, (fen_terminal, fen_terminal_coords))
+			elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 				#Clic gauche sur icon2
-				images = render(images, (fenIcon2, fenIcon2Coords))
+				images = render(images, (fen_message, fen_message_coords))
 
 	#Affichage du jeu (affichage des _imageses dans l'ordre + rafraichissement de l'écran)
 	render(images, None)
 	pygame.display.flip()
 	#Appel des fonctions associés à l'application en premier plan
-	if images[len(images)-1][0] == fen_iconterminal:
-		images, continuer, path, g_log, g_ligne, g_text = Terminal(images, path, g_log, g_ligne, g_text)
-	elif images[len(images)-1][0] == fenIcon2:
-		images, continuer = appli1(images)
+	if images[len(images)-1][0] == fen_terminal:
+		images, continuer, g_path, g_log, g_ligne, g_text = Terminal(images, g_path, g_log, g_ligne, g_text)
+	elif images[len(images)-1][0] == fen_message:
+		images, continuer, messages = message(images, messages)
 
 pygame.quit()
