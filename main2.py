@@ -73,26 +73,37 @@ def message(_imag) :
 	"""permet d'afficher les messages sur une fenetre en séparant l'émetteur du message et son objet"""
 	appli = True
 	conti = True
+	coor = (700,700)
+	increment = 0.2
+	popup = myfont.render("pop up", True, (0, 0, 0))
+	#screen.blit(popup,coor)
+
 #definition variable avec objets et contenu des messages
 	messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
 
-	y=270
+	y=300
+	pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
+	pygame.draw.line(screen,(0,0,0), (340, 270), (340, 910), 2)
+	screen.blit(myfont.render("émetteur: ",True,(0,0,0)),(350,265))
+	screen.blit(myfont.render("objet: ",True,(0,0,0)),(600,265))
+
 	for i in range (len(messages)):
 #on fait afficher l'émetteur des messages
-		screen.blit(myfont.render(messages[i][0],False,(0,0,0)),(350,y))
-		pygame.display.flip()
+		screen.blit(myfont.render(messages[i][0],True,(0,0,0)),(350,y))
 		messages[i].append(y-30)
 
 
 #on fait afficher l'objet des messages
-		screen.blit(myfont.render(messages[i][1],False,(0,0,0)),(600,y))
-#ne marche pas
-		COULEUR_NOIRE = pygame.Color(0, 0, 0)
-		pygame.draw.line(screen,COULEUR_NOIRE,(600,40),(800,40,),width = 1)
-
-		pygame.display.flip()
+		screen.blit(myfont.render(messages[i][1],True,(0,0,0)),(600,y))
 		messages[i].append(y-30)
+
+#on fait afficher ligne de séparation
 		y+=40
+		pygame.draw.line(screen,(0,0,0),(340, y),(750, y), 2)
+
+
+	pygame.display.flip()
+#on fait afficher séparation entre chaque lignes
 
 #truc commun à toutes les applis
 	while appli :
@@ -101,7 +112,7 @@ def message(_imag) :
 				conti = False
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
-				y=270
+				y=300
 				for i in range (len(messages)):
 					#on regarde la position de la souris
 					if 350<event.pos[0]<800 and y<event.pos[1]<y+40:
@@ -110,14 +121,20 @@ def message(_imag) :
 
 						#affiche texte à l'écran, precisez coordonnées
 						screen.blit(myfont.render(messages[i][2],True,(0,0,0)),(350,310))
-						screen.blit(myfont.render("return",True,(0,0,0)),(870,680))
+						screen.blit(myfont.render("return",True,(0,0,0)),(990,850))
+
 						#refresh écran
 						pygame.display.flip()
 					y+=40
 				#touche return qui permet de revenir à la liste des mails
-				if 850<event.pos[0]<950 and 700<event.pos[1]<750:
+				if 990<event.pos[0]<1070 and 820<event.pos[1]<900:
 					render(_imag, None)
-					y=270
+					y=300
+					pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
+					pygame.draw.line(screen,(0,0,0), (340, 270), (340, 910), 2)
+					screen.blit(myfont.render("émetteur: ",True,(0,0,0)),(350,265))
+					screen.blit(myfont.render("objet: ",True,(0,0,0)),(600,265))
+
 					for i in range (len(messages)):
 #on fait afficher l'émetteur des messages
 						screen.blit(myfont.render(messages[i][0],True,(0,0,0)),(350,y))
@@ -126,11 +143,10 @@ def message(_imag) :
 						screen.blit(myfont.render(messages[i][1],True,(0,0,0)),(600,y))
 						messages[i].append(y-30)
 						y+=40
+#on fait afficher ligne de séparation
+						pygame.draw.line(screen,(0,0,0),(340, y),(750, y), 2)
+
 					pygame.display.flip()
-
-
-
-
 
 				#quitter l'appli
 				if event.pos[0]>iconCoords[0] and event.pos[0]<iconCoords[0]+iconDim[0] and event.pos[1]>iconCoords[1] and event.pos[1]<iconCoords[1]+iconDim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
@@ -140,6 +156,11 @@ def message(_imag) :
 				#Si clic sur iconmessage (zone de clic définie par la position et taille de celui-ci)
 					_imag = render(_imag, (fen_message, fen_message_coords))
 					appli = False
+
+		#pygame.display.flip()
+
+
+
 
 
 
@@ -151,8 +172,8 @@ pygame.init()
 pygame.font.init()
 
 
-myfont = pygame.font.SysFont('Comic Sans MS', 30)
-text = myfont.render("I'm moving", False, (0, 0, 0))
+myfont = pygame.font.SysFont('Arial', 30)
+text = myfont.render("I'm moving", True, (0, 0, 0))
 text2 = myfont.render("Je suis généré dynamiquement quand cette fenêtre est ouverte", False, (0,0,0))
 
 #Ouverture de la fenêtre Pygame
@@ -182,10 +203,26 @@ fenIcon = pygame.image.load("img/fenetreICON.png").convert()
 fenIconDim = fenIcon.get_size()
 fen_icon_coords = ((screenDim[0]-fenIconDim[0])/2, (screenDim[1]-fenIconDim[1])/2)
 
-#Fenêtre qui apparaît lorsqu'icon est cliqué
+#Fenêtre message qui apparaît lorsqu'icon est cliqué
 fen_message = pygame.image.load("img/fen_message.png").convert()
 fen_message_dim = fen_message.get_size()
 fen_message_coords = ((screenDim[0]-fen_message_dim[0])/2, (screenDim[1]-fenIconDim[1])/2)
+
+#POP UP
+coor = (700,700)
+increment = 0.2
+popup = myfont.render("pop up", True, (0, 0, 0))
+screen.blit(popup,coor)
+for event in pygame.event.get(): #Attente des événements
+	if event.type == MOUSEBUTTONDOWN:
+
+		if event.button == 3 :
+
+			increment*= -1
+		render(_imag, None)
+		coor = (coor[0]+increment,coor[1])
+		screen.blit(popup, coor)
+		pygame.display.flip()
 
 #Rafraîchissement de l'écran
 pygame.display.flip()
