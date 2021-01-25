@@ -47,11 +47,11 @@ def message(_images, _messages) :
 	#definition variable avec objets et contenu des messages
 	_messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
 
-	y=300
+	y=250
 	pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
-	pygame.draw.line(screen,(0,0,0), (340, 270), (340, 910), 2)
-	screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,265))
-	screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,265))
+	pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+	screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
+	screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 
 	for i in range (len(_messages)):
 		#on fait afficher l'émetteur des messages
@@ -86,19 +86,19 @@ def message(_images, _messages) :
 
 						#affiche texte à l'écran, precisez coordonnées
 						screen.blit(messageFont.render(_messages[i][2],True,(0,0,0)),(350,310))
-						screen.blit(messageFont.render("return",True,(0,0,0)),(990,850))
+						screen.blit(messageFont.render("return",True,(0,0,0)),(950,750))
 
 						#refresh écran
 						pygame.display.flip()
 					y+=40
 				#touche return qui permet de revenir à la liste des mails
-				if 990<event.pos[0]<1070 and 820<event.pos[1]<900:
+				if 950<event.pos[0]<1020 and 750<event.pos[1]<790:
 					render(_images, None)
-					y=300
+					y=250
 					pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
-					pygame.draw.line(screen,(0,0,0), (340, 270), (340, 910), 2)
-					screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,265))
-					screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,265))
+					pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+					screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
+					screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 
 					for i in range (len(_messages)):
 					#on fait afficher l'émetteur des messages
@@ -228,7 +228,7 @@ def Terminal(_images, _path, log, ligne, text) :
 					#Clic gauche sur icon2
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-					
+
 			#Pour écrire dans la console
 			elif event.type == KEYDOWN and _path != "" :
 				if event.key == K_RETURN:
@@ -249,8 +249,8 @@ def Terminal(_images, _path, log, ligne, text) :
 					printLog(log, _images)
 					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
-		
-		#Premier lancer de l'application ou quand "exit" est utilisé			
+
+		#Premier lancer de l'application ou quand "exit" est utilisé
 		if _path == "" :
 			firstBoucle = True
 			printLog(log, _images)
@@ -276,7 +276,7 @@ def Terminal(_images, _path, log, ligne, text) :
 							appli=False
 							firstBoucle = False
 							break
-							
+
 					#Pour écrire dans la console
 					elif event.type == KEYDOWN :
 						if event.key == K_RETURN:
@@ -312,7 +312,7 @@ def Terminal(_images, _path, log, ligne, text) :
 					screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					input = None
-					
+
 		#S'exécute uniquement quand la touche "enter" est appuyée (voir plus haut pourquoi)
 		elif input != None :
 			input = input.split(" ")
@@ -408,10 +408,10 @@ continuer = True
 while continuer :
 	#Gestion des événements
 	for event in pygame.event.get():
-		if event.type == QUIT: 
+		if event.type == QUIT:
 			#Clic sur la croix pour fermer la fenêtre
 			continuer = False
-		elif event.type == MOUSEBUTTONDOWN: 
+		elif event.type == MOUSEBUTTONDOWN:
 			#Clic de souris
 			if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 				#Clic sur gauche sur "icon"
