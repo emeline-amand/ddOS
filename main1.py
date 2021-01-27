@@ -2,10 +2,10 @@ import pygame, os, math
 from pygame.locals import *
 
 #Pour l'appli terminal
-files = {'C:':{'dossier1':{'réinitialiser.exe':"réinit", 'dossier2':{}},'dossier3':{'fichier2':2, 'dossier4':{'fichier3':3, 'fichier4':4}}}}
+files = {'C:':{'Documents':{}, 'Images':{}, 'Téléchargements':{}, 'Musique':{}, 'Videos':{}, 'Applications':{'jarvis.exe':'exe', 'reinitialiser.exe':'exe'}}}
 g_path = ""
 g_log = []
-g_log.append("Username : [insérer énigme]")
+g_log.append("Username : 1 11 21 1211")
 g_ligne = 290
 g_text = ""
 
@@ -121,6 +121,10 @@ def message(_images, _messages) :
 					#Clic gauche sur icon2
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					#Clic gauche sur la croix en bas à droite
+					_continuer = False
+					appli = False
 
 	return _images, _continuer, _messages
 
@@ -139,11 +143,12 @@ def printLog(_log, _images) :
 	pygame.display.flip()
 
 def getDictKeys(dict) :
-	'''fonction qui retourne les clés d'un dictionnaire. Prend en paramètre le dictionnaire'''
-	k = []
-	for key in dict.keys() :
-		k.append(key)
-	return k
+	'''fonction qui retourne les clés d'un dictionnaire sous forme de liste. Prend en paramètre le dictionnaire'''
+	return list(dict.keys())
+
+def getDictContent(dict) :
+	'''fonction qui retourne le contenu d'un dictionnaire sous forme de liste. Prend en paramètre le dictionnaire'''
+	return list(dict.values())
 
 def convertPath(_path) :
 	'''fonction qui transforme le path string spécifié en path list utilisable par les autres fonctions. Prend en param le path string'''
@@ -184,15 +189,7 @@ def cd(_path, target) :
 
 def ls(_path) :
 	'''Simule la commande 'dir' (sous windows) ou 'ls' (sous mac). Prend en param le chemin actuel'''
-	#prépare le path pour la navigation à travers le dictionnaire
-	_path = convertPath(_path)
-	#Va jusqu'au chemin spécifié en redéfinissant plusieurs fois current pour être le dictionnaire de fin demandé
-	current = files[_path[0]]
-	for i in range(len(_path)-1):
-		current = current[_path[i+1]]
-	#Affiche les clés présentes dans le chemin demandé
-	keys = getDictKeys(current)
-	return keys
+	return list(getDictKeys(goto(_path))), list(getDictContent(goto(_path)))
 
 def scrolling(_log, _ligne, _images, _path) :
 	"""Renvoie la variable 'log' modifiée pour simuler un scrolling de l'écran (retire l'élément le plus ancien lorsque que celle-ci dépasse une longueur de 17)"""
@@ -204,6 +201,63 @@ def scrolling(_log, _ligne, _images, _path) :
 		screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,_ligne))
 		pygame.display.flip()
 	return _log, _ligne
+
+def jarvis(_images) :
+	"""Progamme qui tourne dans le terminal, assistant IA du hacker"""
+	log = []
+	log.append("Bonjour ddOS, que puis-je faire pour vous ?")
+	ligne = 290
+	answer = ""
+	text = ""
+	appli = True
+	printLog(log, _images)
+	screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+	pygame.display.flip()
+	while appli :
+		for event in pygame.event.get(): #Attente des événements
+			if event.type == QUIT:
+				_continuer = False
+				appli = False
+			elif event.type == MOUSEBUTTONDOWN:
+				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "icon"
+					_images = render(_images, (fen_terminal, fen_terminal_coords))
+					appli=False
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur icon2
+					_images = render(_images, (fen_message, fen_message_coords))
+					appli=False
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					#Clic gauche sur la croix en bas à droite
+					_continuer = False
+					appli = False
+					
+			#Pour écrire dans le terminal
+			elif event.type == KEYDOWN:
+				if event.key == K_RETURN:
+					input = text
+					log.append(answer+" > "+text)
+					log, ligne = scrolling(log, ligne, _images, answer)
+					printLog(log, _images)
+					text = ''
+					ligne+=20
+					screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+					pygame.display.flip()
+				elif event.key == K_BACKSPACE:
+					text = text[:-1]
+					printLog(log, _images)
+					screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+					pygame.display.flip()
+				else:
+					if len(answer+" > "+text)<80 :
+						text += event.unicode
+					printLog(log, _images)
+					screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+					pygame.display.flip()
+
+def reinitialiser() :
+	"""Progamme qui tourne dans le terminal, permet de reinitialiser le PC du hacker (nécessite les 5 codes)"""
+	return
 
 def Terminal(_images, _path, log, ligne, text) :
 	appli = True
@@ -228,8 +282,12 @@ def Terminal(_images, _path, log, ligne, text) :
 					#Clic gauche sur icon2
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					#Clic gauche sur la croix en bas à droite
+					_continuer = False
+					appli = False
 					
-			#Pour écrire dans la console
+			#Pour écrire dans le terminal
 			elif event.type == KEYDOWN and _path != "" :
 				if event.key == K_RETURN:
 					input = text
@@ -250,7 +308,7 @@ def Terminal(_images, _path, log, ligne, text) :
 					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 		
-		#Premier lancer de l'application ou quand "exit" est utilisé			
+		#Premier lancer de l'application ou quand "exit" est utilisé (interface de login)			
 		if _path == "" :
 			firstBoucle = True
 			printLog(log, _images)
@@ -276,6 +334,11 @@ def Terminal(_images, _path, log, ligne, text) :
 							appli=False
 							firstBoucle = False
 							break
+						elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+							#Clic gauche sur la croix en bas à droite
+							_continuer = False
+							appli = False
+							firstBoucle = False
 							
 					#Pour écrire dans la console
 					elif event.type == KEYDOWN :
@@ -297,8 +360,8 @@ def Terminal(_images, _path, log, ligne, text) :
 							printLog(log, _images)
 							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 							pygame.display.flip()
-				if input == "password" :
-					log.append("Accès autorisé, bienvenue [insérer username]")
+				if input == "111221" :
+					log.append("Accès autorisé, bienvenue ddOS")
 					log.append("")
 					_path = "C:/"
 					ligne+=40
@@ -308,25 +371,30 @@ def Terminal(_images, _path, log, ligne, text) :
 					screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					break
-				if input != None:
+				elif input != None:
 					screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					input = None
 					
-		#S'exécute uniquement quand la touche "enter" est appuyée (voir plus haut pourquoi)
+		#S'exécute uniquement quand la touche "enter" est appuyée
 		elif input != None :
 			input = input.split(" ")
 			if input[0]=="test":
 				output="1, 2, test !"
 			elif input[0] == 'ls' :
-				outp = ls(_path)
-				output=""
+				keys, contents = ls(_path)
 				ligne+=40
 				log.append("Fichiers depuis : "+_path)
 				log.append("")
-				for key in outp :
-					log.append(key)
+				for i in range(len(keys)) :
+					if type(contents[i]) == dict : log.append("dossier --- "+str(keys[i]))
+					elif type(contents[i]) == str and contents[i] == "exe": log.append("executable --- "+str(keys[i]))
+					elif type(contents[i]) == str and contents[i] == "mp3": log.append("musique --- "+str(keys[i]))
+					elif type(contents[i]) == str and contents[i] == "mp4": log.append("video --- "+str(keys[i]))
+					elif type(contents[i]) == str and contents[i] == "txt": log.append("texte --- "+str(keys[i]))
 					ligne+=20
+				printLog(log, _images)
+				log, ligne = scrolling(log, ligne, _images, _path)
 				output=""
 			elif input[0] == 'cd' and len(input)>1 :
 				_path = cd(_path, input[1])
@@ -336,10 +404,21 @@ def Terminal(_images, _path, log, ligne, text) :
 				printLog(log, _images)
 			elif input[0] == 'exit' :
 				log.append("")
-				log.append("Username : [insérer énigme]")
+				log.append("Username : 1 11 21 1211")
 				ligne+=40
 				_path=""
 				printLog(log, _images)
+			else :
+				items = goto(_path).items()
+				for item in items :
+					if item[1] == "exe" : 
+						if item[0] == "jarvis.exe" and input[0] == "jarvis.exe" :
+							log = []
+							ligne = 280
+							jarvis(_images)
+						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" :
+							reinitialiser()
+
 			screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
 			input = None
@@ -364,7 +443,6 @@ pygame.font.init()
 #Polices
 messageFont = pygame.font.SysFont('Arial', 30)
 terminalFont = pygame.font.Font('img/SLC_.ttf', 23)
-
 
 #Ouverture de la fenêtre Pygame
 w = math.floor(pygame.display.Info().current_w/2-1280/2) #Calcule les coordonnées de la fenetre pygame en fonction de la taille de l'écran
@@ -419,6 +497,9 @@ while continuer :
 			elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 				#Clic gauche sur icon2
 				images = render(images, (fen_message, fen_message_coords))
+			elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				#Clic gauche sur la croix en bas à droite
+				continuer = False
 
 	#Affichage du jeu (affichage des _imageses dans l'ordre + rafraichissement de l'écran)
 	render(images, None)
