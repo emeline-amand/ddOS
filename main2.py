@@ -1,4 +1,6 @@
 import pygame, os, math
+from threading import Thread
+import time
 from pygame.locals import *
 
 #Pour l'appli terminal
@@ -12,6 +14,8 @@ g_text = ""
 #Pour l'appli message
 messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
 
+#Pour le popup
+_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss"], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["Cliquez ICI pour le fermer"]]
 def render(toBlit, firstPlan) :
 	"""Fonction qui affiche les _imageses spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'_imagese spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
 	#Si l'_imagese à mettre en 1er plan l'est déjà
@@ -39,12 +43,6 @@ def message(_images, _messages) :
 	"""permet d'afficher les messages sur une fenetre en séparant l'émetteur du message et son objet"""
 	appli = True
 	_continuer = True
-	coor = (700,700)
-	increment = 0.2
-
-
-	#popup = messageFont.render("pop up", True, (0, 0, 0))
-
 
 	#definition variable avec objets et contenu des messages
 	_messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
@@ -80,7 +78,7 @@ def message(_images, _messages) :
 				_continuer = False
 				appli = False
 			elif event.type == MOUSEBUTTONDOWN:
-				y=300
+				y=250
 				for i in range (len(_messages)):
 					#on regarde la position de la souris
 					if 350<event.pos[0]<800 and y<event.pos[1]<y+40:
@@ -358,6 +356,79 @@ def Terminal(_images, _path, log, ligne, text) :
 
 	return _images, _continuer, _path, log, ligne, text
 
+
+
+#Chargement popup
+def popup(_images, _info):
+	appli=True
+	_continuer=True
+	y=780
+	#780
+	#images.append((iconpopup,coo))
+	#render(images, None)
+	_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss"], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["Cliquez ICI pour le fermer"]]
+	#_info = ("Vous avez reçu un nouveau message", "en provenance du Boss", "Cliquez sur la boîte mail", "pour le consulter", "Cliquez ICI pour le fermer")
+
+	#render(images, None)
+	#screen.blit(iconpopup,(1100-i,750))
+	#screen.blit(messageFontpetit.render("vous avez reçu un nouveau message en provenance du Boss, cliquez sur la boîte mail pour le consulter.",True,(0,0,0)),(950,750))
+	#pygame.display.flip()
+
+	#screen.blit(iconpopup,(1100,750))
+	#print(_info)
+	for i in range (5):
+		screen.blit(messageFontpetit.render(_info[i][0],True,(0,0,0)),(1000,y))
+		y=y+20
+	pygame.display.flip()
+
+	while appli:
+		for event in pygame.event.get(): #Attente des événements
+			if event.type == QUIT:
+				_continuer = False
+				appli = False
+
+
+			elif event.type == MOUSEBUTTONDOWN:
+				if 1000<event.pos[0]<1050 and 840<event.pos[1]<880:
+					print("ça marche")
+					_images = render(_images, (fen_terminal, fen_terminal_coords))
+
+					appli=False
+					_images = render(_images)
+					pygame.display.flip()
+
+				#quitter l'appli
+				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "icon"
+					_images = render(_images, (fen_terminal, fen_terminal_coords))
+					appli=False
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur icon2
+					images.pop(-1)
+					_images = render(_images)
+					appli=False
+
+	return   _images, _continuer,_info
+
+
+	#screen.blit(messageFontpetit.render("Vous avez reçu un nouveau message",True,(0,0,0)),(1100,780))
+	#screen.blit(messageFontpetit.render("en provenance du Boss,",True,(0,0,0)),(1100,800))
+	#screen.blit(messageFontpetit.render("Cliquez sur la boîte mail ",True,(0,0,0)),(1100,840))
+	#screen.blit(messageFontpetit.render("pour le consulter.",True,(0,0,0)),(1100,860))
+	#screen.blit(messageFontpetit.render("cliquez ICI pour le fermer",True,(0,0,0)),(1100,860))
+
+
+
+
+#pygame.time.wait(200)
+#pygame.time.wait(10000)
+
+
+
+	#for i in range(90):
+		#mettre rien en premier plan, render retourne une nouvelle version d'images
+
+
 #=========================================================================#
 #======================= VARIABLES ET INITALISATIONS =====================#
 #=========================================================================#
@@ -366,6 +437,7 @@ pygame.font.init()
 
 #Polices
 messageFont = pygame.font.SysFont('Arial', 30)
+messageFontpetit = pygame.font.SysFont('Arial', 20)
 terminalFont = pygame.font.Font('img/SLC_.ttf', 23)
 
 
@@ -389,23 +461,6 @@ iconmessage_coords = (150,989)
 iconmessage_dim = iconmessage.get_size()
 screen.blit(iconmessage, iconmessage_coords)
 
-#chargement popup
-iconpopup = pygame.image.load("img/blanc.jfif").convert()
-iconpopup_coords = (1000,750)
-iconpopup_dim = iconpopup.get_size()
-#screen.blit(iconpopup, iconpopup_coords)
-coo=(500,750)
-increment=0.2
-cont=True
-while cont:
-	for i in range(10):
-		coo = (coo[0]+increment,coo[1])
-		i=i+1
-		screen.blit(iconpopup,coo)
-		pygame.display.flip()
-
-	cont=False
-
 #Chargement de la fenêtre de terminal
 fen_terminal = pygame.image.load("img/fen_terminal.png").convert()
 fen_terminal_dim = fen_terminal.get_size()
@@ -416,9 +471,19 @@ fen_message = pygame.image.load("img/fen_message.png").convert()
 fen_message_dim = fen_message.get_size()
 fen_message_coords = ((screen_dim[0]-fen_message_dim[0])/2, (screen_dim[1]-fen_message_dim[1])/2)
 
+#Chargement de la case popup
+iconpopup = pygame.image.load("img/blanc.jfif").convert()
+iconpopup_dim = iconpopup.get_size()
+iconpopup_coords=(1000,750)
 
-images = [(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords),(iconpopup, coo)] #Prépare la liste pour l'affichage des éléments
+
+images = [(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords),(iconpopup,iconpopup_coords)] #Prépare la liste pour l'affichage des éléments
 pygame.key.set_repeat(400, 30) #Active la possibilité de rester appuyer sur une touche
+
+
+
+
+
 
 
 #=========================================================================#
@@ -448,5 +513,7 @@ while continuer :
 		images, continuer, g_path, g_log, g_ligne, g_text = Terminal(images, g_path, g_log, g_ligne, g_text)
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages = message(images, messages)
+	elif images[len(images)-1][0] == iconpopup:
+		images, continuer, _info = popup(images,_info)
 
 pygame.quit()
