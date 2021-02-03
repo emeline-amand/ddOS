@@ -2,7 +2,7 @@ import pygame, os, math
 from pygame.locals import *
 
 #Pour l'appli terminal
-files = {'C:':{'Documents':{}, 'Images':{}, 'Téléchargements':{}, 'Musique':{}, 'Videos':{}, 'Applications':{'jarvis.exe':'exe', 'reinitialiser.exe':'exe'}}}
+files = {'C:':{'Documents':{}, 'Images':{}, 'Téléchargements':{}, 'Musique':{}, 'Videos':{}, 'Applications':{'jarvis.exe':'exe', 'Paramètres':{'reinitialiser.exe':'exe'}}}}
 g_path = ""
 g_log = []
 g_log.append("Username : 1 11 21 1211")
@@ -86,13 +86,13 @@ def message(_images, _messages) :
 
 						#affiche texte à l'écran, precisez coordonnées
 						screen.blit(messageFont.render(_messages[i][2],True,(0,0,0)),(350,310))
-						screen.blit(messageFont.render("return",True,(0,0,0)),(990,850))
+						screen.blit(messageFont.render("return",True,(0,0,0)),(950,750))
 
 						#refresh écran
 						pygame.display.flip()
 					y+=40
 				#touche return qui permet de revenir à la liste des mails
-				if 990<event.pos[0]<1070 and 820<event.pos[1]<900:
+				if 950<event.pos[0]<1020 and 750<event.pos[1]<790:
 					render(_images, None)
 					y=300
 					pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
@@ -205,11 +205,27 @@ def scrolling(_log, _ligne, _images, _path) :
 def jarvis(_images) :
 	"""Progamme qui tourne dans le terminal, assistant IA du hacker"""
 	log = []
-	log.append("Bonjour ddOS, que puis-je faire pour vous ?")
-	ligne = 290
-	answer = ""
+	ligne = 270
+	dialogues = [
+		("Bonjour ddOS, que puis-je faire pour vous ?", ("  1 - Je veux les codes", "  2 - Rien du tout, au revoir")),
+		("Pour récupérer les codes, veuillez répondre aux questions de sécurité", ("  1 - Oui", "  2 - Non")),
+		("Première question : Qui a inventé la logique booléenne ?", ())
+	]
+	current_dialogue = 0
+	log.append(dialogues[current_dialogue][0])
+	ligne+=20
+	log.append("")
+	ligne+=20
+	for reponse in dialogues[current_dialogue][1] :
+		log.append(reponse)
+		ligne+=20
+	log.append("")
+	ligne+=20
+	answer = "Réponse"
 	text = ""
+	input = None
 	appli = True
+	_continuer = True
 	printLog(log, _images)
 	screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
 	pygame.display.flip()
@@ -223,14 +239,16 @@ def jarvis(_images) :
 					#Clic sur gauche sur "icon"
 					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
+					return False, _continuer
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur icon2
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
+					return False, _continuer
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite
 					_continuer = False
-					appli = False
+					return False, _continuer
 					
 			#Pour écrire dans le terminal
 			elif event.type == KEYDOWN:
@@ -254,6 +272,22 @@ def jarvis(_images) :
 					printLog(log, _images)
 					screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
+					
+		if input != None :
+			if input == "1" :
+				input = None
+				log.append("Vous ne les aurez pas MOUHAHAHA")
+				ligne+=20
+				log, ligne = scrolling(log, ligne, _images, answer)
+				printLog(log, _images)
+				screen.blit(terminalFont.render(answer+" > ", True, (0, 175, 0)), (125,ligne))
+				pygame.display.flip()
+			elif input == "2" :
+				return True, True
+			else :
+				input = None
+					
+	return True, _continuer
 
 def reinitialiser() :
 	"""Progamme qui tourne dans le terminal, permet de reinitialiser le PC du hacker (nécessite les 5 codes)"""
@@ -381,7 +415,7 @@ def Terminal(_images, _path, log, ligne, text) :
 			input = input.split(" ")
 			if input[0]=="test":
 				output="1, 2, test !"
-			elif input[0] == 'ls' :
+			elif input[0] == 'dir' :
 				keys, contents = ls(_path)
 				ligne+=40
 				log.append("Fichiers depuis : "+_path)
@@ -400,7 +434,7 @@ def Terminal(_images, _path, log, ligne, text) :
 				_path = cd(_path, input[1])
 			elif input[0] == 'clear' :
 				log = []
-				ligne = 160
+				ligne = 270
 				printLog(log, _images)
 			elif input[0] == 'exit' :
 				log.append("")
@@ -408,14 +442,20 @@ def Terminal(_images, _path, log, ligne, text) :
 				ligne+=40
 				_path=""
 				printLog(log, _images)
+			elif input[0] == "appli" :
+				if input[1] == "jarvis":
+					log = []
+					ligne = 270
+					appli, _continuer = jarvis(_images)
+					printLog(log, _images)
 			else :
 				items = goto(_path).items()
 				for item in items :
 					if item[1] == "exe" : 
 						if item[0] == "jarvis.exe" and input[0] == "jarvis.exe" :
 							log = []
-							ligne = 280
-							jarvis(_images)
+							ligne = 270
+							appli, _continuer = jarvis(_images)
 						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" :
 							reinitialiser()
 
@@ -445,8 +485,8 @@ messageFont = pygame.font.SysFont('Arial', 30)
 terminalFont = pygame.font.Font('img/SLC_.ttf', 23)
 
 #Ouverture de la fenêtre Pygame
-w = math.floor(pygame.display.Info().current_w/2-1280/2) #Calcule les coordonnées de la fenetre pygame en fonction de la taille de l'écran
-os.environ['SDL_VIDEO_WINDOW_POS'] = str(w)+",-10" #Applique les calculs précédent
+#w = math.floor(pygame.display.Info().current_w/2-1280/2) #Calcule les coordonnées de la fenetre pygame en fonction de la taille de l'écran
+#os.environ['SDL_VIDEO_WINDOW_POS'] = str(w)+",-10" #Applique les calculs précédent
 screen_dim = (1280, 1024) #Taille de la fenetre
 screen = pygame.display.set_mode(screen_dim, pygame.NOFRAME) #Ouvre la fenetre en borderless window
 
