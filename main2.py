@@ -42,15 +42,12 @@ def message(_images, _messages) :
 	appli = True
 	_continuer = True
 
-	#definition variable avec objets et contenu des messages
-	#_messages=[["de: Boss","Règles du jeu",["ligne1","ligne2","ligne"]],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
-
 	y=250
 	pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
 	pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 	screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
 	screen.blit(messageFontpetit.render("tant que: Agent ",True,(0,0,0)),(160,240))
-	screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,750))
+	screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
 	screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 	screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 
@@ -94,20 +91,61 @@ def message(_images, _messages) :
 							y2+=40
 						pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 						screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
-						screen.blit(messageFontpetit.render("tant que: Agent ",True,(0,0,0)),(160,240))	
+						screen.blit(messageFontpetit.render("tant que: Agent ",True,(0,0,0)),(160,240))
 						screen.blit(messageFontpetit.render("Boîte principale",True,(0,0,0)),(160,350))
+						screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
 
 						#refresh écran
 						pygame.display.flip()
 					y+=40
 				#touche return qui permet de revenir à la liste des mails
-				if 155<event.pos[0]<200 and 350<event.pos[1]<390:
+				if 160<event.pos[0]<250 and 350<event.pos[1]<390:
 					render(_images, None)
 					y=250
 					pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
 					pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 					screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
 					screen.blit(messageFontpetit.render("tant que: Agent ",True,(0,0,0)),(160,240))
+					screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
+					screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
+					screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
+
+					for i in range (len(_messages)):
+					#on fait afficher l'émetteur des messages
+						screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
+						_messages[i].append(y-30)
+						#on fait afficher l'objet des messages
+						screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
+						_messages[i].append(y-30)
+						y+=40
+						#on fait afficher ligne de séparation
+						pygame.draw.line(screen,(0,0,0),(340, y),(750, y), 2)
+					pygame.display.flip()
+
+
+				if 160<event.pos[0]<240 and 700<event.pos[1]<850:
+					render(_images, None)
+					screen.blit(messageFont.render("Confirmer la déconnexion: ",True,(0,0,0)),(425,400))
+					screen.blit(messageFont.render("oui ",True,(0,0,0)),(400,500))
+					screen.blit(messageFont.render("non ",True,(0,0,0)),(700,500))
+					pygame.display.flip()
+
+				if 400<event.pos[0]<440 and 500<event.pos[1]<540:
+					render(_images, None)
+					screen.blit(messageFont.render("insérer votre mail: ",True,(0,0,0)),(325,400))
+					pygame.draw.rect(screen,(0,0,0),(525,400,300,40),2)
+					screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(325,500))
+					pygame.draw.rect(screen,(0,0,0),(626,500,300,40),2)
+					pygame.display.flip()
+
+				if 700<event.pos[0]<740 and 500<event.pos[1]<540:
+					render(_images, None)
+					y=250
+					pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
+					pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+					screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
+					screen.blit(messageFontpetit.render("tant que: Agent ",True,(0,0,0)),(160,240))
+					screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
 					screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 					screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 
@@ -373,7 +411,7 @@ def popup(_popup, _info,_images):
 	render(_images,None)
 	appli=True
 	y=780
-	
+
 	for i in range (5):
 		screen.blit(messageFontpetit.render(_info[i][0],True,(0,0,0)),(1000,y))
 		y=y+20
