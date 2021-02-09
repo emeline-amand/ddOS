@@ -205,7 +205,7 @@ def scrolling(_log, _ligne, _images, _path) :
 		_ligne -=20
 	#Afficher les logs corrigées
 	printLog(_log, _images)
-	screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (250,_ligne))
+	screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,_ligne))
 	pygame.display.flip()
 	return _log, _ligne
 
@@ -214,23 +214,21 @@ def printDialogue(_log, _ligne, dialogue) :
 	_log.append(dialogue[0]) #Afficher ce que dit l'IA
 	#saut de ligne \/
 	_ligne+=20
-	_log.append("")
-	_ligne+=20
 	if len(dialogue[1]) > 0 : #Si choix de réponses disponible
 		for reponse in dialogue[1] : 
 			#Afficher chacune des réponses possibles
 			_log.append(reponse)
 			_ligne+=20
 		_log.append("")
-	_ligne+=20
+		_ligne+=20
 	return _log, _ligne
 
-def Terminal(_images, _path, log, ligne, text) :
+def Terminal(_images, path, log, ligne, text) :
 	appli = True #Condition pour la boucle principale
 	_continuer = True #Valeur qui sera retournée lors de la sortie de l'application pour stopper ou non le jeu
 	input=None #Utile plus tard pour regarder ce qui a été entré au clavier
 	printLog(log, _images) #Affiche les logs (valeur de log récupérée depuis les paramètres de la fonction
-	screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (125,ligne))
+	screen.blit(terminalFont.render(path+" > "+text, True, (0, 175, 0)), (125,ligne))
 	pygame.display.flip()
 	#Boucle de qui fait tourner l'appli
 	while appli :
@@ -254,11 +252,11 @@ def Terminal(_images, _path, log, ligne, text) :
 					appli = False
 					
 			#Pour écrire dans le terminal
-			elif event.type == KEYDOWN and _path != "" :
+			elif event.type == KEYDOWN and path != "" :
 				if event.key == K_RETURN: #Si entrée appuyée
 					input = text #Récupérer la valeur entrée
-					log.append(_path+" > "+text) #ajout de la ligne dans log
-					log, ligne = scrolling(log, ligne, _images, _path) #scroll si nécessaire
+					log.append(path+" > "+text) #ajout de la ligne dans log
+					log, ligne = scrolling(log, ligne, _images, path) #scroll si nécessaire
 					printLog(log, _images)
 					text = '' #reset le champ d'entrée
 					ligne+=20
@@ -266,18 +264,18 @@ def Terminal(_images, _path, log, ligne, text) :
 					text = text[:-1] #supprime dernier charactère
 					#Affichage \/
 					printLog(log, _images)
-					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render(path+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 				else: #sinon
-					if len(_path+" > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
+					if len(path+" > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 					#Affichage \/
 					printLog(log, _images)
-					screen.blit(terminalFont.render(_path+" > "+text, True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render(path+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 		
 		#interface de login (premier lancer de terminal ou "exit")		
-		if _path == "" :
+		if path == "" :
 			firstBoucle = True
 			printLog(log, _images)
 			screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
@@ -312,8 +310,8 @@ def Terminal(_images, _path, log, ligne, text) :
 					elif event.type == KEYDOWN :
 						if event.key == K_RETURN: #Si entrée appuyée
 							input = text #Récupérer la valeur entrée
-							log.append(_path+" > "+text) #ajout de la ligne dans log
-							log, ligne = scrolling(log, ligne, _images, _path) #scroll si nécessaire
+							log.append("Password : "+text) #ajout de la ligne dans log
+							log, ligne = scrolling(log, ligne, _images, path) #scroll si nécessaire
 							printLog(log, _images)
 							text = '' #reset le champ d'entrée
 							ligne+=20
@@ -321,25 +319,25 @@ def Terminal(_images, _path, log, ligne, text) :
 							text = text[:-1] #supprime dernier charactère
 							#Affichage \/
 							printLog(log, _images)
-							screen.blit(terminalFont.render("Password > "+text, True, (0, 175, 0)), (125,ligne))
+							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 							pygame.display.flip()
 						else: #sinon
-							if len("Password > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
+							if len("Password : "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
 								text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 							#Affichage \/
 							printLog(log, _images)
-							screen.blit(terminalFont.render("Password > "+text, True, (0, 175, 0)), (125,ligne))
+							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 							pygame.display.flip()
 				if input == "111221" : #Si le bon mot de passe est entré
 					#Accès au PC \/
 					log.append("Accès autorisé, bienvenue ddOS")
 					log.append("")
-					_path = "C:/"
+					path = "C:/"
 					ligne+=40
 					input = None
-					log, ligne = scrolling(log, ligne, _images, _path)
+					log, ligne = scrolling(log, ligne, _images, path)
 					printLog(log, _images)
-					screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render(path+" > ", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					break
 				elif input != None: #Sinon rien faire
@@ -352,9 +350,9 @@ def Terminal(_images, _path, log, ligne, text) :
 			input = input.split(" ") #Sépare input à chaque espace pour utiliser des commandes et ses arguements
 			#dir \/
 			if input[0] == 'dir' :
-				keys, contents = ls(_path)
+				keys, contents = ls(path)
 				ligne+=40
-				log.append("Fichiers depuis : "+_path)
+				log.append("Fichiers depuis : "+path)
 				log.append("")
 				for i in range(len(keys)) :
 					if type(contents[i]) == dict : log.append("dossier --- "+str(keys[i]))
@@ -364,10 +362,10 @@ def Terminal(_images, _path, log, ligne, text) :
 					elif type(contents[i]) == str and contents[i] == "txt": log.append("texte --- "+str(keys[i]))
 					ligne+=20
 				printLog(log, _images)
-				log, ligne = scrolling(log, ligne, _images, _path)
+				log, ligne = scrolling(log, ligne, _images, path)
 			#cd \/
 			elif input[0] == 'cd' and len(input)>1 :
-				_path = cd(_path, input[1])
+				path = cd(path, input[1])
 			#clear \/
 			elif input[0] == 'clear' :
 				log = []
@@ -378,7 +376,7 @@ def Terminal(_images, _path, log, ligne, text) :
 				log.append("")
 				log.append("Username : 1 11 21 1211")
 				ligne+=40
-				_path=""
+				path=""
 				printLog(log, _images)
 			#appli \/
 			elif input[0] == "appli" :
@@ -389,7 +387,7 @@ def Terminal(_images, _path, log, ligne, text) :
 					printLog(log, _images)
 			#ouvrir des fichiers ou programmes \/
 			else :
-				items = goto(_path).items()
+				items = goto(path).items()
 				for item in items :
 					if item[1] == "exe" : 
 						if item[0] == "jarvis.exe" and input[0] == "jarvis.exe" :
@@ -399,26 +397,29 @@ def Terminal(_images, _path, log, ligne, text) :
 						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" :
 							reinitialiser()
 
-			screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,ligne))
+			screen.blit(terminalFont.render(path+" > ", True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
 			input = None
-			log, ligne = scrolling(log, ligne, _images, _path)
+			log, ligne = scrolling(log, ligne, _images, path)
 
-	return _images, _continuer, _path, log, ligne, text
+	return _images, _continuer, path, log, ligne, text
 
 def jarvis(_images) :
 	"""Progamme qui tourne dans le terminal, assistant IA du hacker"""
 	#Se référer aux déclarations de variables de Terminal pour comprendre celles-ci
 	log = []
 	ligne = 270
-	dialogues = [
-		("Bonjour ddOS, que puis-je faire pour vous ?", ("  1 - Je veux les codes", "  2 - Rien du tout, au revoir")),
-		("Pour récupérer les codes, veuillez répondre aux questions de sécurité", ("  1 - Oui", "  2 - Non")),
-		("Première question : Qui a inventé la logique booléenne ?", ())
+	dialogues = [ #pour chaque tuple 't' de la liste : 
+				  #t[0] => Messages de l'IA  |  t[1] => tuple contenants les réponses disponibles si t[2] = "qcm"  |  t[2] => type de réponse attendue
+		("Bonjour ddOS, que puis-je faire pour vous ?", ("  1 - Je veux les codes", "  2 - Rien du tout, au revoir"), "qcm"),
+		("Pour récupérer les codes, veuillez répondre aux questions de sécurité", ("  1 - Oui", "  2 - Non"), "qcm"),
+		("Première question : Quel est le nom de votre première animal de compagnie ?", (), "text"),
+		("Questions de sécurités répondues, voici le code n°2 : [code]", ("  1 - Merci !", "  2 - Au revoir"), "qcm")
 	]
-	answer = "Réponse"
+	answer = "Réponse n°"
 	text = ""
 	input = None
+	output = False
 	appli = True
 	_continuer = True
 
@@ -456,7 +457,7 @@ def jarvis(_images) :
 				if event.key == K_RETURN: #Si entrée appuyée
 					input = text #Récupérer la valeur entrée
 					log.append(answer+" > "+text) #ajout de la ligne dans log
-					log, ligne = scrolling(log, ligne, _images, _path) #scroll si nécessaire
+					log, ligne = scrolling(log, ligne, _images, answer) #scroll si nécessaire
 					printLog(log, _images)
 					text = '' #reset le champ d'entrée
 					ligne+=20
@@ -467,26 +468,71 @@ def jarvis(_images) :
 					screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 				else: #sinon
-					if len(_path+" > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
+					if len(answer+" > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 					#Affichage \/
 					printLog(log, _images)
 					screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
-					
+			
+		#Tests des réponses
 		if input != None :
-			if input == "1" :
-				input = None
-				log.append("Vous ne les aurez pas MOUHAHAHA")
+			if current_dialogue == 0 : #Si dialogue 1
+				if input == "1" :
+					current_dialogue = 1
+					output = True
+				elif input == "2" :
+					return True, True
+				else : 
+					output = False
+			elif current_dialogue == 1 : #Si dialogue 2
+				if input == "1" :
+					current_dialogue = 2
+					output = True
+				elif input == "2" :
+					current_dialogue = 0
+					output = True
+				else :
+					output = False
+			elif current_dialogue == 2 : #Si dialogue 3
+				if input == "Glad0s" :
+					current_dialogue = 3
+					output = True
+				elif input == "back" :
+					current_dialogue = 1
+					output = True
+				else : 
+					output = False
+			elif current_dialogue == 3 : #Si dialogue 3
+				if input == "1" :
+					current_dialogue = 0
+					output = True
+				elif input == "2" :
+					return True, True
+				else :
+					output = False
+
+			#Pour avoir le bon texte de demande de réponse
+			if dialogues[current_dialogue][2] == "qcm" :
+				answer = "Réponse n°"
+			elif dialogues[current_dialogue][2] == "text" :
+				answer = "Réponse libre"
+
+			#Si output = True alors afficher la question entière
+			if output == True :
+				log.append("")
 				ligne+=20
+				log, ligne = printDialogue(log, ligne, dialogues[current_dialogue])
 				log, ligne = scrolling(log, ligne, _images, answer)
 				printLog(log, _images)
-				screen.blit(terminalFont.render(answer+" > ", True, (0, 175, 0)), (125,ligne))
+				screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
 				pygame.display.flip()
-			elif input == "2" :
-				return True, True
-			else :
-				input = None
+				output = False
+			else : #Sinon afficher juste la ligne
+				screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+				pygame.display.flip()
+
+			input = None
 					
 	return True, _continuer
 
