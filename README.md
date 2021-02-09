@@ -32,3 +32,8 @@ Nous sommes toujours en train de planifier certaines énigmes et paufiner l'hist
 
 ### Difficultées futures
 Nous hésitons à créer un explorateur de fichier utilisable sur le PC du héro, pour pouvoir faire des énigmes liées à des images que l'on 'téléchargerait' depuis le PC du hacker, cela s'avèrerait compliqué à faire et nous feront notre choix en fonction de comment les choses avancent et du temps restant. Les autres applications planifiées pour le PC du héro ne requièrent pas beaucoup d'intéractivité, ce que ne les positionnent pas comme défis.
+
+### Aspects techniques
+**Structure de donnée :** Pour stocker nos données, nous utilisons principalements des listes, des dictionnaires, et des tuples, en les emboîtants les un dans les autres. Par exemple pour stocker les messages reçus, nous utilisons une liste contenants des listes dont les items sont les objets, contenus, et emmetteurs des messages. Ou pour l'affichage du jeu, nous utilisons des tuples compris dans une liste avec pour items les images et coordonnées de celles-ci
+**Modules de bibliothèques :** Nous utilisons les librairies `pygame, os, et math`
+**Interfacage entre fonctions :** Notre programme se base beaucoup sur l'utilisation de fonctions, donc pour que celles-ci intéragissent entre elles, à la fin de l'exécution de ces dernières retournent beaucoup de leurs variables pour les assigner à des variables globales qui serviront pour la prochaine exécution de la fontion. Par exemple lorsque l'on quitte une application (dans l'exemple on imaginera que l'on quitte l'application terminal), la fonction associée à l'application retournera les variables `ligne, path, log, text, images, et continuer` et s'en servira comme paramètre de la fontion `Terminal()` lors de son prochain appel.
