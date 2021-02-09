@@ -408,7 +408,7 @@ def Terminal(_images, _path, log, ligne, text) :
 
 def jarvis(_images) :
 	"""Progamme qui tourne dans le terminal, assistant IA du hacker"""
-	#Se référer aux déclarations de varibles de Terminal pour comprendre celles-ci
+	#Se référer aux déclarations de variables de Terminal pour comprendre celles-ci
 	log = []
 	ligne = 270
 	dialogues = [
