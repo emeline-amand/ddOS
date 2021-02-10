@@ -23,7 +23,7 @@ Il s'agit de 'main.py' avec en plus ce qui est listé à son nom dans la partie 
 
 ### main2.py par Emeline
 Il s'agit de 'main.py' avec en plus la fonction message. Cette fonction permet de faire appaître à l'écran les émeteurs suivis des objets des messages.
-#Que faire sur la messagerie?
+###Que faire sur la messagerie?
 En cliquant sur l'objet ou l'émetteur d'un message, l'écran affiche le contenu du message (pour l'instant il sera seulement écrit "message1" ou "message2"...) ainsi que la touche retour qui, une fois cliquée, renvoie à la liste des émetteurs et objets des messages. 
 Lorsqu'on clique sur "déconnexion", on a d'abord une confirmation de la commande puis un arrive sur un espace de connexion. On peut rentrer un identifiant et un mot de passe. Lorsqu'on saisit "mailagent" et "motdepasseagent", on arrive sur la boite mail de l'agent. 
 Lorsqu'on saisit "mailhacker" et "motdepassehacker", on arrive sur la boite mail du hacker qui contient pour l'instant aucun mail. 
