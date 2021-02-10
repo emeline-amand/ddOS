@@ -1,6 +1,4 @@
 import pygame, os, math
-from threading import Thread
-import time
 from pygame.locals import *
 
 #Pour l'appli terminal
@@ -41,7 +39,16 @@ def message(_images, _messages) :
 	"""permet d'afficher les messages sur une fenetre en séparant l'émetteur du message et son objet"""
 	appli = True
 	_continuer = True
+	text=""
+	champ=[]
+	lignex=529
+	ligney=400
+	x=529
+	y=400
+	lignereturny=400
+	countreturn=0
 
+	#mise en page de la messagerie
 	y=250
 	pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
 	pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
@@ -122,7 +129,7 @@ def message(_images, _messages) :
 						pygame.draw.line(screen,(0,0,0),(340, y),(750, y), 2)
 					pygame.display.flip()
 
-
+				#pour se déconnecter du compte de la messagerie, avec confirmation
 				if 160<event.pos[0]<240 and 700<event.pos[1]<850:
 					render(_images, None)
 					screen.blit(messageFont.render("Confirmer la déconnexion: ",True,(0,0,0)),(425,400))
@@ -130,14 +137,16 @@ def message(_images, _messages) :
 					screen.blit(messageFont.render("non ",True,(0,0,0)),(700,500))
 					pygame.display.flip()
 
+				#login de la messagerie ( par défaut celle de l'agent)
 				if 400<event.pos[0]<440 and 500<event.pos[1]<540:
 					render(_images, None)
 					screen.blit(messageFont.render("insérer votre mail: ",True,(0,0,0)),(325,400))
 					pygame.draw.rect(screen,(0,0,0),(525,400,300,40),2)
-					screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(325,500))
-					pygame.draw.rect(screen,(0,0,0),(626,500,300,40),2)
+					screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
+					pygame.draw.rect(screen,(0,0,0),(525,500,300,40),2)
 					pygame.display.flip()
 
+				#retour a la boite principale de la messagerie
 				if 700<event.pos[0]<740 and 500<event.pos[1]<540:
 					render(_images, None)
 					y=250
@@ -161,6 +170,7 @@ def message(_images, _messages) :
 						pygame.draw.line(screen,(0,0,0),(340, y),(750, y), 2)
 					pygame.display.flip()
 
+
 				#quitter l'appli
 				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
 					#Clic sur gauche sur "icon"
@@ -170,6 +180,116 @@ def message(_images, _messages) :
 					#Clic gauche sur icon2
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
+
+
+			#Pour pouvoir écrire son id et son pwd
+
+			if event.type == KEYDOWN :
+
+				#lorsqu'on appuie sur la touche retour:
+				if event.key == K_RETURN:#Si entrée appuyée
+					countreturn+=1
+					input = text #Récupérer la valeur entrée
+					champ.append(text)
+					lignechampy=400
+
+
+					#---------------------------------------#
+					#laisse le text écrit précédemment à l'écran:
+					render(_images, None)
+					for line in champ:
+						screen.blit(messageFont.render(line, True, (0, 0, 0)), (lignex,lignechampy))
+						lignechampy+=100
+
+					#---------------------------------------#
+
+					text = '' #reinitialiser le champ d'entrée
+					#affichage a l'écran
+					screen.blit(messageFont.render("", True, (0, 0, 0)), (lignex,lignereturny))
+					screen.blit(messageFont.render("insérer votre mail: ",True,(0,0,0)),(325,400))
+					pygame.draw.rect(screen,(0,0,0),(525,400,300,40),2)
+					screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
+					pygame.draw.rect(screen,(0,0,0),(525,500,300,40),2)
+
+					lignex+=0
+					lignereturny+=100
+					#si on a appuyé plus de deux fois sur la touche retour, on efface tout les inputs rentrés à l'écran; le texte écrit sera ensuite placé au niveau de la case insérer votre mail.
+					if countreturn==2:
+						countreturn=0
+						lignereturny=400
+						#on regarde si le mail et pwd correspond à celui du hacker
+						if champ[0]=="mailhacker" and champ[1]=="motdepassehacker":
+							#on efface texte écrit a l'écran
+							render(_images, None)
+
+							#on affiche les mails(pour l'instant pas de mails) et autres éléments de la messagerie.
+							pygame.draw.line(screen,(0,0,0), (340,250), (750, 250), 2)
+							pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+							screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
+							screen.blit(messageFontpetit.render("tant que: Nom du Hacker ",True,(0,0,0)),(160,240))
+							screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
+							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
+							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
+							champ=[]
+
+						#si id et pwd correspondent aux id et pwd de l'agent, on arrive sur la boite mail de l'agent
+						elif champ[0]=="mailagent" and champ[1]=="motdepasseagent":
+							#on efface texte écrit a l'écran
+							render(_images, None)
+
+							#on affiche les mails et autres éléments de la messagerie.
+							pygame.draw.line(screen,(0,0,0), (340, y), (750, y), 2)
+							pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+							screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
+							screen.blit(messageFontpetit.render("tant que: Agent ",True,(0,0,0)),(160,240))
+							screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
+							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
+							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
+							champ=[]
+							y=250
+							for i in range (len(_messages)):
+							#on fait afficher l'émetteur des messages
+								screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
+								_messages[i].append(y-30)
+								#on fait afficher l'objet des messages
+								screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
+								_messages[i].append(y-30)
+								y+=40
+								#on fait afficher ligne de séparation
+								pygame.draw.line(screen,(0,0,0),(340, y),(750, y), 2)
+							pygame.display.flip()
+						else:
+							champ=[]
+							screen.blit(messageFont.render("ce mail et ce mot de passe n'existent pas, veuillez écrire autre chose'",True,(0,0,0)),(365,600))#a changer
+
+					pygame.display.flip()
+				#sinon dans les autres cas:
+				else: #sinon
+					if len(text)<25 : #si la ligne ne dépasse pas la longueur maximale du terminal
+						text += event.unicode #ajouter le caractère associé à la touche appuyée au champ d'entrée
+					#Affichage /
+
+					render(_images, None)
+
+					#---------------------------------------#
+					#laisse le text écrit précédemment à l'écran:
+					render(_images, None)
+					for line in champ:
+						screen.blit(messageFont.render(line, True, (0, 0, 0)), (lignex,ligney))
+
+					pygame.display.flip()
+					#---------------------------------------#
+					#affichage à l'écran
+					screen.blit(messageFont.render(text, True, (0, 0, 0)), (lignex,lignereturny))
+					screen.blit(messageFont.render("insérer votre mail: ",True,(0,0,0)),(325,400))
+					pygame.draw.rect(screen,(0,0,0),(525,400,300,40),2)
+					screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
+					pygame.draw.rect(screen,(0,0,0),(525,500,300,40),2)
+
+					pygame.display.flip()
+
+
+
 
 	return _images, _continuer, _messages
 
@@ -412,10 +532,12 @@ def popup(_popup, _info,_images):
 	appli=True
 	y=780
 
+	#on affiche le message du popup a l'écran
 	for i in range (5):
 		screen.blit(messageFontpetit.render(_info[i][0],True,(0,0,0)),(1000,y))
 		y=y+20
 	pygame.display.flip()
+
 
 	while appli:
 		for event in pygame.event.get(): #Attente des événements
@@ -423,7 +545,7 @@ def popup(_popup, _info,_images):
 				_continuer = False
 				appli = False
 
-
+			#pour fermer le popup
 			elif event.type == MOUSEBUTTONDOWN:
 				if 1000<event.pos[0]<1090 and 860<event.pos[1]<880:
 					_images = render(_images,(iconpopup,iconpopup_coords) )
