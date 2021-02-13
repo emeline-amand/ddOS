@@ -408,8 +408,8 @@ continuer = True
 while continuer :
 	#Gestion des événements
 	for event in pygame.event.get():
-		if event.type == QUIT:
-			#Clic sur la croix pour fermer la fenêtre
+		if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+			#Clic sur la croix ou appui sur escape pour fermer la fenêtre
 			continuer = False
 		elif event.type == MOUSEBUTTONDOWN:
 			#Clic de souris
