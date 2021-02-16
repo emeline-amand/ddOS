@@ -5,9 +5,17 @@ from pygame.locals import *
 files = {'C:':{'Documents':{}, 'Images':{}, 'Téléchargements':{}, 'Musique':{}, 'Videos':{}, 'Applications':{'jarvis.exe':'exe', 'Paramètres':{'reinitialiser.exe':'exe'}}}}
 g_path = ""
 g_log = []
-g_log.append("Username : 1 11 21 1211")
 g_ligne = 290
+#<temporaire>
+g_log.append("Ce message est temporaire, il sera plus tard supprimé")
+g_log.append("Code du PC : 111221")
+g_log.append("Réponse à la seule question de sécurité : Glad0s")
+g_log.append("")
+g_ligne+=80
+#</temporaire>
+g_log.append("Username : 1 11 21 1211")
 g_text = ""
+g_isJarvisUsed = False
 
 #Pour l'appli message
 messages=[["de: Boss","objet1","message1"],["de: Boss","objet2","message2"],["de: Hacker","objet3","message3"]]
@@ -179,18 +187,19 @@ def cd(_path, target) :
 		_path = _path[:_path.rfind('/')]
 		if _path  == 'C:' : #Si déjà au minimum alors
 			_path += '/' #Réajoute le '/' de fin uniquement présent au dossier racine de l'arbre
-		return _path
+			return _path, False
+		return _path, True
 	else : #sinon avancer d'un dossier
 		exist = False
 		for key in goto(_path).keys() : #Regarde si dossier cible existe
 			if key == target :
 				exist = True
 		if not exist : # s'il n'existe pas
-			return _path # fin, rien ne se passe
+			return _path, False # fin, rien ne se passe
 		if _path  == 'C:/' : #Si à la racine alors
 			_path = _path[:len(_path)-1] #retire le '/' de fin uniquement présent au dossier racine de l'arbre
 		_path = _path+'/'+target #Enfin, ajoute le dossier cible au chemin
-		return _path
+		return _path, True
 
 def ls(_path) :
 	'''Renvoie des listes contenants les clefs et valeurs d'un dictionnaire'''
@@ -223,10 +232,11 @@ def printDialogue(_log, _ligne, dialogue) :
 		_ligne+=20
 	return _log, _ligne
 
-def Terminal(_images, path, log, ligne, text) :
+def Terminal(_images, path, log, ligne, text, isJarvisUsed) :
 	appli = True #Condition pour la boucle principale
 	_continuer = True #Valeur qui sera retournée lors de la sortie de l'application pour stopper ou non le jeu
 	input=None #Utile plus tard pour regarder ce qui a été entré au clavier
+	if isJarvisUsed : input = "appli jarvis"
 	printLog(log, _images) #Affiche les logs (valeur de log récupérée depuis les paramètres de la fonction
 	screen.blit(terminalFont.render(path+" > "+text, True, (0, 175, 0)), (125,ligne))
 	pygame.display.flip()
@@ -341,6 +351,9 @@ def Terminal(_images, path, log, ligne, text) :
 					pygame.display.flip()
 					break
 				elif input != None: #Sinon rien faire
+					log.append("Mot de passe incorrect")
+					ligne+=20
+					printLog(log, _images)
 					screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					input = None
@@ -365,7 +378,11 @@ def Terminal(_images, path, log, ligne, text) :
 				log, ligne = scrolling(log, ligne, _images, path)
 			#cd \/
 			elif input[0] == 'cd' and len(input)>1 :
-				path = cd(path, input[1])
+				path, success = cd(path, input[1])
+				if not success :
+					log.append("Chemin inexistant")
+					ligne+=20
+					printLog(log, _images)
 			#clear \/
 			elif input[0] == 'clear' :
 				log = []
@@ -383,26 +400,49 @@ def Terminal(_images, path, log, ligne, text) :
 				if input[1] == "jarvis":
 					log = []
 					ligne = 270
-					appli, _continuer = jarvis(_images)
+					appli, _continuer, isJarvisUsed = jarvis(_images)
 					printLog(log, _images)
-			#ouvrir des fichiers ou programmes \/
+				else :
+					log.append("Executable non trouvé")
+					ligne+=20
+					printLog(log, _images)
+			#ouvrir des fichiers ou programmes depuis le path actuel \/
 			else :
 				items = goto(path).items()
+				#pour rendre la recherche d'executable plus rapide (un peu useless à cette échelle) \/
+				if input[0].find('.') != -1 :
+					extension_de_l_input = input[0].split('.')
+				else :
+					extension_de_l_input = [None, None]
 				for item in items :
-					if item[1] == "exe" : 
-						if item[0] == "jarvis.exe" and input[0] == "jarvis.exe" :
+					if extension_de_l_input[1] == "exe" and item[1] == "exe" : #si executable détecté
+						if item[0] == "jarvis.exe" and input[0] == "jarvis.exe" : #lance jarvis
 							log = []
 							ligne = 270
-							appli, _continuer = jarvis(_images)
-						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" :
+							appli, _continuer, isJarvisUsed = jarvis(_images)
+						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" : #lance réinitialiser
 							reinitialiser()
-
+						else : #message d'erreur
+							log.append("Executable non trouvé") 
+							ligne+=20
+							printLog(log, _images)
+							break
+					else : #message d'erreur
+						if extension_de_l_input[1] == "exe" :
+							log.append("Executable non trouvé")
+						else :
+							log.append("Commande inexistante")
+							log.append("Une application sera bientôt disponible pour vous fournir de l'aide")
+						ligne+=40
+						printLog(log, _images)
+						break
+						
 			screen.blit(terminalFont.render(path+" > ", True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
 			input = None
 			log, ligne = scrolling(log, ligne, _images, path)
 
-	return _images, _continuer, path, log, ligne, text
+	return _images, _continuer, path, log, ligne, text, isJarvisUsed
 
 def jarvis(_images) :
 	"""Progamme qui tourne dans le terminal, assistant IA du hacker"""
@@ -413,7 +453,7 @@ def jarvis(_images) :
 				  #t[0] => Messages de l'IA  |  t[1] => tuple contenants les réponses disponibles si t[2] = "qcm"  |  t[2] => type de réponse attendue
 		("Bonjour ddOS, que puis-je faire pour vous ?", ("  1 - Je veux les codes", "  2 - Rien du tout, au revoir"), "qcm"),
 		("Pour récupérer les codes, veuillez répondre aux questions de sécurité", ("  1 - Oui", "  2 - Non"), "qcm"),
-		("Première question : Quel est le nom de votre première animal de compagnie ?", (), "text"),
+		("Première question : Quel est le nom de votre premier animal de compagnie ?", (), "text"),
 		("Questions de sécurités répondues, voici le code n°2 : [code]", ("  1 - Merci !", "  2 - Au revoir"), "qcm")
 	]
 	answer = "Réponse n°"
@@ -441,16 +481,16 @@ def jarvis(_images) :
 					#Clic sur gauche sur "terminal" => quitte l'appli
 					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
-					return False, _continuer
+					return False, _continuer, True
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-					#Clic gauche sur "message" => quitte l'appli
+					#Clic gauche sur "message" => quitte l'appli vers message
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-					return False, _continuer
+					return False, _continuer, True
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu
 					_continuer = False
-					return False, _continuer
+					return False, _continuer, True
 					
 			#Pour écrire dans le terminal
 			elif event.type == KEYDOWN:
@@ -482,7 +522,7 @@ def jarvis(_images) :
 					current_dialogue = 1
 					output = True
 				elif input == "2" :
-					return True, True
+					return True, True, False
 				else : 
 					output = False
 			elif current_dialogue == 1 : #Si dialogue 2
@@ -508,7 +548,7 @@ def jarvis(_images) :
 					current_dialogue = 0
 					output = True
 				elif input == "2" :
-					return True, True
+					return True, True, False
 				else :
 					output = False
 
@@ -529,12 +569,19 @@ def jarvis(_images) :
 				pygame.display.flip()
 				output = False
 			else : #Sinon afficher juste la ligne
+				if dialogues[current_dialogue][2] == "qcm" :
+					log.append("Réponse invalide, veuillez entrer un des chiffres proposés")
+					ligne+=20
+				elif dialogues[current_dialogue][2] == "text" :
+					log.append("Réponse invalide")
+					ligne+=20
+				printLog(log, _images)
 				screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
 				pygame.display.flip()
 
 			input = None
 					
-	return True, _continuer
+	return True, _continuer, False
 
 def reinitialiser() :
 	"""Progamme qui tourne dans le terminal, permet de reinitialiser le PC du hacker (nécessite les 5 codes)"""
@@ -613,7 +660,7 @@ while continuer :
 	pygame.display.flip()
 	#Appel des fonctions associés à l'application en premier plan
 	if images[len(images)-1][0] == fen_terminal:
-		images, continuer, g_path, g_log, g_ligne, g_text = Terminal(images, g_path, g_log, g_ligne, g_text)
+		images, continuer, g_path, g_log, g_ligne, g_text, g_isJarvisUsed = Terminal(images, g_path, g_log, g_ligne, g_text, g_isJarvisUsed)
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages = message(images, messages)
 
