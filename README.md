@@ -26,10 +26,13 @@ Il s'agit de 'main.py' avec en plus la fonction message. Cette fonction permet d
 
 Que faire sur la messagerie?
 
-En cliquant sur l'objet ou l'émetteur d'un message, l'écran affiche le contenu du message (pour l'instant il sera seulement écrit "message1" ou "message2"...) ainsi que la touche retour qui, une fois cliquée, renvoie à la liste des émetteurs et objets des messages. 
-Lorsqu'on clique sur "déconnexion", on a d'abord une confirmation de la commande puis un arrive sur un espace de connexion. On peut rentrer un identifiant et un mot de passe. Lorsqu'on saisit "mailagent" et "motdepasseagent", on arrive sur la boite mail de l'agent. 
+En cliquant sur l'objet ou l'émetteur d'un message, l'écran affiche le contenu du message (pour l'instant il sera seulement écrit "message1" ou "message2"...) ainsi que la touche retour qui, une fois cliquée, renvoie à la liste des émetteurs et objets des messages.
+
+Lorsqu'on clique sur "déconnexion", on a d'abord une confirmation de la commande puis un arrive sur un espace de connexion. On peut rentrer un identifiant et un mot de passe. Lorsqu'on saisit "mailagent" et "motdepasseagent", on arrive sur la boite mail de l'agent.
+
 Lorsqu'on saisit "mailhacker" et "motdepassehacker", on arrive sur la boite mail du hacker qui contient pour l'instant aucun mail. 
-Si l'on saisit n'importe quel autre mail et mot de passe, une note apparaît en nous disant que ses mails et mot de passe n'ont pas encore été définis.  On remarquera qu'à l'heure actuel, lorsqu'on change de fenetre et qu'on retourne ensuite sur l'application message, on retombe automatiquement sur la boite mail de l'agent, si une deconnexion a été effectué, elle n'est pas prise en compte: cette tâche est en cours. On remarquera également que pour l'instant la touche "supprimer" n'est pas fonctionnelle, ainsi lorsqu'on clique dessus, le dernier caractère n'est pas surrpimé, cette tâche est également en cours. 
+
+Si l'on saisit n'importe quel autre mail et mot de passe, une note apparaît en nous disant que ses mails et mot de passe n'ont pas encore été définis.  On remarquera qu'à l'heure actuel, lorsqu'on change de fenetre et qu'on retourne ensuite sur l'application message, on retombe automatiquement sur la boite mail de l'agent, si une deconnexion a été effectué, elle n'est pas prise en compte: cette tâche est en cours. UPDATE: touche "supprimer" fonctionelle!!! 
 
 ### Difficultées passées
 Parmit les difficultées rencontrées, nous avons dû choisir le langage à utiliser, en effet, nous étions indécit quant à utiliser le html et python mélangé ou uniquement du pyhton, après quelques recherches et tests, nous avons décidés de partir pleinement sur du python. Un deuxième problème auquels nous avons faits face est la planification de l'histoire et des énigmes, car nous n'étions pas encore certains des moyens dont nous allions disposer et donc des énigmes possibles. Ensuite, un autre problème qui nous a causé pas mal de reflexion et la taille de la fenêtre pygame, nous étions partis pour faire une taille qui s'adapte à l'écran actuel, mais cela posait un trop gros défi, ce qui nous a mené vers le choix d'une résolution fixe qui correspond à la taille de la plupart des écrans du CIV. A part cela, nous avons subit une montagne de bugs, que nous avons résolus plus ou moins bien.
