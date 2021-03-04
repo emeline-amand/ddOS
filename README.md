@@ -2,7 +2,7 @@
 Le projet de NSI
 
 ### Présentation
-ddOS sera un jeu type escape-game programmé en python où l'on incarne un white hacker (hacker au service de la police) et où l'on doit s'introduire dans le PC d'un hacker pour effacer des informations top secrètes de l'État que celui-ci a volé.
+ddOS sera un jeu type escape-game programmé en python où l'on incarne un white hacker (hacker au service de la police) et où l'on doit s'introduire dans le PC d'un hacker pour effacer des informations top secrètes de l'État que celui-ci a volé. Le pdf Histoire nous présente la tramme du jeu que nous suivons.
 
 ### Informations techniques
 L'interface du jeu sera un ordinateur très sommaire entièrement simulé via du code Python, l'une des applications de cet ordinateur sera un terminal qui permettra d'accéder au PC du hacker a distance en utilisant des commandes ("dir", "cd", etc...). Une appliaction de l'ordinateur du white hacker donnera toute l'aide nécessaire pour naviguer via ce terminal.
