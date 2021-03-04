@@ -28,9 +28,9 @@ Que faire sur la messagerie?
 
 En cliquant sur l'objet ou l'émetteur d'un message, l'écran affiche le contenu du message (pour l'instant il sera seulement écrit "message1" ou "message2"...) ainsi que la touche retour qui, une fois cliquée, renvoie à la liste des émetteurs et objets des messages.
 
-Lorsqu'on clique sur "déconnexion", on a d'abord une confirmation de la commande puis un arrive sur un espace de connexion. On peut rentrer un identifiant et un mot de passe. Lorsqu'on saisit "mailagent" et "motdepasseagent", on arrive sur la boite mail de l'agent.
+Lorsqu'on clique sur "déconnexion", on a d'abord une confirmation de la commande puis un arrive sur un espace de connexion. On peut rentrer un identifiant et un mot de passe. Lorsqu'on saisit "christopher.wray@fbi.com" et "Ly46fZer", on arrive sur la boite mail de l'agent.
 
-Lorsqu'on saisit "mailhacker" et "motdepassehacker", on arrive sur la boite mail du hacker qui contient pour l'instant aucun mail. 
+Lorsqu'on saisit "ddOS@mymail.com" et "adf0mh456", on arrive sur la boite mail du hacker qui contient pour l'instant aucun mail. 
 
 Si l'on saisit n'importe quel autre mail et mot de passe, une note apparaît en nous disant que ses mails et mot de passe n'ont pas encore été définis.  On remarquera qu'à l'heure actuel, lorsqu'on change de fenetre et qu'on retourne ensuite sur l'application message, on retombe automatiquement sur la boite mail de l'agent, si une deconnexion a été effectué, elle n'est pas prise en compte: cette tâche est en cours. UPDATE: touche "supprimer" fonctionelle!!! 
 
