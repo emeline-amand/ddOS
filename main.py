@@ -155,7 +155,7 @@ def message(_images, _messages, g_compte) :
 				y=250
 				for i in range (len(_messages)):
 					#on regarde la position de la souris
-					if 350<event.pos[0]<800 and y<event.pos[1]<y+40 and deconnection==0 :
+					if 350<event.pos[0]<800 and y<event.pos[1]<y+40 and deconnection==0 and event.button == 1:
 						
 						if g_compte==1:
 						
@@ -180,7 +180,7 @@ def message(_images, _messages, g_compte) :
 						
 					
 						if g_compte==2:
-							if 350<event.pos[0]<800 and 370<event.pos[1]<410:#message intitulé binaire qui comprend une photo
+							if 350<event.pos[0]<800 and 370<event.pos[1]<410 and event.button == 1:#message intitulé binaire qui comprend une photo
 								#on met en premier plan l'image contenant la photo
 								render(_images, (peinture, peinture_coords))
 								
@@ -220,7 +220,7 @@ def message(_images, _messages, g_compte) :
 					
 					
 				#touche boite principale qui permet de revenir à la liste des mails
-				if 160<event.pos[0]<270 and 350<event.pos[1]<390:
+				if 160<event.pos[0]<270 and 350<event.pos[1]<390 and event.button == 1:
 					deconnection=0
 					if g_compte==1 :
 						render(_images, None)
@@ -298,7 +298,7 @@ def message(_images, _messages, g_compte) :
 						
 
 				#pour se déconnecter du compte de la messagerie, avec confirmation
-				if 160<event.pos[0]<270 and 700<event.pos[1]<850 and deconnection == 0:
+				if 160<event.pos[0]<270 and 700<event.pos[1]<850 and deconnection == 0 and event.button == 1:
 					render(_images, None)
 					screen.blit(messageFont.render("Confirmer la déconnection: ",True,(0,0,0)),(425,400))
 					screen.blit(messageFont.render("oui ",True,(0,0,0)),(400,500))
@@ -307,7 +307,7 @@ def message(_images, _messages, g_compte) :
 					deconnection=1
 					
 				#Si touche cliquée est non, alors retour a la boite principale de la messagerie PAS SURE
-				if 700<event.pos[0]<740 and 500<event.pos[1]<550 and deconnection == 1 :
+				if 700<event.pos[0]<740 and 500<event.pos[1]<550 and deconnection == 1 and event.button == 1:
 					render(_images, None)
 					deconnection=0
 					y=250
@@ -334,7 +334,7 @@ def message(_images, _messages, g_compte) :
 					
 
 				#login de la messagerie (par défaut ON EST SUR MESSAGERIE AGENT)
-				if 400<event.pos[0]<440 and 500<event.pos[1]<540 and deconnection == 1:
+				if 400<event.pos[0]<440 and 500<event.pos[1]<540 and deconnection == 1 and event.button == 1:
 					g_compte=3
 					render(_images, None)
 					screen.blit(messageFont.render("CONNECTER UN COMPTE",True,(0,0,0)),(430,300))
@@ -357,7 +357,11 @@ def message(_images, _messages, g_compte) :
 					#Clic gauche sur icon2
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					return _images, False, _messages, g_compte
+					
+					#Clic gauche sur la croix en bas à droite  => quitte le jeu quitter l'appli (c'est à dire fermer la fonction)
+					
 
 			#Pour pouvoir écrire son id et son pwd
 
@@ -1056,6 +1060,35 @@ def reinitialiser() :
 	"""Progamme qui tourne dans le terminal, permet de reinitialiser le PC du hacker (nécessite les 5 codes)"""
 	#WIP
 	return
+	
+#Chargement popup
+def popup(_popup, _info,_images):
+	render(_images,None)
+	appli=True
+	y=780
+
+	#on affiche le message du popup a l'écran
+	for i in range (5):
+		screen.blit(messageFontpetit.render(_info[i][0],True,(0,0,0)),(1000,y))
+		y=y+20
+	pygame.display.flip()
+
+
+	while appli:
+		for event in pygame.event.get(): #Attente des événements
+			if event.type == QUIT:
+				_continuer = False
+				appli = False
+
+			#pour fermer le popup
+			elif event.type == MOUSEBUTTONDOWN:
+				if 1000<event.pos[0]<1090 and 860<event.pos[1]<880 and event.button == 1:
+					_images = render(_images,(iconpopup,iconpopup_coords) )
+					appli=False
+					pygame.display.flip()
+
+	return _images, _popup
+
 
 #=========================================================================#
 #======================= VARIABLES ET INITALISATIONS =====================#
@@ -1098,14 +1131,27 @@ fen_message = pygame.image.load("img/fen_message.png").convert()
 fen_message_dim = fen_message.get_size()
 fen_message_coords = ((screen_dim[0]-fen_message_dim[0])/2, (screen_dim[1]-fen_message_dim[1])/2)
 
+#Chargement de la case popup
+iconpopup = pygame.image.load("img/blanc.jfif").convert()
+iconpopup_dim = iconpopup.get_size()
+iconpopup_coords=(1000,750)
 
-images = [(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords)] #Prépare la liste pour l'affichage des éléments
+#Chargement de l'image peinture
+peinture = pygame.image.load("img/peinture.png").convert()
+peinture_dim = peinture.get_size()
+peinture_coords = (490,240)
+
+
+images = [(peinture,peinture_coords),(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords),(iconpopup,iconpopup_coords)] #Prépare la liste pour l'affichage des éléments
 pygame.key.set_repeat(400, 30) #Active la possibilité de rester appuyer sur une touche
-
 
 #=========================================================================#
 #=================================== JEU =================================#
 #=========================================================================#
+g_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss"], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["Cliquez ICI pour le fermer"]]
+images, iconpopup = popup(iconpopup, g_info, images)
+
+
 continuer = True
 while continuer :
 	#Gestion des événements
