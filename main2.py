@@ -59,6 +59,7 @@ def message(_images, _messages, g_compte) :
 	epaisseurchamp1=4
 	epaisseurchamp2=2
 	photo=0
+	deconnection=0
 	
 	messagesHacker=[["de: Mamie","Dernières vacances",["Coucou mon chéri, ","Comment vas-tu? ","Je sais que ton métier de concierge te prends beaucoup de temps. ","Je t'envoie donc un petit mail pour te remercier d'être allé à Brest ","avec moi durant ses dernières vacances. Cela m'a beaucoup touché ","que tu prennes du temps avec ta vieille mamie. Ne t'inquiètes ","pas pour ton chat Glad0s, je prends soin de lui, il va très bien et se ","plaît beaucoup ici! J'ai pris soin de t'envoyer un colis avec une ","douzaine de durian que j'ai trouvé ce matin au marché du village, ","tu les aimes tant! C'est dans ce marché de Brest que se trouve les ","fruits les plus exotiques! De quoi te faire voyager depuis chez toi :)","Je t'embrasse, ","","Ta Mamie "]],["de: DUVAL Jacques","Ampoules grillées",["Bonjour Monsieur le concierge","Les ampoules du couloir au troisième étage sont cassées. ","Veuillez appeler un électricien.","","Bien Cordialement,","DUVAL Jacques, trosième étage du bâtiment 2"]],["de: CASTORAMA","Votre livraison est en route!",["Nous vous informons que votre commande est en route!","Vous devriez la recevoir dans les jours suivants, merci d'avoir choisi ","Castorama!","","Votre cagnotte fidélité bénéficie de 200 points supplémentaires.","","Détails de la commande:","Tuyau pvc Compact Ø100 mm L.2 m x5","Enduit de façade rénovation chaux ton pierre 25 kg x2","Elagueuse sur perche électrique FPPS710 710w 18cm"]],["de: moi","ASCII",[]]]
 	
@@ -67,10 +68,11 @@ def message(_images, _messages, g_compte) :
 		
 		#par défaut on est sur la messagerie de l'agent
 		utilisateur="Agent"
+		compte=1
 		
 		
 		#variable pour que les inputs soient seulement fonctionnels quand on est sur la page de connection
-		deconnection = 0
+		connection = 0
 	
 		#mise en page de la messagerie
 		y=250
@@ -103,9 +105,10 @@ def message(_images, _messages, g_compte) :
 	elif g_compte == 2:
 		
 		utilisateur= "Hacker"
+		compte=2
 		
 		#variable pour que les inputs soient seulement fonctionnels quand on est sur la page de connection
-		deconnection = 0
+		connection = 0
 
 		#on affiche les mails et autres éléments de la messagerie.
 		y=250
@@ -140,8 +143,11 @@ def message(_images, _messages, g_compte) :
 		pygame.draw.rect(screen,(0,0,0),(525,400,300,40),epaisseurchamp1)
 		screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
 		pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
+		screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
+		retour=0
+		connection = 2
 		pygame.display.flip()
-		deconnection = 2
+		
 		
 
 
@@ -155,9 +161,10 @@ def message(_images, _messages, g_compte) :
 				y=250
 				for i in range (len(_messages)):
 					#on regarde la position de la souris
-					if 350<event.pos[0]<800 and y<event.pos[1]<y+40 and deconnection==0 and event.button == 1:
+					if 350<event.pos[0]<800 and y<event.pos[1]<y+40 and connection==0 and event.button == 1:
 						
 						if g_compte==1:
+							compte=1
 						
 							#efface texte à l'écran
 							render(_images, None)
@@ -173,13 +180,17 @@ def message(_images, _messages, g_compte) :
 							screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
 							screen.blit(messageFontpetit.render("Boîte principale",True,(0,0,0)),(160,350))
 							screen.blit(messageFontpetit.render("déconnection ",True,(0,0,0)),(160,800))
-							deconnection=1
+							connection=1
+							deconnection=0
+							
 	
 							#refresh écran
 							pygame.display.flip()
 						
 					
 						if g_compte==2:
+							compte=2
+							deconnection=0
 							if 350<event.pos[0]<800 and 370<event.pos[1]<410 and event.button == 1:#message intitulé binaire qui comprend une photo
 								#on met en premier plan l'image contenant la photo
 								render(_images, (peinture, peinture_coords))
@@ -189,8 +200,9 @@ def message(_images, _messages, g_compte) :
 								screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
 								screen.blit(messageFontpetit.render("Boîte principale",True,(0,0,0)),(160,350))
 								screen.blit(messageFontpetit.render("déconnection ",True,(0,0,0)),(160,800))
-								deconnection=1
+								connection=1
 								photo=1
+								
 		
 								#refresh écran
 								pygame.display.flip()
@@ -210,7 +222,7 @@ def message(_images, _messages, g_compte) :
 								screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
 								screen.blit(messageFontpetit.render("Boîte principale",True,(0,0,0)),(160,350))
 								screen.blit(messageFontpetit.render("déconnection ",True,(0,0,0)),(160,800))
-								deconnection=1
+								connection=1
 								photo=0
 		
 								#refresh écran
@@ -221,8 +233,9 @@ def message(_images, _messages, g_compte) :
 					
 				#touche boite principale qui permet de revenir à la liste des mails
 				if 160<event.pos[0]<270 and 350<event.pos[1]<390 and event.button == 1:
-					deconnection=0
+					connection=0
 					if g_compte==1 :
+						compte=1
 						render(_images, None)
 						y=250
 						pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
@@ -246,6 +259,7 @@ def message(_images, _messages, g_compte) :
 						pygame.display.flip()
 						
 					if g_compte==2 :
+						compte=2
 						if photo==1:
 							del _images[4]						
 							render(_images, None)
@@ -298,18 +312,18 @@ def message(_images, _messages, g_compte) :
 						
 
 				#pour se déconnecter du compte de la messagerie, avec confirmation
-				if 160<event.pos[0]<270 and 700<event.pos[1]<850 and deconnection == 0 and event.button == 1:
+				if 160<event.pos[0]<270 and 700<event.pos[1]<850  and event.button == 1 and deconnection==0:
 					render(_images, None)
 					screen.blit(messageFont.render("Confirmer la déconnection: ",True,(0,0,0)),(425,400))
 					screen.blit(messageFont.render("oui ",True,(0,0,0)),(400,500))
 					screen.blit(messageFont.render("non ",True,(0,0,0)),(700,500))
 					pygame.display.flip()
-					deconnection=1
+					connection=1
 					
-				#Si touche cliquée est non, alors retour a la boite principale de la messagerie PAS SURE
-				if 700<event.pos[0]<740 and 500<event.pos[1]<550 and deconnection == 1 and event.button == 1:
+				#Si touche cliquée est non, alors retour a la boite principale de la messagerie 
+				if 700<event.pos[0]<740 and 500<event.pos[1]<550 and connection == 1 and event.button == 1:
 					render(_images, None)
-					deconnection=0
+					connection=0
 					y=250
 					pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
 					pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
@@ -318,7 +332,7 @@ def message(_images, _messages, g_compte) :
 					screen.blit(messageFontpetit.render("déconnection ",True,(0,0,0)),(160,800))
 					screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 					screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
-					deconnection = 0
+					connection = 0
 
 					for i in range (len(_messages)):
 					#on fait afficher l'émetteur des messages
@@ -334,7 +348,7 @@ def message(_images, _messages, g_compte) :
 					
 
 				#login de la messagerie (par défaut ON EST SUR MESSAGERIE AGENT)
-				if 400<event.pos[0]<440 and 500<event.pos[1]<540 and deconnection == 1 and event.button == 1:
+				if 400<event.pos[0]<440 and 500<event.pos[1]<540 and connection == 1 and event.button == 1:
 					g_compte=3
 					render(_images, None)
 					screen.blit(messageFont.render("CONNECTER UN COMPTE",True,(0,0,0)),(430,300))
@@ -342,8 +356,67 @@ def message(_images, _messages, g_compte) :
 					pygame.draw.rect(screen,(0,0,0),(525,400,300,40),epaisseurchamp1)
 					screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
 					pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
+					screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
+					retour=0
+					connection = 2
 					pygame.display.flip()
-					deconnection = 2
+					
+				#retour sur la messagerie pendant qu'on est sur l'espace de connection, lorsqu'on a oublié un mot de passe par exemple
+				if 822<event.pos[0]<900 and 620<event.pos[1]<660 and retour == 0 and event.button == 1:
+					connection=0
+					champ=[]
+					text = ""
+					
+					if compte == 1 :
+						render(_images, None)
+						y=250
+						pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
+						pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+						screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
+						screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
+						screen.blit(messageFontpetit.render("déconnection ",True,(0,0,0)),(160,800))
+						screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
+						screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
+	
+						for i in range (len(_messages)):
+						#on fait afficher l'émetteur des messages
+							screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
+							_messages[i].append(y-30)
+							#on fait afficher l'objet des messages
+							screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
+							_messages[i].append(y-30)
+							y+=40
+							#on fait afficher ligne de séparation
+							pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
+						pygame.display.flip()
+						
+					if compte == 2 :
+						if photo==1:
+							del _images[4]						
+							render(_images, None)
+							y=250
+							pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
+							pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+							screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
+							screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
+							screen.blit(messageFontpetit.render("déconnection ",True,(0,0,0)),(160,800))
+							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
+							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
+		
+							for i in range (len(messagesHacker)):
+							#on fait afficher l'émetteur des messages
+								screen.blit(messageFont.render(messagesHacker[i][0],True,(0,0,0)),(350,y))
+								messagesHacker[i].append(y-30)
+								#on fait afficher l'objet des messages
+								screen.blit(messageFont.render(messagesHacker[i][1],True,(0,0,0)),(600,y))
+								messagesHacker[i].append(y-30)
+								y+=40
+								#on fait afficher ligne de séparation
+								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
+								
+					pygame.display.flip()
+					
+					
 
 
 
@@ -365,7 +438,7 @@ def message(_images, _messages, g_compte) :
 
 			#Pour pouvoir écrire son id et son pwd
 
-			if event.type == KEYDOWN and deconnection == 2 :
+			if event.type == KEYDOWN and connection == 2 :
 				
 
 				#lorsqu'on appuie sur la touche retour:
@@ -399,6 +472,8 @@ def message(_images, _messages, g_compte) :
 						pygame.draw.rect(screen,(0,0,0),(525,400,300,40),epaisseurchamp1)
 						screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
 						pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
+						screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
+						retour=0
 	
 						lignex+=0
 						lignereturny+=100
@@ -442,7 +517,7 @@ def message(_images, _messages, g_compte) :
 							pygame.display.flip()
 							champ=[]
 							text = ""
-							deconnection=0
+							connection=0
 
 						#si id et pwd correspondent aux id et pwd de l'agent, on arrive sur la boite mail de l'agent
 						elif champ[0]=="christopher.wray@fbi.com" and champ[1]=="Ly46fZer":
@@ -473,7 +548,7 @@ def message(_images, _messages, g_compte) :
 								#on fait afficher ligne de séparation
 								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 							pygame.display.flip()
-							deconnection=0
+							connection=0
 							
 						else:
 							epaisseurchamp1=4
@@ -484,6 +559,9 @@ def message(_images, _messages, g_compte) :
 							pygame.draw.rect(screen,(0,0,0),(525,400,300,40),epaisseurchamp1)
 							screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
 							pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
+							screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
+							retour=0
+							connection = 2
 							pygame.display.flip()
 							champ=[]
 							text = ""
@@ -504,8 +582,11 @@ def message(_images, _messages, g_compte) :
 						pygame.draw.rect(screen,(0,0,0),(525,400,300,40),epaisseurchamp1)
 						screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
 						pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
-	
+						screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
+						retour=0
+						connection = 2
 						pygame.display.flip()
+	
 						
 					else:
 						
@@ -515,7 +596,9 @@ def message(_images, _messages, g_compte) :
 						pygame.draw.rect(screen,(0,0,0),(525,400,300,40),epaisseurchamp1)
 						screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
 						pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
-	
+						screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
+						retour=0
+						connection = 2
 						pygame.display.flip()
 					
 				#sinon dans les autres cas:
@@ -541,7 +624,9 @@ def message(_images, _messages, g_compte) :
 					pygame.draw.rect(screen,(0,0,0),(525,400,300,40),epaisseurchamp1)
 					screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
 					pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
-
+					screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
+					retour=0
+					connection = 2
 					pygame.display.flip()
 
 
