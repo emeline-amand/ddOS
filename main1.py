@@ -15,11 +15,13 @@ g_ligne+=80
 #</temporaire>
 g_log.append("Username : 1 11 21 1211")
 g_text = ""
-g_isJarvisUsed = False
+g_appUsed = ""
 
 #Pour l'appli message
 messages=[["de: Boss","Infos Hacker",["Voici le peu d'informations que nous avons trouvé sur le hacker,","Son mail: neo.mitrax@mymail.com, avec le mot de passe : ","a**0m*h*5* (les * sont les caractères que nous n'avons pas réussi à ","décrypter à l'heure actuelle, c'est à vous de les trouver) elles vous ","seront utiles tout le long de la partie. Nous savons  que le hacker est ","citoyen français. Il aurait fait l'École 42 fut deuxième de sa promo. ","Cependant ses études prirent un autre tour à la mort de son père ","le 28 octobre 1997. Il entreprit des études d'arquéologue à l'Université de ","Massachusetts. Il s'installa ensuite à Brest, cette profession lui aurait ","permis de mettre en place son activité de hacker. A ce jour, il a hacké ","plusieurs banques dans différents pays. ","Il représente un danger pour tous,d'où la rapidité dont vous devez ","disposer pour supprimer les codes nucléaires de son ordinateur."]],["de: Boss","Règles du jeu",["Bonjour Agent,","L'heure est grave, le célèbre hacker connu sous le nom de ddOS","s'est emparé d'importants fichiers nucléaires.","Votre mission, si toute fois vous l'acceptez, est de pénétrer dans le PC ","du hacker à distance, récupérer ses fichiers nucléaires et les ","supprimer de son PC. Pour se faire l'équipe s'est mobilisée pour ","maintenir le PC du hacker hors service depuis chez lui. Voici votre ","mail: christopher.wray@fbi.com et votre mot de passe: Ly46fZer ","pour vous connecter à votre messagerie lors de cette mission. ","Prenez soin de les noter sur une feuille: vous serez amené à vous ","déconnecter de votre compte plusieurs fois. Cette feuille vous servira ","également à noter toutes les informations et mots de passes que","vous trouvez: tout se réutilise! ","Bonne chance, la survie de l'humanité dépend de vous Agent Wray."]],["de: FBI","Vacances",["Vous n'avez pas pris de vacances depuis plusieurs mois Agent Wray, ","Songez-y."]],["de: FBI","année 2021",["Meilleurs voeux agent Wray! C'est un plaisir d'être à vos côtés ","une années de plus!"]],["de: Boss","Nouvelle équipe",["Agent Wray,","Vous voici affecté à une nouvelle équipe sous mon commandement. ","Je ne fais pas de doutes sur le fait que nous nous entendrons bien. ","Monsieur Decopmann m'a beaucoup parlé de vous en bien.","Bienvenue dans l'équipe 007"]]]
 g_compte=1
+
+g_gagne=False
 
 def render(toBlit, firstPlan) :
 	"""Fonction qui affiche les _imageses spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'_imagese spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
@@ -155,7 +157,7 @@ def message(_images, _messages, g_compte) :
 				y=250
 				for i in range (len(_messages)):
 					#on regarde la position de la souris
-					if 350<event.pos[0]<800 and y<event.pos[1]<y+40 and deconnection==0 and event.button == 1:
+					if 350<event.pos[0]<800 and y<event.pos[1]<y+40 and deconnection==0 :
 						
 						if g_compte==1:
 						
@@ -180,7 +182,7 @@ def message(_images, _messages, g_compte) :
 						
 					
 						if g_compte==2:
-							if 350<event.pos[0]<800 and 370<event.pos[1]<410 and event.button == 1:#message intitulé binaire qui comprend une photo
+							if 350<event.pos[0]<800 and 370<event.pos[1]<410:#message intitulé binaire qui comprend une photo
 								#on met en premier plan l'image contenant la photo
 								render(_images, (peinture, peinture_coords))
 								
@@ -220,7 +222,7 @@ def message(_images, _messages, g_compte) :
 					
 					
 				#touche boite principale qui permet de revenir à la liste des mails
-				if 160<event.pos[0]<270 and 350<event.pos[1]<390 and event.button == 1:
+				if 160<event.pos[0]<270 and 350<event.pos[1]<390:
 					deconnection=0
 					if g_compte==1 :
 						render(_images, None)
@@ -298,7 +300,7 @@ def message(_images, _messages, g_compte) :
 						
 
 				#pour se déconnecter du compte de la messagerie, avec confirmation
-				if 160<event.pos[0]<270 and 700<event.pos[1]<850 and deconnection == 0 and event.button == 1:
+				if 160<event.pos[0]<270 and 700<event.pos[1]<850 and deconnection == 0:
 					render(_images, None)
 					screen.blit(messageFont.render("Confirmer la déconnection: ",True,(0,0,0)),(425,400))
 					screen.blit(messageFont.render("oui ",True,(0,0,0)),(400,500))
@@ -307,7 +309,7 @@ def message(_images, _messages, g_compte) :
 					deconnection=1
 					
 				#Si touche cliquée est non, alors retour a la boite principale de la messagerie PAS SURE
-				if 700<event.pos[0]<740 and 500<event.pos[1]<550 and deconnection == 1 and event.button == 1:
+				if 700<event.pos[0]<740 and 500<event.pos[1]<550 and deconnection == 1 :
 					render(_images, None)
 					deconnection=0
 					y=250
@@ -334,7 +336,7 @@ def message(_images, _messages, g_compte) :
 					
 
 				#login de la messagerie (par défaut ON EST SUR MESSAGERIE AGENT)
-				if 400<event.pos[0]<440 and 500<event.pos[1]<540 and deconnection == 1 and event.button == 1:
+				if 400<event.pos[0]<440 and 500<event.pos[1]<540 and deconnection == 1:
 					g_compte=3
 					render(_images, None)
 					screen.blit(messageFont.render("CONNECTER UN COMPTE",True,(0,0,0)),(430,300))
@@ -357,11 +359,7 @@ def message(_images, _messages, g_compte) :
 					#Clic gauche sur icon2
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
-					return _images, False, _messages, g_compte
-					
-					#Clic gauche sur la croix en bas à droite  => quitte le jeu quitter l'appli (c'est à dire fermer la fonction)
-					
+
 
 			#Pour pouvoir écrire son id et son pwd
 
@@ -645,11 +643,12 @@ def printDialogue(_log, _ligne, dialogue) :
 		_ligne+=20
 	return _log, _ligne
 
-def Terminal(_images, path, log, ligne, text, isJarvisUsed) :
+def Terminal(_images, path, log, ligne, text, appUsed) :
 	appli = True #Condition pour la boucle principale
 	_continuer = True #Valeur qui sera retournée lors de la sortie de l'application pour stopper ou non le jeu
 	input=None #Utile plus tard pour regarder ce qui a été entré au clavier
-	if isJarvisUsed : input = "appli jarvis"
+	if appUsed == "jarvis" : input = "appli jarvis"
+	if appUsed == "reinit" : input = "appli reinit"
 	printLog(log, _images) #Affiche les logs (valeur de log récupérée depuis les paramètres de la fonction
 	screen.blit(terminalFont.render(path+" > "+text, True, (0, 175, 0)), (125,ligne))
 	pygame.display.flip()
@@ -813,7 +812,12 @@ def Terminal(_images, path, log, ligne, text, isJarvisUsed) :
 				if input[1] == "jarvis":
 					log = []
 					ligne = 270
-					appli, _continuer, isJarvisUsed = jarvis(_images)
+					appli, _continuer, appUsed = jarvis(_images)
+					printLog(log, _images)
+				if input[1] == "reinit":
+					log = []
+					ligne = 270
+					appli, _continuer, appUsed = reinitialiser(_images)
 					printLog(log, _images)
 				else :
 					log.append("Executable non trouvé")
@@ -832,9 +836,11 @@ def Terminal(_images, path, log, ligne, text, isJarvisUsed) :
 						if item[0] == "jarvis.exe" and input[0] == "jarvis.exe" : #lance jarvis
 							log = []
 							ligne = 270
-							appli, _continuer, isJarvisUsed = jarvis(_images)
+							appli, _continuer, appUsed = jarvis(_images)
 						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" : #lance réinitialiser
-							reinitialiser()
+							log = []
+							ligne = 270
+							appli, _continuer, appUsed = reinitialiser(_images)
 						else : #message d'erreur
 							log.append("Executable non trouvé") 
 							ligne+=20
@@ -855,7 +861,7 @@ def Terminal(_images, path, log, ligne, text, isJarvisUsed) :
 			input = None
 			log, ligne = scrolling(log, ligne, _images, path)
 
-	return _images, _continuer, path, log, ligne, text, isJarvisUsed
+	return _images, _continuer, path, log, ligne, text, appUsed
 
 def jarvis(_images) :
 	"""Progamme qui tourne dans le terminal, assistant IA du hacker"""
@@ -900,16 +906,16 @@ def jarvis(_images) :
 					#Clic sur gauche sur "terminal" => quitte l'appli
 					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
-					return False, _continuer, True
+					return False, _continuer, "jarvis"
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur "message" => quitte l'appli vers message
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-					return False, _continuer, True
+					return False, _continuer, "jarvis"
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu
 					_continuer = False
-					return False, _continuer, True
+					return False, _continuer, "jarvis"
 					
 			#Pour écrire dans le terminal
 			elif event.type == KEYDOWN:
@@ -941,7 +947,7 @@ def jarvis(_images) :
 					current_dialogue += 1
 					output = True
 				elif input == "2" :
-					return True, True, False
+					return True, True, ""
 				else : 
 					output = False
 			elif current_dialogue == 1 : #Si dialogue 2 "Veuillez répoondre aux question de sécurité"
@@ -1021,7 +1027,7 @@ def jarvis(_images) :
 					current_dialogue = 0
 					output = True
 				elif input == "2" :
-					return True, True, False
+					return True, True, ""
 				else :
 					output = False
 
@@ -1054,41 +1060,114 @@ def jarvis(_images) :
 
 			input = None
 					
-	return True, _continuer, False
+	return True, _continuer, ""
 
-def reinitialiser() :
+def reinitialiser(_images) :
 	"""Progamme qui tourne dans le terminal, permet de reinitialiser le PC du hacker (nécessite les 5 codes)"""
-	#WIP
-	return
+	#Se référer aux déclarations de variables de Terminal pour comprendre celles non expliquées
+	log = []
+	log.append("Pour réinitialiser l'ordinateur, veuillez rentrer les mots de passe de sécurité")
+	log.append("")
+	log.append("Mot de passe 1 : ")
+	log.append("Mot de passe 2 : ")
+	log.append("Mot de passe 3 : ")
+	log.append("Mot de passe 4 : ")
+	log.append("Mot de passe 5 : ")
 	
-#Chargement popup
-def popup(_popup, _info,_images):
-	render(_images,None)
-	appli=True
-	y=780
+	ligne = 310
 
-	#on affiche le message du popup a l'écran
-	for i in range (5):
-		screen.blit(messageFontpetit.render(_info[i][0],True,(0,0,0)),(1000,y))
-		y=y+20
-	pygame.display.flip()
+	printLog(log, _images)
 
+	#mdp => champs de texte de chaque mot de passe à rentrer
+	mdp = ["", "", "", "", ""]
+	correctmdp = ["489a6282A", "arpanet", "0011 1001", "pbadC#gud", "adf0mh456"] #liste des mdp attendus
+	text = ""
+	currentInput = 0 #Current mot de passe modifié
+	input = None
+	output = False
+	appli = True
+	_continuer = True
 
-	while appli:
-		for event in pygame.event.get(): #Attente des événements
+	while appli :
+		ligne = 310 + currentInput*20
+		#Attente des événements
+		for event in pygame.event.get():
 			if event.type == QUIT:
 				_continuer = False
 				appli = False
-
-			#pour fermer le popup
 			elif event.type == MOUSEBUTTONDOWN:
-				if 1000<event.pos[0]<1090 and 860<event.pos[1]<880 and event.button == 1:
-					_images = render(_images,(iconpopup,iconpopup_coords) )
+				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "terminal" => quitte l'appli
+					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
+					return False, _continuer, "reinit"
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur "message" => quitte l'appli vers message
+					_images = render(_images, (fen_message, fen_message_coords))
+					appli=False
+					return False, _continuer, "reinit"
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					#Clic gauche sur la croix en bas à droite  => quitte le jeu
+					_continuer = False
+					return False, _continuer, "reinit"
+					
+			#Pour écrire
+			elif event.type == KEYDOWN:
+				if event.key == K_RETURN: #Si entrée appuyée
+					input = text #Récupérer la valeur entrée
+					text = '' #reset le champ d'entrée
+					mdp[currentInput] = input
+					log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
+					currentInput += 1
+					if currentInput < 5 :
+						log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
+					printLog(log, _images)
+				elif event.key == K_DOWN: #Si entrée appuyée
+					input = text #Récupérer la valeur entrée
+					text = '' #reset le champ d'entrée
+					mdp[currentInput] = input
+					log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
+					currentInput += 1
+					if currentInput < 5 :
+						log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
+					printLog(log, _images)
+				elif event.key == K_UP: #Si entrée appuyée
+					input = text #Récupérer la valeur entrée
+					text = '' #reset le champ d'entrée
+					mdp[currentInput] = input
+					log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
+					currentInput -= 1
+					if currentInput < 5 :
+						log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
+					printLog(log, _images)
+				elif event.key == K_BACKSPACE: #Si retour appuyé
+					text = text[:-1] #supprime dernier charactère
+					#Affichage \/
+					printLog(log, _images)
+					screen.blit(terminalFont.render(text, True, (0, 175, 0)), (313,ligne))
+					pygame.display.flip()
+				else: #sinon
+					if len("Mot de passe ? : > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
+						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
+					#Affichage \/
+					printLog(log, _images)
+					screen.blit(terminalFont.render(text, True, (0, 175, 0)), (313,ligne))
 					pygame.display.flip()
 
-	return _images, _popup
+		if currentInput > 4 :
+			#test si mdp sont bons
+			for i in range(len(mdp)) :
+				if mdp[i] != correctmdp[i] :
+					break
+				print("Youpi, we did, c'est gagné !!! tutututu Dora")
+				return False, False, ""
+			currentInput = 0
+			log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
+			log.append("")
+			log.append("Un ou plusieurs mot de passe est incorrect, vérifez l'ordre et l'orthographe")
+			printLog(log, _images)
 
+	return True, True, ""
 
 #=========================================================================#
 #======================= VARIABLES ET INITALISATIONS =====================#
@@ -1131,27 +1210,14 @@ fen_message = pygame.image.load("img/fen_message.png").convert()
 fen_message_dim = fen_message.get_size()
 fen_message_coords = ((screen_dim[0]-fen_message_dim[0])/2, (screen_dim[1]-fen_message_dim[1])/2)
 
-#Chargement de la case popup
-iconpopup = pygame.image.load("img/blanc.jfif").convert()
-iconpopup_dim = iconpopup.get_size()
-iconpopup_coords=(1000,750)
 
-#Chargement de l'image peinture
-peinture = pygame.image.load("img/peinture.png").convert()
-peinture_dim = peinture.get_size()
-peinture_coords = (490,240)
-
-
-images = [(peinture,peinture_coords),(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords),(iconpopup,iconpopup_coords)] #Prépare la liste pour l'affichage des éléments
+images = [(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords)] #Prépare la liste pour l'affichage des éléments
 pygame.key.set_repeat(400, 30) #Active la possibilité de rester appuyer sur une touche
+
 
 #=========================================================================#
 #=================================== JEU =================================#
 #=========================================================================#
-g_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss"], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["Cliquez ICI pour le fermer"]]
-images, iconpopup = popup(iconpopup, g_info, images)
-
-
 continuer = True
 while continuer :
 	#Gestion des événements
@@ -1176,8 +1242,10 @@ while continuer :
 	pygame.display.flip()
 	#Appel des fonctions associés à l'application en premier plan
 	if images[len(images)-1][0] == fen_terminal:
-		images, continuer, g_path, g_log, g_ligne, g_text, g_isJarvisUsed = Terminal(images, g_path, g_log, g_ligne, g_text, g_isJarvisUsed)
+		images, continuer, g_path, g_log, g_ligne, g_text, g_isJarvisUsed = Terminal(images, g_path, g_log, g_ligne, g_text, g_appUsed)
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages, g_compte = message(images, messages, g_compte)
 
+if g_gagne :
+	print("Youpi, we did, c'est gagné !!! tutututu Dora")
 pygame.quit()
