@@ -454,7 +454,13 @@ def jarvis(_images) :
 		("Bonjour ddOS, que puis-je faire pour vous ?", ("  1 - Je veux les codes", "  2 - Rien du tout, au revoir"), "qcm"),
 		("Pour récupérer les codes, veuillez répondre aux questions de sécurité", ("  1 - Oui", "  2 - Non"), "qcm"),
 		("Première question : Quel est le nom de votre premier animal de compagnie ?", (), "text"),
-		("Questions de sécurités répondues, voici le code n°2 : [code]", ("  1 - Merci !", "  2 - Au revoir"), "qcm")
+		("Deuxième question : Quelle a été l'école dans laquelle vous avez étudié ?", (), "text"),
+		("Troisième question : Quelle est la date de création de Jarvis ?", (), "text"),
+		("Quatrième question : Quelle est votre musique préférée", (), "text"),
+		("Cinquième question : Quel votre fruit préféré ?", (), "text"),
+		("Sixième question : Où étiez-vous durant les dernières vacances ?", (), "text"),
+		("Septième question : Quelle était votre dernière profession ?", (), "text"),
+		("Questions de sécurités répondues, voici le code n°1 : 489a6282A", ("  1 - Merci !", "  2 - Au revoir"), "qcm")
 	]
 	answer = "Réponse n°"
 	text = ""
@@ -517,33 +523,87 @@ def jarvis(_images) :
 			
 		#Tests des réponses
 		if input != None :
-			if current_dialogue == 0 : #Si dialogue 1
+			if current_dialogue == 0 : #Si dialogue 1 "Que puis-je faire pour vous ?"
 				if input == "1" :
-					current_dialogue = 1
+					current_dialogue += 1
 					output = True
 				elif input == "2" :
 					return True, True, False
 				else : 
 					output = False
-			elif current_dialogue == 1 : #Si dialogue 2
+			elif current_dialogue == 1 : #Si dialogue 2 "Veuillez répoondre aux question de sécurité"
 				if input == "1" :
-					current_dialogue = 2
+					current_dialogue += 1
 					output = True
 				elif input == "2" :
-					current_dialogue = 0
+					current_dialogue -= 1
 					output = True
 				else :
 					output = False
-			elif current_dialogue == 2 : #Si dialogue 3
+			elif current_dialogue == 2 : #Si dialogue 3 "Premier animal de compagnie"
 				if input == "Glad0s" :
-					current_dialogue = 3
+					current_dialogue += 1
 					output = True
 				elif input == "back" :
 					current_dialogue = 1
 					output = True
 				else : 
 					output = False
-			elif current_dialogue == 3 : #Si dialogue 3
+			elif current_dialogue == 3 : #Si dialogue 4 "École"
+				if input == "École 42" or input == "école 42" or input == "42" :
+					current_dialogue += 1
+					output = True
+				elif input == "back" :
+					current_dialogue = 1
+					output = True
+				else : 
+					output = False
+			elif current_dialogue == 4 : #Si dialogue 5 "Création de Jarvis"
+				if input == "9 janvier 2020" or input == "9/01/2020" or input == "09/01/2020" :
+					current_dialogue += 1
+					output = True
+				elif input == "back" :
+					current_dialogue = 1
+					output = True
+				else : 
+					output = False
+			elif current_dialogue == 5 : #Si dialogue 6 "Musique préférée"
+				if input == "Black Catcher" or input == "black catcher" or input == "Black catcher" :
+					current_dialogue += 1
+					output = True
+				elif input == "back" :
+					current_dialogue = 1
+					output = True
+				else : 
+					output = False
+			elif current_dialogue == 6 : #Si dialogue 7 "Fruit préféré"
+				if input == "Durian" or input == "durian" or input == "DURIAN" :
+					current_dialogue += 1
+					output = True
+				elif input == "back" :
+					current_dialogue = 1
+					output = True
+				else : 
+					output = False
+			elif current_dialogue == 7 : #Si dialogue 8 "Dernières vacances"
+				if input == "Brest" or input == "brest" or input == "BREST" :
+					current_dialogue += 1
+					output = True
+				elif input == "back" :
+					current_dialogue = 1
+					output = True
+				else : 
+					output = False
+			elif current_dialogue == 8 : #Si dialogue 9 "Ancienne profession"
+				if input == "Concierge" or input == "concierge" :
+					current_dialogue += 1
+					output = True
+				elif input == "back" :
+					current_dialogue = 1
+					output = True
+				else : 
+					output = False
+			elif current_dialogue == 9 : #Si dialogue 10 "Voilà le code"
 				if input == "1" :
 					current_dialogue = 0
 					output = True
