@@ -6,13 +6,6 @@ files = {'C:':{'Documents':{}, 'Images':{}, 'Téléchargements':{}, 'Musique':{}
 g_path = ""
 g_log = []
 g_ligne = 290
-#<temporaire>
-g_log.append("Ce message est temporaire, il sera plus tard supprimé")
-g_log.append("Code du PC : 111221")
-g_log.append("Réponse à la seule question de sécurité : Glad0s")
-g_log.append("")
-g_ligne+=80
-#</temporaire>
 g_log.append("Username : 1 11 21 1211")
 g_text = ""
 g_appUsed = ""
@@ -37,9 +30,9 @@ def render(toBlit, firstPlan) :
 				del toBlit[i]
 				break
 		toBlit.append(firstPlan)
-	#afficher les _imageses dans l'ordre croissant
-	for _imagese in toBlit:
-		screen.blit(_imagese[0], _imagese[1])
+	#afficher les _images dans l'ordre croissant
+	for image in toBlit:
+		screen.blit(image[0], image[1])
 	return toBlit
 
 #=========================================================================#
@@ -647,10 +640,12 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 	appli = True #Condition pour la boucle principale
 	_continuer = True #Valeur qui sera retournée lors de la sortie de l'application pour stopper ou non le jeu
 	input=None #Utile plus tard pour regarder ce qui a été entré au clavier
-	if appUsed == "jarvis" : input = "appli jarvis"
-	if appUsed == "reinit" : input = "appli reinit"
+	if appUsed != "" : 
+		appUsed = appUsed.split(';')
+		if appUsed[0] == "jarvis" : input = "appli jarvis"
+		elif appUsed[0] == "reinit" : input = "appli reinit"
 	printLog(log, _images) #Affiche les logs (valeur de log récupérée depuis les paramètres de la fonction
-	screen.blit(terminalFont.render(path+" > "+text, True, (0, 175, 0)), (125,ligne))
+	screen.blit(terminalFont.render(path+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 	pygame.display.flip()
 	#Boucle de qui fait tourner l'appli
 	while appli :
@@ -686,21 +681,21 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 					text = text[:-1] #supprime dernier charactère
 					#Affichage \/
 					printLog(log, _images)
-					screen.blit(terminalFont.render(path+" > "+text, True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render(path+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 				else: #sinon
 					if len(path+" > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 					#Affichage \/
 					printLog(log, _images)
-					screen.blit(terminalFont.render(path+" > "+text, True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render(path+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 		
 		#interface de login (premier lancer de terminal ou "exit")		
 		if path == "" :
 			firstBoucle = True
 			printLog(log, _images)
-			screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
+			screen.blit(terminalFont.render("Password : "+text+"_", True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
 			while firstBoucle :
 				for event in pygame.event.get(): #Attente des événements
@@ -741,14 +736,14 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 							text = text[:-1] #supprime dernier charactère
 							#Affichage \/
 							printLog(log, _images)
-							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
+							screen.blit(terminalFont.render("Password : "+text+"_", True, (0, 175, 0)), (125,ligne))
 							pygame.display.flip()
 						else: #sinon
 							if len("Password : "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
 								text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 							#Affichage \/
 							printLog(log, _images)
-							screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
+							screen.blit(terminalFont.render("Password : "+text+"_", True, (0, 175, 0)), (125,ligne))
 							pygame.display.flip()
 				if input == "111221" : #Si le bon mot de passe est entré
 					#Accès au PC \/
@@ -759,14 +754,14 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 					input = None
 					log, ligne = scrolling(log, ligne, _images, path)
 					printLog(log, _images)
-					screen.blit(terminalFont.render(path+" > ", True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render(path+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					break
 				elif input != None: #Sinon rien faire
 					log.append("Mot de passe incorrect")
 					ligne+=20
 					printLog(log, _images)
-					screen.blit(terminalFont.render("Password : "+text, True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render("Password : "+text+"_", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 					input = None
 					
@@ -810,17 +805,20 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 			#appli \/
 			elif input[0] == "appli" :
 				if input[1] == "jarvis":
-					log = []
-					ligne = 270
-					appli, _continuer, appUsed = jarvis(_images)
+					if type(appUsed) == list : 
+						s=appUsed[-1];
+					else : 
+						s=0
+					appli, _continuer, appUsed = jarvis(_images, int(s))
 					printLog(log, _images)
-				if input[1] == "reinit":
-					log = []
-					ligne = 270
-					appli, _continuer, appUsed = reinitialiser(_images)
+				elif input[1] == "reinit":
+					if type(appUsed) == list : 
+						appli, _continuer, appUsed = reinitialiser(_images, appUsed[1])
+					else : 
+						appli, _continuer, appUsed = reinitialiser(_images, ",,,,")
 					printLog(log, _images)
 				else :
-					log.append("Executable non trouvé")
+					log.append("Application inexistante")
 					ligne+=20
 					printLog(log, _images)
 			#ouvrir des fichiers ou programmes depuis le path actuel \/
@@ -834,13 +832,9 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 				for item in items :
 					if extension_de_l_input[1] == "exe" and item[1] == "exe" : #si executable détecté
 						if item[0] == "jarvis.exe" and input[0] == "jarvis.exe" : #lance jarvis
-							log = []
-							ligne = 270
-							appli, _continuer, appUsed = jarvis(_images)
+							appli, _continuer, appUsed = jarvis(_images, 0)
 						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" : #lance réinitialiser
-							log = []
-							ligne = 270
-							appli, _continuer, appUsed = reinitialiser(_images)
+							appli, _continuer, appUsed = reinitialiser(_images, ",,,,")
 						else : #message d'erreur
 							log.append("Executable non trouvé") 
 							ligne+=20
@@ -856,21 +850,21 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 						printLog(log, _images)
 						break
 						
-			screen.blit(terminalFont.render(path+" > ", True, (0, 175, 0)), (125,ligne))
+			screen.blit(terminalFont.render(path+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
 			input = None
 			log, ligne = scrolling(log, ligne, _images, path)
 
 	return _images, _continuer, path, log, ligne, text, appUsed
 
-def jarvis(_images) :
+def jarvis(_images, step) :
 	"""Progamme qui tourne dans le terminal, assistant IA du hacker"""
 	#Se référer aux déclarations de variables de Terminal pour comprendre celles-ci
 	log = []
 	ligne = 270
 	dialogues = [ #pour chaque tuple 't' de la liste : 
 				  #t[0] => Messages de l'IA  |  t[1] => tuple contenants les réponses disponibles si t[2] = "qcm"  |  t[2] => type de réponse attendue
-		("Bonjour ddOS, que puis-je faire pour vous ?", ("  1 - Je veux les codes", "  2 - Rien du tout, au revoir"), "qcm"),
+		("Bonjour ddOS, que puis-je faire pour vous ? ('escape' à tout moment pour quitter)", ("  1 - Je veux les codes", "  2 - Rien du tout, au revoir"), "qcm"),
 		("Pour récupérer les codes, veuillez répondre aux questions de sécurité", ("  1 - Oui", "  2 - Non"), "qcm"),
 		("Première question : Quel est le nom de votre premier animal de compagnie ?", (), "text"),
 		("Deuxième question : Quelle a été l'école dans laquelle vous avez étudié ?", (), "text"),
@@ -889,10 +883,10 @@ def jarvis(_images) :
 	_continuer = True
 
 	#Affiche le premier dialogue \/
-	current_dialogue = 0
+	current_dialogue = step
 	log, ligne = printDialogue(log, ligne, dialogues[current_dialogue])
 	printLog(log, _images)
-	screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+	screen.blit(terminalFont.render(answer+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 	pygame.display.flip()
 
 	while appli :
@@ -906,16 +900,16 @@ def jarvis(_images) :
 					#Clic sur gauche sur "terminal" => quitte l'appli
 					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
-					return False, _continuer, "jarvis"
+					return False, _continuer, "jarvis;"+str(current_dialogue)
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur "message" => quitte l'appli vers message
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-					return False, _continuer, "jarvis"
+					return False, _continuer, "jarvis;"+str(current_dialogue)
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu
 					_continuer = False
-					return False, _continuer, "jarvis"
+					return False, _continuer, "jarvis;"+str(current_dialogue)
 					
 			#Pour écrire dans le terminal
 			elif event.type == KEYDOWN:
@@ -930,14 +924,16 @@ def jarvis(_images) :
 					text = text[:-1] #supprime dernier charactère
 					#Affichage \/
 					printLog(log, _images)
-					screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render(answer+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
+				elif event.key == K_ESCAPE : 
+					return True, True, ""
 				else: #sinon
 					if len(answer+" > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 					#Affichage \/
 					printLog(log, _images)
-					screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+					screen.blit(terminalFont.render(answer+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 			
 		#Tests des réponses
@@ -1039,12 +1035,12 @@ def jarvis(_images) :
 
 			#Si output = True alors afficher la question entière
 			if output == True :
-				log.append("")
-				ligne+=20
+				log = []
+				ligne = 270
 				log, ligne = printDialogue(log, ligne, dialogues[current_dialogue])
 				log, ligne = scrolling(log, ligne, _images, answer)
 				printLog(log, _images)
-				screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+				screen.blit(terminalFont.render(answer+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 				pygame.display.flip()
 				output = False
 			else : #Sinon afficher juste la ligne
@@ -1052,36 +1048,45 @@ def jarvis(_images) :
 					log.append("Réponse invalide, veuillez entrer un des chiffres proposés")
 					ligne+=20
 				elif dialogues[current_dialogue][2] == "text" :
-					log.append("Réponse invalide")
+					log.append("Mauvaise réponse")
 					ligne+=20
 				printLog(log, _images)
-				screen.blit(terminalFont.render(answer+" > "+text, True, (0, 175, 0)), (125,ligne))
+				screen.blit(terminalFont.render(answer+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 				pygame.display.flip()
 
 			input = None
 					
 	return True, _continuer, ""
 
-def reinitialiser(_images) :
+def reinitialiser(_images, m) :
 	"""Progamme qui tourne dans le terminal, permet de reinitialiser le PC du hacker (nécessite les 5 codes)"""
 	#Se référer aux déclarations de variables de Terminal pour comprendre celles non expliquées
 	log = []
 	log.append("Pour réinitialiser l'ordinateur, veuillez rentrer les mots de passe de sécurité")
+	log.append("'escape' pour quitter l'application")
 	log.append("")
 	log.append("Mot de passe 1 : ")
 	log.append("Mot de passe 2 : ")
 	log.append("Mot de passe 3 : ")
 	log.append("Mot de passe 4 : ")
 	log.append("Mot de passe 5 : ")
+	log.append("")
+	log.append("")
 	
-	ligne = 310
+	ligne = 330
 
 	printLog(log, _images)
 
 	#mdp => champs de texte de chaque mot de passe à rentrer
-	mdp = ["", "", "", "", ""]
+	mdp = m.split(',')
+	for i in range(len(mdp)) :
+		if i != 0 :
+			log[3+i] = "Mot de passe "+str(i+1)+" : "+mdp[i]
+	printLog(log, _images)
 	correctmdp = ["489a6282A", "arpanet", "0011 1001", "pbadC#gud", "adf0mh456"] #liste des mdp attendus
-	text = ""
+	text = mdp[0]
+	screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
+	pygame.display.flip()
 	currentInput = 0 #Current mot de passe modifié
 	input = None
 	output = False
@@ -1089,7 +1094,7 @@ def reinitialiser(_images) :
 	_continuer = True
 
 	while appli :
-		ligne = 310 + currentInput*20
+		ligne = 330 + currentInput*20
 		#Attente des événements
 		for event in pygame.event.get():
 			if event.type == QUIT:
@@ -1100,58 +1105,62 @@ def reinitialiser(_images) :
 					#Clic sur gauche sur "terminal" => quitte l'appli
 					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
-					return False, _continuer, "reinit"
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur "message" => quitte l'appli vers message
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-					return False, _continuer, "reinit"
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu
 					_continuer = False
-					return False, _continuer, "reinit"
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
 					
 			#Pour écrire
 			elif event.type == KEYDOWN:
-				if event.key == K_RETURN: #Si entrée appuyée
-					input = text #Récupérer la valeur entrée
-					text = '' #reset le champ d'entrée
-					mdp[currentInput] = input
-					log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
-					currentInput += 1
-					if currentInput < 5 :
-						log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
-					printLog(log, _images)
-				elif event.key == K_DOWN: #Si entrée appuyée
-					input = text #Récupérer la valeur entrée
-					text = '' #reset le champ d'entrée
-					mdp[currentInput] = input
-					log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
-					currentInput += 1
-					if currentInput < 5 :
-						log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
-					printLog(log, _images)
-				elif event.key == K_UP: #Si entrée appuyée
-					input = text #Récupérer la valeur entrée
-					text = '' #reset le champ d'entrée
-					mdp[currentInput] = input
-					log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
-					currentInput -= 1
-					if currentInput < 5 :
-						log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
-					printLog(log, _images)
+				log[9] = ""
+				if event.key == K_RETURN or event.key == K_DOWN : #Si entrée ou flèche bas appuyée
+					if currentInput < 4 :
+						input = text #Récupérer la valeur entrée
+						mdp[currentInput] = input
+						log[3+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
+						currentInput += 1
+						text = mdp[currentInput]
+						ligne = 330 + currentInput*20
+						log[3+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
+						printLog(log, _images)
+						screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
+						pygame.display.flip()
+					else :
+						log[3+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
+						currentInput += 1
+				elif event.key == K_UP: #Si flèche haut appuyée
+					if currentInput > 0 :
+						input = text #Récupérer la valeur entrée
+						mdp[currentInput] = input
+						log[3+currentInput] = "Mot de passe "+str(1+currentInput)+" : "+mdp[currentInput]
+						currentInput -= 1
+						text = mdp[currentInput]
+						ligne = 330 + currentInput*20
+						log[3+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
+						printLog(log, _images)
+						screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
+						pygame.display.flip()
 				elif event.key == K_BACKSPACE: #Si retour appuyé
 					text = text[:-1] #supprime dernier charactère
 					#Affichage \/
 					printLog(log, _images)
-					screen.blit(terminalFont.render(text, True, (0, 175, 0)), (313,ligne))
+					screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 					pygame.display.flip()
+				elif event.key == K_ESCAPE : 
+					return True, True, ""
 				else: #sinon
 					if len("Mot de passe ? : > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 					#Affichage \/
+					mdp[currentInput] = text
 					printLog(log, _images)
-					screen.blit(terminalFont.render(text, True, (0, 175, 0)), (313,ligne))
+					screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 					pygame.display.flip()
 
 		if currentInput > 4 :
@@ -1159,13 +1168,15 @@ def reinitialiser(_images) :
 			for i in range(len(mdp)) :
 				if mdp[i] != correctmdp[i] :
 					break
-				print("Youpi, we did, c'est gagné !!! tutututu Dora")
-				return False, False, ""
+				return False, False, "win" #victoire
 			currentInput = 0
-			log[2+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
-			log.append("")
-			log.append("Un ou plusieurs mot de passe est incorrect, vérifez l'ordre et l'orthographe")
+			text = mdp[currentInput]
+			ligne = 330 + currentInput*20
+			log[3+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
+			log[9] = "Un ou plusieurs mot de passe sont incorrects, vérifez l'ordre et l'orthographe"
 			printLog(log, _images)
+			screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
+			pygame.display.flip()
 
 	return True, True, ""
 
@@ -1242,10 +1253,10 @@ while continuer :
 	pygame.display.flip()
 	#Appel des fonctions associés à l'application en premier plan
 	if images[len(images)-1][0] == fen_terminal:
-		images, continuer, g_path, g_log, g_ligne, g_text, g_isJarvisUsed = Terminal(images, g_path, g_log, g_ligne, g_text, g_appUsed)
+		images, continuer, g_path, g_log, g_ligne, g_text, g_appUsed = Terminal(images, g_path, g_log, g_ligne, g_text, g_appUsed)
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages, g_compte = message(images, messages, g_compte)
 
-if g_gagne :
-	print("Youpi, we did, c'est gagné !!! tutututu Dora")
+if g_appUsed == "win" :
+	print("Victoire")
 pygame.quit()
