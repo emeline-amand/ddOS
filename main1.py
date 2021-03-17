@@ -2,7 +2,125 @@ import pygame, os, math
 from pygame.locals import *
 
 #Pour l'appli terminal
-files = {'C:':{'Documents':{}, 'Images':{}, 'Téléchargements':{}, 'Musique':{}, 'Videos':{}, 'Applications':{'jarvis.exe':'exe', 'Paramètres':{'reinitialiser.exe':'exe'}}}}
+files = {'C:':{
+	'Documents':{
+		'Programmation':{
+			'Projet_JARVIS':{
+				'info_techiques.txt':'txt',
+				'.info_technique':{
+					'PROJET JARVIS',
+					'',
+					'Date de création : 9 janvier 2020',
+					'Jarvis est un assistant intelligent capable de m\'aider dans',
+					'mes affaires et me permettre de mieux gérer mon temps de ',
+					'travail, notemment lors de mes activités illégales.'
+				}
+			}
+		}
+	}, 
+	'Images':{}, 
+	'Téléchargements':{}, 
+	'Musique':{
+		'Favoris':{
+			'Black Catcher - Vickeblanka':'mp3',
+			'Rapid as Wildfires - HOYO-MIX':'mp3',
+			'Overwhelmed - Royal & the Serpent':'mp3',
+			'Do Bad Well - KSHMR':'mp3',
+			'Eternal Eleanor - Elvenking':'mp3',
+			'Jazz Bar - Dreamcatcher':'mp3',
+			'Kings - Tribe Society':'mp3',
+			'The Time Is Now - Atreyu':'mp3',
+			'Prey - Parkway Drive':'mp3',
+			'Gasoline - I Prevail':'mp3',
+			'Popular Monster - Falling in reverse':'mp3'
+		},
+		'Playlists':{
+			'Fish_in_a_Bird_Cage':{
+				'Rule #1 | Magic':'mp3',
+				'Rule #2 | Moonlight':'mp3',
+				'Rule #3 | Paperwork':'mp3',
+				'Rule #4 | Fish in a Bridcage':'mp3',
+				'Rule #5 | James Picard':'mp3',
+				'Rule #7 | Angel Tango':'mp3',
+				'Rule #8 | Otherside':'mp3',
+				'Rule #9 | Child of the stars':'mp3',
+				'Rule #10 | Roots':'mp3'
+			},
+			'Evlenking':{
+				'Pagan Revolution':'mp3',
+				'No Prayer for the Dying':'mp3',
+				'The Divided Heart':'mp3',
+				'Heaven Is a Place on Earth':'mp3',
+				'Silverseal':'mp3',
+				'Under the Sign of a Black Star':'mp3',
+				'Elvenlegions':'mp3',
+				'The One We Shall Follow':'mp3',
+				'Heathen Divide':'mp3',
+				'Seasonspeech':'mp3',
+				'Black Roses for the Wicked One':'mp3'
+			},
+			'Slipknot':{
+				'Duality':'mp3',
+				'Before I Forget':'mp3',
+				'Unsainted':'mp3',
+				'The Devil in I':'mp3',
+				'Psychosocial':'mp3',
+				'Wait and Bleed':'mp3',
+				'Snuff':'mp3',
+				'Nero Forte':'mp3',
+				'Vermilion, Pt. 2':'mp3',
+				'All Out Life':'mp3',
+				'Dead Memories':'mp3'
+			},
+			'Gloryhammer':{
+				'Masters of the Galaxy':'mp3',
+				'The Land of the Unicorns':'mp3',
+				'Gloryhammer':'mp3',
+				'Hootforce':'mp3',
+				'Battel for Eternity':'mp3',
+				'Universe on Fire':'mp3',
+				'Apocalypse 1992':'mp3',
+				'Magic Dragon':'mp3',
+				'Angus Mcfife':'mp3'
+			},
+			'Dreamcatcher':{
+				'Deja Vu':'mp3',
+				'PIRI':'mp3',
+				'You and I':'mp3',
+				'And ther was no one left':'mp3',
+				'Jazz Bar':'mp3',
+				'Diamond':'mp3',
+				'Chase Me':'mp3',
+				'Black or White':'mp3',
+				'SAHARA':'mp3',
+				'I Miss You':'mp3',
+				'Sleep-walking':'mp3'
+			},
+			'Twenty_One_Pilots':{
+				'Stressed Out':'mp3',
+				'Ride':'mp3',
+				'Chlorine':'mp3',
+				'Car Radio':'mp3',
+				'Heavydirtysoul':'mp3',
+				'The Judge':'mp3',
+				'The Hype':'mp3',
+				'Lane Boy':'mp3',
+				'House of Gold':'mp3',
+				'Nico and the Niners':'mp3',
+				'Goner':'mp3',
+				'Cut My Lip':'mp3',
+				'Bandito':'mp3',
+				'Neon Gravestones':'mp3'
+			}
+		},
+		
+	}, 
+	'Videos':{}, 
+	'Applications':{
+		'jarvis.exe':'exe', 
+		'Paramètres':{'reinitialiser.exe':'exe'}
+	}
+}}
 g_path = ""
 g_log = []
 g_ligne = 290
