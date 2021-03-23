@@ -4,18 +4,29 @@ from pygame.locals import *
 #Pour l'appli terminal
 files = {'C:':{
 	'Documents':{
+		'Travail':{
+
+		},
 		'Programmation':{
+			'Blog_perso':'locked',
 			'Projet_JARVIS':{
-				'info_techiques.txt':'txt',
-				'.info_technique':{
+				'info_techniques.txt':'txt', #fichiers qui sera affiché lors de 'dir'
+				'info_techniques.txt.':[ #fichier fantôme qui sera caché mais contient le contenu du txt
+					'info_techniques.txt',
+					'Faire ESC pour quitter',
+					'',
+					'================================================================================',
 					'PROJET JARVIS',
 					'',
 					'Date de création : 9 janvier 2020',
-					'Jarvis est un assistant intelligent capable de m\'aider dans',
-					'mes affaires et me permettre de mieux gérer mon temps de ',
-					'travail, notemment lors de mes activités illégales.'
-				}
-			}
+					'Jarvis est un assistant intelligent capable de m\'aider dans mes affaires',
+					'Il me permettre de mieux gérer mon temps de travail, notemment lors de mes',
+					'activités illégales.'
+				],
+				'Fichiers':'locked',
+			},
+			'Sudoku':'locked',
+			'Project_Δ':'locked',
 		}
 	}, 
 	'Images':{}, 
@@ -709,19 +720,47 @@ def cd(_path, target) :
 		_path = _path[:_path.rfind('/')]
 		if _path  == 'C:' : #Si déjà au minimum alors
 			_path += '/' #Réajoute le '/' de fin uniquement présent au dossier racine de l'arbre
-			return _path, False
+			return _path, True
 		return _path, True
 	else : #sinon avancer d'un dossier
-		exist = False
-		for key in goto(_path).keys() : #Regarde si dossier cible existe
-			if key == target :
-				exist = True
-		if not exist : # s'il n'existe pas
-			return _path, False # fin, rien ne se passe
-		if _path  == 'C:/' : #Si à la racine alors
-			_path = _path[:len(_path)-1] #retire le '/' de fin uniquement présent au dossier racine de l'arbre
-		_path = _path+'/'+target #Enfin, ajoute le dossier cible au chemin
+		target = target.split('/')
+		for t in target :
+			exist = False
+			for key in goto(_path).keys() : #Regarde si dossier cible existe
+				if key == t :
+					exist = True
+			if not exist : # s'il n'existe pas
+				return _path, False # fin, rien ne se passe
+			if _path  == 'C:/' : #Si à la racine alors
+				_path = _path[:len(_path)-1] #retire le '/' de fin uniquement présent au dossier racine de l'arbre
+			_path = _path+'/'+t #Enfin, ajoute le dossier cible au chemin
 		return _path, True
+
+def openTXT(open, _images) :
+	'''Permet d'ouvrir et lire des txt dans la console'''
+	printLog(open, images)
+	while True :
+		#Attente des événements
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				return False, False, ""
+			elif event.type == MOUSEBUTTONDOWN:
+				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "terminal" => quitte l'appli
+					_images = render(_images, (fen_terminal, fen_terminal_coords))
+					return False, True, "txt;"+open[0]
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur "message" => quitte l'appli vers message
+					_images = render(_images, (fen_message, fen_message_coords))
+					return False, True, "txt;"+open[0]
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					#Clic gauche sur la croix en bas à droite  => quitte le jeu
+					return False, False, ""
+					
+			#Pour écrire dans le terminal
+			elif event.type == KEYDOWN:
+				if event.key == K_ESCAPE : 
+					return True, True, ""
 
 def ls(_path) :
 	'''Renvoie des listes contenants les clefs et valeurs d'un dictionnaire'''
@@ -736,7 +775,7 @@ def scrolling(_log, _ligne, _images, _path) :
 		_ligne -=20
 	#Afficher les logs corrigées
 	printLog(_log, _images)
-	screen.blit(terminalFont.render(_path+" > ", True, (0, 175, 0)), (125,_ligne))
+	screen.blit(terminalFont.render(_path+" > _", True, (0, 175, 0)), (125,_ligne))
 	pygame.display.flip()
 	return _log, _ligne
 
@@ -762,6 +801,7 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 		appUsed = appUsed.split(';')
 		if appUsed[0] == "jarvis" : input = "appli jarvis"
 		elif appUsed[0] == "reinit" : input = "appli reinit"
+		elif appUsed[0] == "txt" : input = appUsed[1]
 	printLog(log, _images) #Affiche les logs (valeur de log récupérée depuis les paramètres de la fonction
 	screen.blit(terminalFont.render(path+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 	pygame.display.flip()
@@ -802,7 +842,7 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 					screen.blit(terminalFont.render(path+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 					pygame.display.flip()
 				else: #sinon
-					if len(path+" > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
+					if len(path+" > "+text)<93 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 					#Affichage \/
 					printLog(log, _images)
@@ -857,7 +897,7 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 							screen.blit(terminalFont.render("Password : "+text+"_", True, (0, 175, 0)), (125,ligne))
 							pygame.display.flip()
 						else: #sinon
-							if len("Password : "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
+							if len("Password : "+text)<93 : #si la ligne ne dépasse pas la longueur maximale du terminal
 								text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 							#Affichage \/
 							printLog(log, _images)
@@ -894,7 +934,10 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 				log.append("")
 				for i in range(len(keys)) :
 					if type(contents[i]) == dict : log.append("dossier --- "+str(keys[i]))
+					elif type(contents[i]) == list : ligne -= 20
+					elif type(contents[i]) == str and contents[i] == "locked": log.append("dossier --- [LOCKED]"+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "exe": log.append("executable --- "+str(keys[i]))
+					elif type(contents[i]) == str and contents[i] == "png": log.append("image --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "mp3": log.append("musique --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "mp4": log.append("video --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "txt": log.append("texte --- "+str(keys[i]))
@@ -958,13 +1001,21 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 							ligne+=20
 							printLog(log, _images)
 							break
+					elif extension_de_l_input[1] == "txt" and item[1] == "txt" : #si txt détecté
+						if item[0] == input[0] :
+							appli, _continuer, appUsed = openTXT(goto(path+"/"+item[0]+"."), _images)
+							break
 					else : #message d'erreur
 						if extension_de_l_input[1] == "exe" :
 							log.append("Executable non trouvé")
+							ligne+=20
+						elif extension_de_l_input[1] == "txt" :
+							log.append("Fichier texte non trouvé")
+							ligne+=20
 						else :
 							log.append("Commande inexistante")
 							log.append("Une application sera bientôt disponible pour vous fournir de l'aide")
-						ligne+=40
+							ligne+=40
 						printLog(log, _images)
 						break
 						
@@ -1047,7 +1098,7 @@ def jarvis(_images, step) :
 				elif event.key == K_ESCAPE : 
 					return True, True, ""
 				else: #sinon
-					if len(answer+" > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
+					if len(answer+" > "+text)<93 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 					#Affichage \/
 					printLog(log, _images)
@@ -1201,7 +1252,7 @@ def reinitialiser(_images, m) :
 		if i != 0 :
 			log[3+i] = "Mot de passe "+str(i+1)+" : "+mdp[i]
 	printLog(log, _images)
-	correctmdp = ["489a6282A", "arpanet", "0011 1001", "pbadC#gud", "adf0mh456"] #liste des mdp attendus
+	correctmdp = ["489a6282A", "arpanet", "0000 1001", "pbadC#gud", "adf0mh456"] #liste des mdp attendus
 	text = mdp[0]
 	screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 	pygame.display.flip()
@@ -1273,7 +1324,7 @@ def reinitialiser(_images, m) :
 				elif event.key == K_ESCAPE : 
 					return True, True, ""
 				else: #sinon
-					if len("Mot de passe ? : > "+text)<80 : #si la ligne ne dépasse pas la longueur maximale du terminal
+					if len("Mot de passe ? : > "+text)<93 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
 					#Affichage \/
 					mdp[currentInput] = text
@@ -1307,7 +1358,7 @@ pygame.font.init()
 #Polices
 messageFont = pygame.font.SysFont('Arial', 30)
 messageFontpetit = pygame.font.SysFont('Arial', 20)
-terminalFont = pygame.font.Font('img/SLC_.ttf', 23)
+terminalFont = pygame.font.Font('img/callCode.ttf', 20)
 
 #Ouverture de la fenêtre Pygame
 w = math.floor(pygame.display.Info().current_w/2-1280/2) #Calcule les coordonnées de la fenetre pygame en fonction de la taille de l'écran
