@@ -4,13 +4,33 @@ from pygame.locals import *
 #Pour l'appli terminal
 files = {'C:':{
 	'Documents':{
-		'Travail':{
-
+		'Important':{
+			'motsdepasses.txt':'txt',
+			'motsdepasses.txt.':[
+				'motsdepasses.txt',
+				'Faire ESC pour quitter',
+				'',
+				'================================================================================',
+				'shjkeuiOE',
+				'a..0m..5.',
+				'agfOsh48t',
+				'adf0g5ec',
+				'adf0mh456',
+				'a8g0drd5o',
+				'alrlsblus',
+				'@5gOwzf5e',
+				'af00my5z',
+				'hZeOme15e',
+				'af0mse5p',
+				'zfs0m345e',
+			],
+			'adresses_IP_volés':'locked',
+			'Émilie':'locked',
 		},
 		'Programmation':{
 			'Blog_perso':'locked',
 			'Projet_JARVIS':{
-				'info_techniques.txt':'txt', #fichiers qui sera affiché lors de 'dir'
+				'info_techniques.txt':'txt', #fichier qui sera affiché lors de 'dir'
 				'info_techniques.txt.':[ #fichier fantôme qui sera caché mais contient le contenu du txt
 					'info_techniques.txt',
 					'Faire ESC pour quitter',
@@ -27,10 +47,37 @@ files = {'C:':{
 			},
 			'Sudoku':'locked',
 			'Project_Δ':'locked',
-		}
+		},
+		'Travail':'locked',
+		'Cuisine':{
+			'Recettes':{
+				'COte DE porc aux 2 saisons.png':'png',
+				'lAsagNe.png':'png',
+				'Curry_et_poulEt.png':'png',
+				'TaRte_aux_pommEs.png':'png',
+				'tIramisu.png':'png',
+				'kouigN_amann.png':'png',
+				'hoTtEok.png':'png',
+				'churRos.png':'png',
+				'chili_coN_carne.png':'png',
+				'ecrevissE panée.png':'png',
+				'tagliatelles de carotte au soja et haricoT.png':'png',
+			},
+			'Résultats':'locked',
+		},
 	}, 
-	'Images':{}, 
-	'Téléchargements':{}, 
+	'Images':{
+		'Jin.png':'png',
+		'San.png':'png',
+		'Hyunjin.png':'png',
+		'RM.png':'png',
+		'J-hope.png':'png',
+		'Jungkook.png':'png',
+		'Kai.png':'png',
+		'Ni_Ki.png':'png',
+		'Woo_Yung.png':'png',
+	}, 
+	'Téléchargements':'locked', 
 	'Musique':{
 		'Favoris':{
 			'Black Catcher - Vickeblanka':'mp3',
@@ -126,7 +173,16 @@ files = {'C:':{
 		},
 		
 	}, 
-	'Videos':{}, 
+	'Videos':{
+		'Twenty_One_Pilot_Vessel_concert.mp4':'mp4',
+		'ATEEZ_meme_compilation.mp4':'mp4',
+		'Make_A_Wish_dance_practice.mp4':'mp4',
+		'Lucifer_Sinee_dance_practice.mp4':'mp4',
+		'Interview_spéciale_Jeremy_Berthelemy.mp4':'mp4',
+		'La_vérité_sur_le_drama_Vache_Qui_Rit.mp4':'mp4',
+		'Comment_sont_élevés_les_émeux.mp4':'mp4',
+		'Tuto_Programmer_en_C--.mp4':'mp4',
+	}, 
 	'Applications':{
 		'jarvis.exe':'exe', 
 		'Paramètres':{'reinitialiser.exe':'exe'}
@@ -821,6 +877,10 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 					#Clic gauche sur "message" => quitte l'appli
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
+				elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur "iconhelp" => quitte l'appli
+					_images = render(_images, (fen_help, fen_help_coords))
+					appli=False
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu
 					_continuer = False
@@ -875,11 +935,18 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 							appli=False
 							firstBoucle = False
 							break
+						elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+							#Clic gauche sur "iconhelp" => quitte l'appli
+							_images = render(_images, (fen_help, fen_help_coords))
+							appli=False
+							firstBoucle=False
+							break
 						elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 							#Clic gauche sur la croix en bas à droite  => quitte le jeu
 							_continuer = False
 							appli = False
 							firstBoucle = False
+							break
 							
 					#Pour écrire dans le terminal
 					elif event.type == KEYDOWN :
@@ -935,15 +1002,15 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 				for i in range(len(keys)) :
 					if type(contents[i]) == dict : log.append("dossier --- "+str(keys[i]))
 					elif type(contents[i]) == list : ligne -= 20
-					elif type(contents[i]) == str and contents[i] == "locked": log.append("dossier --- [LOCKED]"+str(keys[i]))
+					elif type(contents[i]) == str and contents[i] == "locked": log.append("dossier --- [CORROMPU]"+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "exe": log.append("executable --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "png": log.append("image --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "mp3": log.append("musique --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "mp4": log.append("video --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "txt": log.append("texte --- "+str(keys[i]))
 					ligne+=20
-				printLog(log, _images)
 				log, ligne = scrolling(log, ligne, _images, path)
+				printLog(log, _images)
 			#cd \/
 			elif input[0] == 'cd' and len(input)>1 :
 				path, success = cd(path, input[1])
@@ -958,9 +1025,10 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 				printLog(log, _images)
 			#exit \/
 			elif input[0] == 'exit' :
-				log.append("")
+				log = []
+				ligne = 270
 				log.append("Username : 1 11 21 1211")
-				ligne+=40
+				ligne+=20
 				path=""
 				printLog(log, _images)
 			#appli \/
@@ -997,7 +1065,7 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" : #lance réinitialiser
 							appli, _continuer, appUsed = reinitialiser(_images, ",,,,")
 						else : #message d'erreur
-							log.append("Executable non trouvé") 
+							log.append("Executable inexistant") 
 							ligne+=20
 							printLog(log, _images)
 							break
@@ -1007,15 +1075,14 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 							break
 					else : #message d'erreur
 						if extension_de_l_input[1] == "exe" :
-							log.append("Executable non trouvé")
+							log.append("Executable inexistant")
 							ligne+=20
 						elif extension_de_l_input[1] == "txt" :
-							log.append("Fichier texte non trouvé")
+							log.append("Fichier texte inexistant")
 							ligne+=20
 						else :
 							log.append("Commande inexistante")
-							log.append("Une application sera bientôt disponible pour vous fournir de l'aide")
-							ligne+=40
+							ligne+=20
 						printLog(log, _images)
 						break
 						
@@ -1073,6 +1140,11 @@ def jarvis(_images, step) :
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur "message" => quitte l'appli vers message
 					_images = render(_images, (fen_message, fen_message_coords))
+					appli=False
+					return False, _continuer, "jarvis;"+str(current_dialogue)
+				elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur "iconhelp" => quitte l'appli
+					_images = render(_images, (fen_help, fen_help_coords))
 					appli=False
 					return False, _continuer, "jarvis;"+str(current_dialogue)
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
@@ -1252,7 +1324,7 @@ def reinitialiser(_images, m) :
 		if i != 0 :
 			log[3+i] = "Mot de passe "+str(i+1)+" : "+mdp[i]
 	printLog(log, _images)
-	correctmdp = ["489a6282A", "arpanet", "0000 1001", "pbadC#gud", "adf0mh456"] #liste des mdp attendus
+	correctmdp = ["489a6282A", "arpanet", "0000 1001", "pbadC#gud", "oJrVfMbOtJ"] #liste des mdp attendus
 	text = mdp[0]
 	screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 	pygame.display.flip()
@@ -1278,6 +1350,11 @@ def reinitialiser(_images, m) :
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur "message" => quitte l'appli vers message
 					_images = render(_images, (fen_message, fen_message_coords))
+					appli=False
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
+				elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur "iconhelp" => quitte l'appli
+					_images = render(_images, (fen_help, fen_help_coords))
 					appli=False
 					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
@@ -1378,7 +1455,11 @@ iconterminal_dim = iconterminal.get_size()
 iconmessage = pygame.image.load("img/iconmessage.png").convert()
 iconmessage_coords = (150,989)
 iconmessage_dim = iconmessage.get_size()
-screen.blit(iconmessage, iconmessage_coords)
+
+#Chargement de l'icone d'aide au terminal
+iconhelp = pygame.image.load("img/iconhelp.png").convert()
+iconhelp_coords = (200,989)
+iconhelp_dim = iconhelp.get_size()
 
 #Chargement de la fenêtre de terminal
 fen_terminal = pygame.image.load("img/fen_terminal.png").convert()
@@ -1390,8 +1471,12 @@ fen_message = pygame.image.load("img/fen_message.png").convert()
 fen_message_dim = fen_message.get_size()
 fen_message_coords = ((screen_dim[0]-fen_message_dim[0])/2, (screen_dim[1]-fen_message_dim[1])/2)
 
+#Chargement de la fenêtre d'aide au terminal
+fen_help = pygame.image.load("img/fen_help.png").convert()
+fen_help_dim = fen_help.get_size()
+fen_help_coords = ((screen_dim[0]-fen_help_dim[0])/2, (screen_dim[1]-fen_help_dim[1])/2)
 
-images = [(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords)] #Prépare la liste pour l'affichage des éléments
+images = [(background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords), (iconhelp, iconhelp_coords)] #Prépare la liste pour l'affichage des éléments
 pygame.key.set_repeat(400, 30) #Active la possibilité de rester appuyer sur une touche
 
 
@@ -1408,11 +1493,14 @@ while continuer :
 		elif event.type == MOUSEBUTTONDOWN: 
 			#Clic de souris
 			if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-				#Clic sur gauche sur "icon"
+				#Clic sur gauche sur "iconterminal"
 				images = render(images, (fen_terminal, fen_terminal_coords))
 			elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-				#Clic gauche sur icon2
+				#Clic sur gauche sur "iconmessage"
 				images = render(images, (fen_message, fen_message_coords))
+			elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				#Clic sur gauche sur "iconhelp"
+				images = render(images, (fen_help, fen_help_coords))
 			elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 				#Clic gauche sur la croix en bas à droite
 				continuer = False
