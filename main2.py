@@ -52,32 +52,32 @@ def render(toBlit, firstPlan) :
 
 def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text) :
 	"""permet d'afficher les messages sur une fenetre en séparant l'émetteur du message et son objet, ainsi que différents éléments propres à la messagerie"""
+	# initialisations de variables au debut du jeu
 	appli = True
 	_continuer = True
+	# variabes concernant des coordonnées sur l'espace de connexion
 	lignex=529
 	ligney=400
-	x=529
-	y=400
 	lignereturny=400
-	epaisseurchamp1=4
+	epaisseurchamp1=4  # pour le contour en gars lorsqu'on écrit dans l'espace de connexion
 	epaisseurchamp2=2
+	# variable spécifique au  message sur la boite mail du hacker contenant une photo
 	photo=0
+	# variable utilisée pour cliquer sur le bouton déconnexion de la messagerie
 	deconnexion=0
 	
 	messagesHacker=[["de: Mamie","Dernières vacances",["Coucou mon chéri, ","Comment vas-tu? ","Je sais que ton métier de concierge te prends beaucoup de temps. ","Je t'envoie donc un petit mail pour te remercier d'être allé à Brest ","avec moi durant ses dernières vacances. Cela m'a beaucoup touché ","que tu prennes du temps avec ta vieille mamie. Ne t'inquiètes ","pas pour ton chat Glad0s, je prends soin de lui, il va très bien et se ","plaît beaucoup ici! J'ai pris soin de t'envoyer un colis avec une ","douzaine de durian que j'ai trouvé ce matin au marché du village, ","tu les aimes tant! C'est dans ce marché de Brest que se trouve les ","fruits les plus exotiques! De quoi te faire voyager depuis chez toi :)","Je t'embrasse, ","","Ta Mamie "]],["de: DUVAL Jacques","Ampoules grillées",["Bonjour Monsieur le concierge","Les ampoules du couloir au troisième étage sont cassées. ","Veuillez appeler un électricien.","","Bien Cordialement,","DUVAL Jacques, trosième étage du bâtiment 2"]],["de: CASTORAMA","Votre livraison est en route!",["Nous vous informons que votre commande est en route!","Vous devriez la recevoir dans les jours suivants, merci d'avoir choisi ","Castorama!","","Votre cagnotte fidélité bénéficie de 200 points supplémentaires.","","Détails de la commande:","Tuyau pvc Compact Ø100 mm L.2 m x5","Enduit de façade rénovation chaux ton pierre 25 kg x2","Elagueuse sur perche électrique FPPS710 710w 18cm"]],["de: moi","Binaire",[]],["de: MyMail","Votre compte",["Bonjour,",""," Afin de vous aider à définir vos paramètres de confidentialité ","encore plus facilement, nous avons ajouté des suggestions dans ","votre Check-up Confidentialité. Par exemple, nous vous aidons à ","activer ou désactiver le partage de votre position, définir la durée ","pendant laquelle vous souhaitez conserver votre historique sur le Web ","et les applications et bien plus encore, directement depuis ","votre Check-up Confidentialité.","","Bonne journée! "]],["de: DEF CON","Invitation",["Nous sommes heureux de vous accueillir à cette 28ème édition de ","la DEF CON! En raison des conditions sanitaires actuelles, ","les conférences seront effectuées en nombre limités. Pour cela que ","vous devez réserver dès maintenant vos tickets. Si vous ne pouvez ","participer à une conférence, vous aurez cependant accès à un lien de ","connexion, pour pouvoir y assister depuis un ordinateur."," ","DATE: 8-11 août.","LIEU: Rio All Suite Hotel & Casino ","","À bientôt","Comité de la DEFCON"]],["de: Spotify","Nouvelle chanson de votre groupe préféré",["Twenty One Pilots a sorti un nouveau single durant la période difficile","que nous avons traversé.","Découvrez Level Of Concern sur votre plateforme favorite !","","TOP shook the world with the release of their 2015 LP BLURRYFACE, ","an album that would go to on sell over 7 millions copies worldwide and ","earn the band their first ever GRAMMY Award... ","Discover more about them on Spotify.","","Essayez Spotify Premium gratuitement pendant un mois. ","Bénéficiez du mode écoute libre, zapping illimité ","et de l'écoute hors connexion."]],["de: PC","Réinitialisation",["Bonjour! ","Merci d'avoir changé l'un des mots de passe de votre PC grâce ","à notre logiciel!","","nouveau mot de passe: oJrVfMbOtJ"]]]
 	
-	#on regarde sur quelle messagerie on se trouve: 1=agent; 2= Neo Mitrax(hacker); 3=fenetre de connexion
+	# on regarde sur quelle messagerie on se trouve: 1=agent; 2= Neo Mitrax(hacker); 3=fenetre de connexion
+	
 	if g_compte == 1:
-		
-		#par défaut on est sur la messagerie de l'agent
+		# par défaut, quand on commence le jeu, on est sur la messagerie de l'agent
 		utilisateur="Agent"
 		compte=1
-		
-		
-		#variable pour que les inputs soient seulement fonctionnels quand on est sur la page de connexion
+		# variable pour que les inputs soient seulement fonctionnels quand on est sur la page de connexion
 		connexion = 0
-	
-		#mise en page de la messagerie
+		
+		# mise en page de la messagerie
 		y=250
 		pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
 		pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
@@ -87,33 +87,31 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 		screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 		screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 	
-	
+		# on fait apparaitre les messages à l'écran avec les émetteurs et les objets
 		for i in range (len(_messages)):
-			#on fait afficher l'émetteur des messages
+			# on fait afficher l'émetteur des messages
 			screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
 			_messages[i].append(y-30)
 	
-			#on fait afficher l'objet des messages
+			# on fait afficher l'objet des messages
 			screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
 			_messages[i].append(y-30)
 	
-			#on fait afficher ligne de séparation
+			# on fait afficher ligne de séparation
 			y+=40
 			pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 	
 	
 		pygame.display.flip()
-		#on fait afficher séparation entre chaque lignes
+		# on fait afficher séparation entre chaque lignes
 
 	elif g_compte == 2:
-		
 		utilisateur= " Neo Mitrax"
 		compte=2
-		
-		#variable pour que les inputs soient seulement fonctionnels quand on est sur la page de connexion
+		# variable pour que les inputs soient seulement fonctionnels quand on est sur la page de connexion
 		connexion = 0
 
-		#on affiche les mails et autres éléments de la messagerie.
+		# on affiche les mails et autres éléments de la messagerie.
 		y=250
 		pygame.draw.line(screen,(0,0,0), (340,250), (1130, 250), 2)
 		pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
@@ -123,16 +121,17 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 		screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 		screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 		
+		# on fait apparaitre les messages à l'écran avec les émetteurs et les objets
 		for i in range (len(messagesHacker)):
 			#on fait afficher l'émetteur des messages
 			screen.blit(messageFont.render(messagesHacker[i][0],True,(0,0,0)),(350,y))
 			messagesHacker[i].append(y-30)
 	
-			#on fait afficher l'objet des messages
+			# on fait afficher l'objet des messages
 			screen.blit(messageFont.render(messagesHacker[i][1],True,(0,0,0)),(600,y))
 			messagesHacker[i].append(y-30)
 	
-			#on fait afficher ligne de séparation
+			# on fait afficher ligne de séparation
 			y+=40
 			pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 	
@@ -142,11 +141,11 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 		
 	elif g_compte == 3:
 		connexion=2
-		
+		# si on a pas appuyé sur la touche "entrée", soit qu'on se trouve dans la case "insérer un mail"
 		if g_countreturn == 0:
 			render(_images, None)
 			
-			#affichage à l'écran
+			# affichage à l'écran
 			screen.blit(messageFont.render(text, True, (0, 0, 0)), (lignex,lignereturny))
 			screen.blit(messageFont.render("CONNECTER UN COMPTE",True,(0,0,0)),(430,300))
 			screen.blit(messageFont.render("insérer votre mail: ",True,(0,0,0)),(325,400))
@@ -159,20 +158,19 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			connexion = 2
 			pygame.display.flip()
 
-	
+		# dans les autres cas, c'est à dire lorsqu'on a appuyé sur la touche "entrée" 1 fois, soit qu'on se trouve dans la case "insérer votre mot de passe"
 		else:
 			input = text #Récupérer la valeur entrée
 			epaisseurchamp1=2
 			epaisseurchamp2=4
 			
-			#affichage à l'écran
+			# affichage à l'écran
 			screen.blit(messageFont.render("CONNECTER UN COMPTE", True,(0,0,0)),(430,300))
 			screen.blit(messageFont.render("insérer votre mail: ", True,(0,0,0)),(325,400))
 			pygame.draw.rect(screen,(0,0,0),(525,400,300,40),epaisseurchamp1)
 			screen.blit(messageFont.render("insérer votre mot de passe: ", True,(0,0,0)),(220,500))
 			pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
 			screen.blit(messageFont.render("retour", True,(0,0,0)),(822,620))
-			
 			screen.blit(messageFont.render(g_champ[0], True, (0, 0, 0)), (lignex,lignereturny))
 			screen.blit(messageFont.render(text, True, (0, 0, 0)), (lignex,500))
 			retour=0
@@ -183,33 +181,34 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			
 	
 
-	#truc commun à toutes les applis
+	# pendant que l'appli=true, commun à toutes les applis
 	while appli :
 		for event in pygame.event.get(): #Attente des événements
 			if event.type == QUIT:
 				_continuer = False
 				appli = False
+			# si évènement est de type mousebuttondown
 			elif event.type == MOUSEBUTTONDOWN:
-				#y=250
 				
+				# faire afficher le message cliqué par le joueur, en fonction de la boite mail sur laquelle on se trouve
 				if g_compte==1:
 					y=250
 					compte=1
 					retour=1
 					connexion=0
 					for i in range (len(_messages)):
-						#on regarde la position de la souris
+						# on regarde la position de la souris
 						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1: 
-							print("on peut acceder aux messages")
 							retour = 1
-							#efface texte à l'écran
+							# efface texte à l'écran
 							render(_images, None)
 	
-							#affiche texte à l'écran, precisez coordonnées)
+							# affiche texte à l'écran, precisez coordonnées)
 							y2 = 250
 							for ligne in messages[i][2]:
 								screen.blit(messageFont.render(ligne,True,(0,0,0)),(350,y2))
 								y2+=40
+							screen.blit(messageFontpetit.render("objet:  "+messages[i][1],True,(0,0,0)),(350,222))
 							pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 							screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
 							screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
@@ -218,7 +217,6 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							connexion=1
 							deconnexion=0
 							
-	
 							#refresh écran
 							pygame.display.flip()
 						y+=40
@@ -233,10 +231,12 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					for i in range (len(messagesHacker)):
 						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1:
 							
-							if 350<event.pos[0]<800 and 370<event.pos[1]<410 and event.button == 1:#message intitulé binaire qui comprend une photo
-								#on met en premier plan l'image contenant la photo
+							if 350<event.pos[0]<800 and 370<event.pos[1]<410 and event.button == 1: # message intitulé binaire qui comprend une photo
+								# on met en premier plan l'image contenant la photo
 								render(_images, (peinture, peinture_coords))
+								# on fait afficher les éléments de la messagerie
 								pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+								screen.blit(messageFontpetit.render("objet:  "+messagesHacker[i][1],True,(0,0,0)),(350,222))
 								screen.blit(messageFontpetit.render("“Le visage est l'image de l'âme.”",True,(0,0,0)),(600,800))
 								screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
 								screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
@@ -244,18 +244,19 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
 								connexion=1
 								photo=1
-								#refresh écran
+								# refresh écran
 								pygame.display.flip()
 								
 							else:
-								#efface texte à l'écran
+								# efface texte à l'écran
 								render(_images, None)
 		
-								#affiche texte à l'écran, precisez coordonnées
+								# affiche texte à l'écran, precisez coordonnées
 								y2 = 250
 								for ligne in messagesHacker[i][2]:
 									screen.blit(messageFont.render(ligne,True,(0,0,0)),(350,y2))
 									y2+=40
+								screen.blit(messageFontpetit.render("objet:  "+messagesHacker[i][1],True,(0,0,0)),(350,222))
 								pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 								screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
 								screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
@@ -264,20 +265,20 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								connexion=1
 								photo=0
 		
-								#refresh écran
+								# refresh écran
 								pygame.display.flip()
 						y+=40
 
 					
 					
-				#touche boite principale qui permet de revenir à la liste des mails
+				# CLIQUE SUR BOITE PRINCIPAL qui permet de revenir à la liste des mails en fonction du compte sur lequel on se trouve
 				if 160<event.pos[0]<270 and 350<event.pos[1]<390 and event.button == 1:
 					connexion=0
 					if g_compte==1 :
 						compte=1
 						render(_images, None)
-						#render(_images, (iconmessage,iconmessage_coords))
 						y=250
+						# on affiche les éléments de la messagerie
 						pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
 						pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 						screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
@@ -287,19 +288,21 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 						screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 	
 						for i in range (len(_messages)):
-						#on fait afficher l'émetteur des messages
+						# on fait afficher l'émetteur des messages
 							screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
 							_messages[i].append(y-30)
-							#on fait afficher l'objet des messages
+							# on fait afficher l'objet des messages
 							screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
 							_messages[i].append(y-30)
 							y+=40
-							#on fait afficher ligne de séparation
+							# on fait afficher ligne de séparation
 							pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 						pygame.display.flip()
 						
 					if g_compte==2 :
 						compte=2
+						
+						# si on se trouve sur le message contenant la photo
 						if photo==1:
 							photo=0	
 							del _images[-1]					
@@ -314,19 +317,21 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 		
 							for i in range (len(messagesHacker)):
-							#on fait afficher l'émetteur des messages
+							# on fait afficher l'émetteur des messages
 								screen.blit(messageFont.render(messagesHacker[i][0],True,(0,0,0)),(350,y))
 								messagesHacker[i].append(y-30)
-								#on fait afficher l'objet des messages
+								# on fait afficher l'objet des messages
 								screen.blit(messageFont.render(messagesHacker[i][1],True,(0,0,0)),(600,y))
 								messagesHacker[i].append(y-30)
 								y+=40
-								#on fait afficher ligne de séparation
+								# on fait afficher ligne de séparation
 								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 								
 						else:
 							render(_images, None)
 							y=250
+							
+							# on affiche les éléments de la messagerie
 							pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
 							pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 							screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
@@ -336,14 +341,14 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 		
 							for i in range (len(messagesHacker)):
-							#on fait afficher l'émetteur des messages
+							# on fait afficher l'émetteur des messages
 								screen.blit(messageFont.render(messagesHacker[i][0],True,(0,0,0)),(350,y))
 								messagesHacker[i].append(y-30)
-								#on fait afficher l'objet des messages
+								# on fait afficher l'objet des messages
 								screen.blit(messageFont.render(messagesHacker[i][1],True,(0,0,0)),(600,y))
 								messagesHacker[i].append(y-30)
 								y+=40
-								#on fait afficher ligne de séparation
+								# on fait afficher ligne de séparation
 								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 						
 						pygame.display.flip()
@@ -362,12 +367,14 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					connexion=1
 					
 					
-				#Si touche cliquée est non, alors on retourne a la boite principale de la messagerie 
+				# SI TOUCHE CLIQUEE EST NON, alors on retourne a la boite principale de la messagerie 
 				if 700<event.pos[0]<740 and 500<event.pos[1]<550 and connexion == 1 and event.button == 1:
 					render(_images, None)
 					connexion=0
 					y=250
 					retour = 1
+					
+					# on affiche les éléments de la messagerie
 					pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
 					pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 					screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
@@ -376,34 +383,34 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 					screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 					
-					
+					# on regarde sur quel compte on se trouvait, et on fait apparaitre les messages
 					if compte == 1:
 						for i in range (len(_messages)):
-						#on fait afficher l'émetteur des messages
+						# on fait afficher l'émetteur des messages
 							screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
 							_messages[i].append(y-30)
-							#on fait afficher l'objet des messages
+							# on fait afficher l'objet des messages
 							screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
 							_messages[i].append(y-30)
 							y+=40
-							#on fait afficher ligne de séparation
+							# on fait afficher ligne de séparation
 							pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 							
 					elif compte == 2:
 						for i in range (len(messagesHacker)):
-						#on fait afficher l'émetteur des messages
+						# on fait afficher l'émetteur des messages
 							screen.blit(messageFont.render(messagesHacker[i][0],True,(0,0,0)),(350,y))
 							messagesHacker[i].append(y-30)
-							#on fait afficher l'objet des messages
+							# on fait afficher l'objet des messages
 							screen.blit(messageFont.render(messagesHacker[i][1],True,(0,0,0)),(600,y))
 							messagesHacker[i].append(y-30)
 							y+=40
-							#on fait afficher ligne de séparation
+							# on fait afficher ligne de séparation
 							pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 					pygame.display.flip()
 					
 
-				# si touche oui cliquée, espace de connexion de la messagerie 
+				# SI TOUCHE OUI CLIQUEE, alors on arrive sur l'espace de connexion de la messagerie 
 				if 400<event.pos[0]<440 and 500<event.pos[1]<540 and connexion == 1 and event.button == 1:
 					g_compte=3
 					render(_images, None)
@@ -417,7 +424,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					connexion = 2
 					pygame.display.flip()
 					
-				# TOUCHE RETOUR, retour sur la messagerie pendant qu'on est sur l'espace de connexion, lorsqu'on a oublié un mot de passe par exemple
+				# SI TOUCHE RETOUR CLIQUEE, retour sur la messagerie pendant qu'on est sur l'espace de connexion, lorsqu'on a oublié un mot de passe par exemple
 				if 822<event.pos[0]<900 and 620<event.pos[1]<660 and retour == 0 and event.button == 1:#retour == 0
 					print("works")
 					print(retour)
@@ -428,14 +435,15 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					lignereturny=400
 					g_champ=[]
 					text = ""
+					connexion=0
 					
+					# on regarde la valeur de la variable compte pour voir sur quel compte on se trouvait précédemment
 					if compte == 1 :
 						render(_images, None)
-						
-						connexion=0
-						print(connexion)
+						g_compte=1
 						y=250
-						retour=1
+						
+						# affichage éléments messagerie
 						pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
 						pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 						screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
@@ -445,65 +453,42 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 						screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 	
 						for i in range (len(_messages)):
-						#on fait afficher l'émetteur des messages
+						# on fait afficher l'émetteur des messages
 							screen.blit(messageFont.render(_messages[i][0],True,(0,0,0)),(350,y))
 							_messages[i].append(y-30)
-							#on fait afficher l'objet des messages
+							# on fait afficher l'objet des messages
 							screen.blit(messageFont.render(_messages[i][1],True,(0,0,0)),(600,y))
 							_messages[i].append(y-30)
 							y+=40
-							#on fait afficher ligne de séparation
+							# on fait afficher ligne de séparation
 							pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 						pygame.display.flip()
 						
 					if compte == 2 :
-						connexion=0
-						print(connexion)
-						retour=1
+						g_compte=2
 						y=250
-						if photo==1:
-							del _images[-1]						
-							render(_images, None)
-							pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
-							pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
-							screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
-							screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
-							screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
-							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
-							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
-		
-							for i in range (len(messagesHacker)):
-							#on fait afficher l'émetteur des messages
-								screen.blit(messageFont.render(messagesHacker[i][0],True,(0,0,0)),(350,y))
-								messagesHacker[i].append(y-30)
-								#on fait afficher l'objet des messages
-								screen.blit(messageFont.render(messagesHacker[i][1],True,(0,0,0)),(600,y))
-								messagesHacker[i].append(y-30)
-								y+=40
-								#on fait afficher ligne de séparation
-								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
-								
-						else:
-							render(_images, None)
-							connexion=0
-							pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
-							pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
-							screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
-							screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
-							screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
-							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
-							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
-		
-							for i in range (len(messagesHacker)):
-							#on fait afficher l'émetteur des messages
-								screen.blit(messageFont.render(messagesHacker[i][0],True,(0,0,0)),(350,y))
-								messagesHacker[i].append(y-30)
-								#on fait afficher l'objet des messages
-								screen.blit(messageFont.render(messagesHacker[i][1],True,(0,0,0)),(600,y))
-								messagesHacker[i].append(y-30)
-								y+=40
-								#on fait afficher ligne de séparation
-								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
+						render(_images, None)
+						connexion=0
+						
+						# affichage éléments messagerie
+						pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
+						pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+						screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
+						screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
+						screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
+						screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
+						screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
+	
+						for i in range (len(messagesHacker)):
+						# on fait afficher l'émetteur des messages
+							screen.blit(messageFont.render(messagesHacker[i][0],True,(0,0,0)),(350,y))
+							messagesHacker[i].append(y-30)
+							# on fait afficher l'objet des messages
+							screen.blit(messageFont.render(messagesHacker[i][1],True,(0,0,0)),(600,y))
+							messagesHacker[i].append(y-30)
+							y+=40
+							# on fait afficher ligne de séparation
+							pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 								
 								
 					pygame.display.flip()
@@ -524,17 +509,15 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu quitter l'appli (c'est à dire fermer la fonction)
 			
 
-			#Pour pouvoir écrire son id et son pwd
-
+			# Pour pouvoir écrire son id et son pwd sur l'espace de connexion
 			if event.type == KEYDOWN and connexion == 2 :
 				retour=0
 				
-				#lorsqu'on appuie sur la touche retour:
+				# lorsqu'on appuie sur la touche retour:
 				if event.key == K_RETURN:
 					g_countreturn+=1
 					
-					
-						
+					#si on a appuyé une fois sur la touche retour(on se trouve donc au niveau de "insérer votre mot de passe: "
 					if g_countreturn==1:
 						input = text #Récupérer la valeur entrée
 						g_champ.append(text)
@@ -565,15 +548,17 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 						lignex+=0
 						lignereturny+=100
 						pygame.display.flip()
-					#si on a appuyé plus de deux fois sur la touche retour, on efface tout les inputs rentrés à l'écran; le texte écrit sera ensuite placé au niveau de la case insérer votre mail.
+					# si on a appuyé plus de deux fois sur la touche retour, on efface tout les inputs rentrés à l'écran; le texte écrit sera ensuite placé au niveau de la case insérer votre mail.
 
-						
+					# si on a appuyé deux fois sur la touche retour, on fait donc valider le id et mdp qu'on a entré	
 					if g_countreturn==2:
 						g_countreturn=0
 						g_champ.append(text)
 						lignereturny=400
 						epaisseurchamp1=4
 						epaisseurchamp2=2
+						
+						#on procède alors à une verification des éléments entré par le joueur qui se trouvent dans g_champ
 						
 						#on regarde si le mail et pwd correspond à celui du hacker
 						if g_champ[0]=="neo.mitrax@mymail.com" and g_champ[1]=="adf0mh456":
@@ -647,14 +632,13 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFont.render("insérer votre mot de passe: ",True,(0,0,0)),(220,500))
 							pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
 							screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
+							screen.blit(messageFont.render("mail et mot de passe invalides",True,(0,0,0)),(355,600))
 							retour=0
 							connexion = 2
 							pygame.display.flip()
 							g_champ=[]
 							text = ""
-							
-							screen.blit(messageFont.render("mail et mot de passe invalides",True,(0,0,0)),(355,600))
-
+					
 					pygame.display.flip()
 					
 				#pour supprimer un caractère	
