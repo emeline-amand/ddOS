@@ -25,6 +25,25 @@ files = {'C:':{
 				'zfs0m345e',
 			],
 			'adresses_IP_volés':'locked',
+			'donnée_chiffrées.txt':'txt',
+			'donnée_chiffrées.txt.':[
+				'donnée_chiffrées.txt',
+				'Faire ESC pour quitter',
+				'',
+				'================================================================================',
+				'Code 4 : 1;19;3;9;9',
+				'',
+				'0111 0000',
+				'0110 0010',
+				'0110 0001',
+				'0110 0100',
+				'0100 0011',
+				'0010 0011',
+				'0110 0111',
+				'0111 0101',
+				'0110 1000',
+
+			],
 			'Émilie':'locked',
 		},
 		'Programmation':{
@@ -39,9 +58,9 @@ files = {'C:':{
 					'PROJET JARVIS',
 					'',
 					'Date de création : 9 janvier 2020',
-					'Jarvis est un assistant intelligent capable de m\'aider dans mes affaires',
-					'Il me permettre de mieux gérer mon temps de travail, notemment lors de mes',
-					'activités illégales.'
+					'Jarvis est un assistant intelligent capable de prendre des initiatives.',
+					'Il permet de déléguer des tâches simples et donc gagner du temps sur le',
+					'travail.'
 				],
 				'Fichiers':'locked',
 			},
@@ -60,8 +79,8 @@ files = {'C:':{
 				'hoTtEok.png':'png',
 				'churRos.png':'png',
 				'chili_coN_carne.png':'png',
-				'ecrevissE panée.png':'png',
-				'tagliatelles de carotte au soja et haricoT.png':'png',
+				'ecrevissE_panée.png':'png',
+				'tagliatelles_de_carotte_au_soja_et_haricoT.png':'png',
 			},
 			'Résultats':'locked',
 		},
@@ -184,8 +203,15 @@ files = {'C:':{
 		'Tuto_Programmer_en_C--.mp4':'mp4',
 	}, 
 	'Applications':{
+		'Subnautico.exe':'lexe',
 		'jarvis.exe':'exe', 
-		'Paramètres':{'reinitialiser.exe':'exe'}
+		'Gogole_Chrome.exe':'lexe',
+		'Discard.exe':'lexe',
+		'Paramètres':{
+			'reinitialiser.exe':'exe',
+			'utilisateur.exe':'lexe',
+			'systeme.exe':'lexe',
+		}
 	}
 }}
 g_path = ""
@@ -783,7 +809,7 @@ def cd(_path, target) :
 		for t in target :
 			exist = False
 			for key in goto(_path).keys() : #Regarde si dossier cible existe
-				if key == t :
+				if key == t and type(goto(_path)[key]) == dict :
 					exist = True
 			if not exist : # s'il n'existe pas
 				return _path, False # fin, rien ne se passe
@@ -1003,6 +1029,7 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 					if type(contents[i]) == dict : log.append("dossier --- "+str(keys[i]))
 					elif type(contents[i]) == list : ligne -= 20
 					elif type(contents[i]) == str and contents[i] == "locked": log.append("dossier --- [CORROMPU]"+str(keys[i]))
+					elif type(contents[i]) == str and contents[i] == "lexe": log.append("executable --- [CORROMPU]"+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "exe": log.append("executable --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "png": log.append("image --- "+str(keys[i]))
 					elif type(contents[i]) == str and contents[i] == "mp3": log.append("musique --- "+str(keys[i]))
