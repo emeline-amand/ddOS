@@ -344,7 +344,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			y+=40
 			pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 			
-	pygame.display.flip()
+		pygame.display.flip()
 		
 		
 	elif g_compte == 3:
