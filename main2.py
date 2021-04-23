@@ -362,6 +362,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
 			screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
 			
+			#variable retour qui permet de cliquer sur "retour" lorsqu'on se trouve sur l'espace de connexion est qu'on souhaite retourner sur la boite mail
 			retour=0
 			connexion = 2
 			pygame.display.flip()
