@@ -222,7 +222,7 @@ g_text = ""
 g_appUsed = ""
 
 #Pour l'appli message
-messages=[["de: Boss","Infos Hacker part 2",["Agent Wray, ","De notre côté nous avons découverts plusieurs choses. ","Certains fichiers du PC du hacker sont signalé par la mention ","[CORROMPU]. D'après nos analyses, ces dossiers ne contiennent ","aucunes informations essentielles à votre missions. ","Il ne sert donc à rien de les parcourir."]],["de: Boss","Infos Hacker",["Voici le peu d'informations que nous avons trouvé sur le hacker,","Son mail: neo.mitrax@mymail.com, avec le mot de passe : ","a**0m*h*5* (les * sont les caractères que nous n'avons pas réussi à ","décrypter à l'heure actuelle, c'est à vous de les trouver dans le PC ","du hacker.) elles vous seront utiles tout le long de la partie. Nous ","savons  que le hacker est citoyen français. Il aurait fait l'École 42 ","fut deuxième de sa promo. Cependant ses études prirent un autre ","tour à la mort de son père le 28 octobre 1997. Il entreprit des études ","d'arquéologue à l'Université de Massachusetts. Il s'installa ensuite à ","Brest, cette profession lui aurait permis de mettre en place son activité ","de hacker. A ce jour, il a hacké plusieurs banques dans différents pays. ","Il représente un danger pour tous,d'où la rapidité dont vous devez ","disposer pour supprimer les codes nucléaires de son ordinateur."]],["de: Boss","Règles du jeu",["Bonjour Agent,","L'heure est grave, le célèbre hacker connu sous le nom de ddOS","s'est emparé d'importants fichiers nucléaires.","Votre mission, si toute fois vous l'acceptez, est de pénétrer dans le PC ","du hacker à distance, récupérer ses fichiers nucléaires et les ","supprimer de son PC. Pour se faire l'équipe s'est mobilisée pour ","maintenir le PC du hacker hors service depuis chez lui. Voici votre ","mail: christopher.wray@fbi.com et votre mot de passe: Ly46fZer ","pour vous connecter à votre messagerie lors de cette mission. ","Prenez soin de les noter sur une feuille: vous serez amené à vous ","déconnecter de votre compte plusieurs fois. Cette feuille vous servira ","également à noter toutes les informations et mots de passe que","vous trouvez: tout se réutilise! ","Bonne chance, la survie de l'humanité dépend de vous Agent Wray."]],["de: FBI","Vacances",["Vous n'avez pas pris de vacances depuis plusieurs mois Agent Wray, ","Songez-y."]],["de: FBI","année 2021",["Meilleurs voeux agent Wray! C'est un plaisir d'être à vos côtés ","une années de plus!"]],["de: Boss","Nouvelle équipe",["Agent Wray,","Vous voici affecté à une nouvelle équipe sous mon commandement. ","Je ne fais pas de doutes sur le fait que nous nous entendrons bien. ","Monsieur Decopmann m'a beaucoup parlé de vous en bien.","Bienvenue dans l'équipe 007"]],["de: Boss","Contenu rapport",["Bonjour Agent Wray, le rapport que tu m'as remis ce matin sur l'affaire"," Jonhson était peu fourni. Je me permets donc de te rappeler ","les éléments clefs afin de faire des rapports plus efficaces.","","Étape 1 – Bien faire préciser la demande: Le destinataire du rapport ","et la situtation","Étape 2 – Rassembler et traiter l’information nécessaire","Étape 3 – Faire son plan","Étape 4 – Rédiger le rapport"]],["de: James Scott","travail",["Salut Agent Wray, j'ai retrouvé cet article du FBI..."," à ressortir quand tes coéquipiers râlent pour les missions en groupe ;)"," ","Le FBI considère cela comme essentiel à son succès aujourd’hui. ","Les groupes de travail se sont avérés être un moyen très efficace ","pour le FBI et les forces de l’ordre fédérales, étatiques et locales ","de s’unir pour traiter des problèmes de criminalité spécifiques ","et des menaces à la sécurité nationale."]],["de: idee","idee",["idee"]],["de: idee","idee",["idee"]]]
+messages=[["de: Boss","Infos Hacker part 2",["Agent Wray, ","De notre côté nous avons découverts plusieurs choses. ","Certains fichiers du PC du hacker sont signalé par la mention ","[CORROMPU]. D'après nos analyses, ces dossiers ne contiennent ","aucunes informations essentielles à votre missions. ","Il ne sert donc à rien de les parcourir."]],["de: Boss","Infos Hacker",["Voici le peu d'informations que nous avons trouvé sur le hacker,","Son mail: neo.mitrax@mymail.com, avec le mot de passe : ","a**0m*h*5* (les * sont les caractères que nous n'avons pas réussi à ","décrypter à l'heure actuelle, c'est à vous de les trouver dans le PC ","du hacker.) elles vous seront utiles tout le long de la partie. Nous ","savons  que le hacker est citoyen français. Il aurait fait l'École 42 ","fut deuxième de sa promo. Cependant ses études prirent un autre ","tour à la mort de son père le 28 octobre 1997. Il entreprit des études ","d'arquéologue à l'Université de Massachusetts. Il s'installa ensuite à ","Brest, cette profession lui aurait permis de mettre en place son activité ","de hacker. A ce jour, il a hacké plusieurs banques dans différents pays. ","Il représente un danger pour tous,d'où la rapidité dont vous devez ","disposer pour supprimer les codes nucléaires de son ordinateur."]],["de: Boss","Règles du jeu",["Bonjour Agent,","L'heure est grave, le célèbre hacker connu sous le nom de ddOS","s'est emparé d'importants fichiers nucléaires.","Votre mission, si toute fois vous l'acceptez, est de pénétrer dans le PC ","du hacker à distance, récupérer ses fichiers nucléaires et les ","supprimer de son PC. Pour se faire l'équipe s'est mobilisée pour ","maintenir le PC du hacker hors service depuis chez lui. Voici votre ","mail: christopher.wray@fbi.com et votre mot de passe: Ly46fZer ","pour vous connecter à votre messagerie lors de cette mission. ","Prenez soin de les noter sur une feuille: vous serez amené à vous ","déconnecter de votre compte plusieurs fois. Cette feuille vous servira ","également à noter toutes les informations et mots de passe que","vous trouvez: tout se réutilise! ","Bonne chance, la survie de l'humanité dépend de vous Agent Wray."]],["de: FBI","Vacances",["Vous n'avez pas pris de vacances depuis plusieurs mois Agent Wray, ","Songez-y."]],["de: FBI","année 2021",["Meilleurs voeux agent Wray! C'est un plaisir d'être à vos côtés ","une années de plus!"]],["de: Boss","Nouvelle équipe",["Agent Wray,","Vous voici affecté à une nouvelle équipe sous mon commandement. ","Je ne fais pas de doutes sur le fait que nous nous entendrons bien. ","Monsieur Decopmann m'a beaucoup parlé de vous en bien.","Bienvenue dans l'équipe 007"]],["de: Boss","Contenu rapport",["Bonjour Agent Wray, le rapport que tu m'as remis ce matin sur l'affaire"," Jonhson était peu fourni. Je me permets donc de te rappeler ","les éléments clefs afin de faire des rapports plus efficaces.","","Étape 1 – Bien faire préciser la demande: Le destinataire du rapport ","et la situtation","Étape 2 – Rassembler et traiter l’information nécessaire","Étape 3 – Faire son plan","Étape 4 – Rédiger le rapport"]],["de: James Scott","travail",["Salut Agent Wray, j'ai retrouvé cet article du FBI..."," à ressortir quand tes coéquipiers râlent pour les missions en groupe ;)"," ","Le FBI considère cela comme essentiel à son succès aujourd’hui. ","Les groupes de travail se sont avérés être un moyen très efficace ","pour le FBI et les forces de l’ordre fédérales, étatiques et locales ","de s’unir pour traiter des problèmes de criminalité spécifiques ","et des menaces à la sécurité nationale."]]]
 
 g_compte=1
 compte=1
@@ -272,6 +272,8 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 	photo=0
 	# variable utilisée pour cliquer sur le bouton déconnexion de la messagerie
 	deconnexion=0
+	#variable pour pas cliquer sur les autres mails pendant qu'on en lit un
+	reading= True
 	
 	messagesHacker=[["de: Mamie","Dernières vacances",["Coucou mon chéri, ","Comment vas-tu? ","Je sais que ton métier de concierge te prends beaucoup de temps. ","Je t'envoie donc un petit mail pour te remercier d'être allé à Brest ","avec moi durant ses dernières vacances. Cela m'a beaucoup touché ","que tu prennes du temps avec ta vieille mamie. Ne t'inquiètes ","pas pour ton chat Glad0s, je prends soin de lui, il va très bien et se ","plaît beaucoup ici! J'ai pris soin de t'envoyer un colis avec une ","douzaine de durian que j'ai trouvé ce matin au marché du village, ","tu les aimes tant! C'est dans ce marché de Brest que se trouve les ","fruits les plus exotiques! De quoi te faire voyager depuis chez toi :)","Je t'embrasse, ","","Ta Mamie "]],["de: DUVAL Jacques","Ampoules grillées",["Bonjour Monsieur le concierge","Les ampoules du couloir au troisième étage sont cassées. ","Veuillez appeler un électricien.","","Bien Cordialement,","DUVAL Jacques, trosième étage du bâtiment 2"]],["de: CASTORAMA","Votre livraison est en route!",["Nous vous informons que votre commande est en route!","Vous devriez la recevoir dans les jours suivants, merci d'avoir choisi ","Castorama!","","Votre cagnotte fidélité bénéficie de 200 points supplémentaires.","","Détails de la commande:","Tuyau pvc Compact Ø100 mm L.2 m x5","Enduit de façade rénovation chaux ton pierre 25 kg x2","Elagueuse sur perche électrique FPPS710 710w 18cm"]],["de: moi","Binaire",[]],["de: MyMail","Votre compte",["Bonjour,",""," Afin de vous aider à définir vos paramètres de confidentialité ","encore plus facilement, nous avons ajouté des suggestions dans ","votre Check-up Confidentialité. Par exemple, nous vous aidons à ","activer ou désactiver le partage de votre position, définir la durée ","pendant laquelle vous souhaitez conserver votre historique sur le Web ","et les applications et bien plus encore, directement depuis ","votre Check-up Confidentialité.","","Bonne journée! "]],["de: DEF CON","Invitation",["Nous sommes heureux de vous accueillir à cette 28ème édition de ","la DEF CON! En raison des conditions sanitaires actuelles, ","les conférences seront effectuées en nombre limités. Pour cela que ","vous devez réserver dès maintenant vos tickets. Si vous ne pouvez ","participer à une conférence, vous aurez cependant accès à un lien de ","connexion, pour pouvoir y assister depuis un ordinateur."," ","DATE: 8-11 août.","LIEU: Rio All Suite Hotel & Casino ","","À bientôt","Comité de la DEFCON"]],["de: Spotify","Nouvelle chanson de votre groupe préféré",["Twenty One Pilots a sorti un nouveau single durant la période difficile","que nous avons traversé.","Découvrez Level Of Concern sur votre plateforme favorite !","","TOP shook the world with the release of their 2015 LP BLURRYFACE, ","an album that would go to on sell over 7 millions copies worldwide and ","earn the band their first ever GRAMMY Award... ","Discover more about them on Spotify.","","Essayez Spotify Premium gratuitement pendant un mois. ","Bénéficiez du mode écoute libre, zapping illimité ","et de l'écoute hors connexion."]],["de: PC","Réinitialisation",["Bonjour! ","Merci d'avoir changé l'un des mots de passe de votre PC grâce ","à notre logiciel!","","nouveau mot de passe: oJrVfMbOtJ"]]]
 	
@@ -341,8 +343,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			# on fait afficher ligne de séparation
 			y+=40
 			pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
-	
-	
+			
 		pygame.display.flip()
 		
 		
@@ -385,9 +386,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			lignereturny+=100
 			pygame.display.flip()
 
-			
 	
-
 	# pendant que l'appli=true, commun à toutes les applis
 	while appli :
 		for event in pygame.event.get(): #Attente des événements
@@ -405,8 +404,11 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					connexion=0
 					for i in range (len(_messages)):
 						# on regarde la position de la souris
-						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1: 
+						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1 and reading: 
 							retour = 1
+							connexion=1
+							deconnexion=0
+							reading=False
 							# efface texte à l'écran
 							render(_images, None)
 	
@@ -421,8 +423,6 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
 							screen.blit(messageFontpetit.render("Boîte principale",True,(0,0,0)),(160,350))
 							screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
-							connexion=1
-							deconnexion=0
 							
 							#refresh écran
 							pygame.display.flip()
@@ -436,7 +436,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					deconnexion=0
 					connexion=0
 					for i in range (len(messagesHacker)):
-						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1:
+						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1  and reading:
 							
 							if 350<event.pos[0]<800 and 370<event.pos[1]<410 and event.button == 1: # message intitulé binaire qui comprend une photo
 								# on met en premier plan l'image contenant la photo
@@ -451,6 +451,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
 								connexion=1
 								photo=1
+								reading= False
 								# refresh écran
 								pygame.display.flip()
 								
@@ -471,6 +472,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
 								connexion=1
 								photo=0
+								reading=False
 		
 								# refresh écran
 								pygame.display.flip()
@@ -481,6 +483,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 				# CLIQUE SUR BOITE PRINCIPAL qui permet de revenir à la liste des mails en fonction du compte sur lequel on se trouve
 				if 160<event.pos[0]<270 and 350<event.pos[1]<390 and event.button == 1:
 					connexion=0
+					reading=True
 					if g_compte==1 :
 						compte=1
 						render(_images, None)
@@ -572,6 +575,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					screen.blit(messageFont.render("non ",True,(0,0,0)),(700,500))
 					pygame.display.flip()
 					connexion=1
+					reading=True
 					
 					
 				# SI TOUCHE CLIQUEE EST NON, alors on retourne a la boite principale de la messagerie 
@@ -580,6 +584,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					connexion=0
 					y=250
 					retour = 1
+					reading=True
 					
 					# on affiche les éléments de la messagerie
 					pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
@@ -629,12 +634,11 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
 					retour=0
 					connexion = 2
+					reading=True
 					pygame.display.flip()
 					
 				# SI TOUCHE RETOUR CLIQUEE, retour sur la messagerie pendant qu'on est sur l'espace de connexion, lorsqu'on a oublié un mot de passe par exemple
-				if 822<event.pos[0]<900 and 620<event.pos[1]<660 and retour == 0 and event.button == 1:#retour == 0
-					print("works")
-					print(retour)
+				if 822<event.pos[0]<900 and 620<event.pos[1]<660 and retour == 0 and event.button == 1:
 					retour=1
 					g_countreturn=0
 					epaisseurchamp1=4
@@ -643,6 +647,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					g_champ=[]
 					text = ""
 					connexion=0
+					reading=True
 					
 					# on regarde la valeur de la variable compte pour voir sur quel compte on se trouvait précédemment
 					if compte == 1 :
@@ -1746,6 +1751,8 @@ while continuer :
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text = message(images, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text)
 
-if g_appUsed == "win" :
-	print("Victoire")
+	if g_appUsed == "win" :
+		print("Victoire")
+
+
 pygame.quit()
