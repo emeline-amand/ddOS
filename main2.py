@@ -1,4 +1,4 @@
-import pygame, os, math
+import pygame, os, math, time
 from pygame.locals import *
 
 #Pour l'appli terminal
@@ -232,7 +232,7 @@ utilisateur = "Agent"
 g_countreturn=0
 
 #Variable globale ... globale
-g_gagne=False
+win=False
 
 def render(toBlit, firstPlan) :
 	"""Fonction qui affiche les _imageses spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'_imagese spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
@@ -1636,7 +1636,11 @@ def reinitialiser(_images, m) :
 			for i in range(len(mdp)) :
 				if mdp[i] != correctmdp[i] :
 					break
-				return False, False, "win" #victoire
+				log = ["Réinitialisation en cours ..."]
+				printLog(log, _images)
+				time.sleep(1)
+				_images = render(_images, (fen_terminal, fen_terminal_coords))
+				return False, True, "win" #victoire
 			currentInput = 0
 			text = mdp[currentInput]
 			ligne = 330 + currentInput*20
@@ -1751,6 +1755,12 @@ while continuer :
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text = message(images, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text)
 
-if g_appUsed == "win" :
-	print("Victoire")
+	if g_appUsed == "win" and not(win) :
+		win = True
+		messages.insert(0,["de: Boss", "Victoire!",["Et voilà, nous y sommes arrivés","grâce à vous Agent Wray! ","Vous avez réussi à sauver l’humanité d’un terrible hacker.","Le FBI vous remercie fortement !","","Nous espérons que vous avez pris plaisir à participer à ce jeu ","tout comme nous avons pris plaisir à le créer.","","Merci d’avoir joué <3 ;] -____- :3 :D UwU owo iwi","","A&E, les concepteurs, fondateurs, et créateurs de ddOS®"]])
+		g_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss"], [""], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["Cliquez ici pour fermer"]]
+		images, iconpopup = popup(iconpopup, g_info, images)
+		
+		
+		
 pygame.quit()
