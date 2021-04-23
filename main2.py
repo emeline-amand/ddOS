@@ -59,12 +59,14 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 	lignex=529
 	ligney=400
 	lignereturny=400
-	epaisseurchamp1=4  # pour le contour en gars lorsqu'on écrit dans l'espace de connexion
+	epaisseurchamp1=4  # pour le contour en gras lorsqu'on écrit dans l'espace de connexion
 	epaisseurchamp2=2
 	# variable spécifique au  message sur la boite mail du hacker contenant une photo
 	photo=0
 	# variable utilisée pour cliquer sur le bouton déconnexion de la messagerie
 	deconnexion=0
+	#variable qui ne clique pas sur un autre mail pendant qu'on lit un mail
+	reading = True
 	
 	messagesHacker=[["de: Mamie","Dernières vacances",["Coucou mon chéri, ","Comment vas-tu? ","Je sais que ton métier de concierge te prends beaucoup de temps. ","Je t'envoie donc un petit mail pour te remercier d'être allé à Brest ","avec moi durant ses dernières vacances. Cela m'a beaucoup touché ","que tu prennes du temps avec ta vieille mamie. Ne t'inquiètes ","pas pour ton chat Glad0s, je prends soin de lui, il va très bien et se ","plaît beaucoup ici! J'ai pris soin de t'envoyer un colis avec une ","douzaine de durian que j'ai trouvé ce matin au marché du village, ","tu les aimes tant! C'est dans ce marché de Brest que se trouve les ","fruits les plus exotiques! De quoi te faire voyager depuis chez toi :)","Je t'embrasse, ","","Ta Mamie "]],["de: DUVAL Jacques","Ampoules grillées",["Bonjour Monsieur le concierge","Les ampoules du couloir au troisième étage sont cassées. ","Veuillez appeler un électricien.","","Bien Cordialement,","DUVAL Jacques, trosième étage du bâtiment 2"]],["de: CASTORAMA","Votre livraison est en route!",["Nous vous informons que votre commande est en route!","Vous devriez la recevoir dans les jours suivants, merci d'avoir choisi ","Castorama!","","Votre cagnotte fidélité bénéficie de 200 points supplémentaires.","","Détails de la commande:","Tuyau pvc Compact Ø100 mm L.2 m x5","Enduit de façade rénovation chaux ton pierre 25 kg x2","Elagueuse sur perche électrique FPPS710 710w 18cm"]],["de: moi","Binaire",[]],["de: MyMail","Votre compte",["Bonjour,",""," Afin de vous aider à définir vos paramètres de confidentialité ","encore plus facilement, nous avons ajouté des suggestions dans ","votre Check-up Confidentialité. Par exemple, nous vous aidons à ","activer ou désactiver le partage de votre position, définir la durée ","pendant laquelle vous souhaitez conserver votre historique sur le Web ","et les applications et bien plus encore, directement depuis ","votre Check-up Confidentialité.","","Bonne journée! "]],["de: DEF CON","Invitation",["Nous sommes heureux de vous accueillir à cette 28ème édition de ","la DEF CON! En raison des conditions sanitaires actuelles, ","les conférences seront effectuées en nombre limités. Pour cela que ","vous devez réserver dès maintenant vos tickets. Si vous ne pouvez ","participer à une conférence, vous aurez cependant accès à un lien de ","connexion, pour pouvoir y assister depuis un ordinateur."," ","DATE: 8-11 août.","LIEU: Rio All Suite Hotel & Casino ","","À bientôt","Comité de la DEFCON"]],["de: Spotify","Nouvelle chanson de votre groupe préféré",["Twenty One Pilots a sorti un nouveau single durant la période difficile","que nous avons traversé.","Découvrez Level Of Concern sur votre plateforme favorite !","","TOP shook the world with the release of their 2015 LP BLURRYFACE, ","an album that would go to on sell over 7 millions copies worldwide and ","earn the band their first ever GRAMMY Award... ","Discover more about them on Spotify.","","Essayez Spotify Premium gratuitement pendant un mois. ","Bénéficiez du mode écoute libre, zapping illimité ","et de l'écoute hors connexion."]],["de: PC","Réinitialisation",["Bonjour! ","Merci d'avoir changé l'un des mots de passe de votre PC grâce ","à notre logiciel!","","nouveau mot de passe: oJrVfMbOtJ"]]]
 	
@@ -198,8 +200,11 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					connexion=0
 					for i in range (len(_messages)):
 						# on regarde la position de la souris
-						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1: 
+						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1 and reading: 
 							retour = 1
+							connexion=1
+							deconnexion=0
+							reading= False
 							# efface texte à l'écran
 							render(_images, None)
 	
@@ -214,8 +219,6 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
 							screen.blit(messageFontpetit.render("Boîte principale",True,(0,0,0)),(160,350))
 							screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
-							connexion=1
-							deconnexion=0
 							
 							#refresh écran
 							pygame.display.flip()
@@ -229,7 +232,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					deconnexion=0
 					connexion=0
 					for i in range (len(messagesHacker)):
-						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1:
+						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1 and reading:
 							
 							if 350<event.pos[0]<800 and 370<event.pos[1]<410 and event.button == 1: # message intitulé binaire qui comprend une photo
 								# on met en premier plan l'image contenant la photo
@@ -274,6 +277,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 				# CLIQUE SUR BOITE PRINCIPAL qui permet de revenir à la liste des mails en fonction du compte sur lequel on se trouve
 				if 160<event.pos[0]<270 and 350<event.pos[1]<390 and event.button == 1:
 					connexion=0
+					reading=True
 					if g_compte==1 :
 						compte=1
 						render(_images, None)
@@ -365,6 +369,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					screen.blit(messageFont.render("non ",True,(0,0,0)),(700,500))
 					pygame.display.flip()
 					connexion=1
+					reading=True
 					
 					
 				# SI TOUCHE CLIQUEE EST NON, alors on retourne a la boite principale de la messagerie 
@@ -373,6 +378,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					connexion=0
 					y=250
 					retour = 1
+					reading=True
 					
 					# on affiche les éléments de la messagerie
 					pygame.draw.line(screen,(0,0,0), (340, y), (1130, y), 2)
@@ -425,9 +431,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					pygame.display.flip()
 					
 				# SI TOUCHE RETOUR CLIQUEE, retour sur la messagerie pendant qu'on est sur l'espace de connexion, lorsqu'on a oublié un mot de passe par exemple
-				if 822<event.pos[0]<900 and 620<event.pos[1]<660 and retour == 0 and event.button == 1:#retour == 0
-					print("works")
-					print(retour)
+				if 822<event.pos[0]<900 and 620<event.pos[1]<660 and retour == 0 and event.button == 1:
 					retour=1
 					g_countreturn=0
 					epaisseurchamp1=4
@@ -436,6 +440,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					g_champ=[]
 					text = ""
 					connexion=0
+					reading=True
 					
 					# on regarde la valeur de la variable compte pour voir sur quel compte on se trouvait précédemment
 					if compte == 1 :
@@ -505,6 +510,15 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					appli=False
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					return _images, False, _messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text
+				elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : 
+				#Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur "iconhelp" => quitte l'appli
+					_images = render(_images, (fen_help, fen_help_coords))
+					appli=False
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					#Clic gauche sur la croix en bas à droite  => quitte le jeu
+					_continuer = False
+					appli = False
 					
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu quitter l'appli (c'est à dire fermer la fonction)
 			
