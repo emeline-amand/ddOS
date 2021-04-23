@@ -362,6 +362,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			pygame.draw.rect(screen,(0,0,0),(525,500,300,40),epaisseurchamp2)
 			screen.blit(messageFont.render("retour",True,(0,0,0)),(822,620))
 			
+			#variable retour qui permet de cliquer sur "retour" lorsqu'on se trouve sur l'espace de connexion est qu'on souhaite retourner sur la boite mail
 			retour=0
 			connexion = 2
 			pygame.display.flip()
@@ -1692,10 +1693,24 @@ def printCentered(string) :
 def Hint(_images) :
 	#Liste des aides disponibles
 	hints = { 
-		'Explication':[["Bonjour, bienvenue dans l'application hint, ici vous trouverez toute l'aide dont vous avez besoin. Par contre attention, garre au spoilers, ne venez ici qu'en cas d'extrême nécéssité.", "Pour naviguer à travers les aides, utilisez les flèches. Celle du bas permet d'obtenir plus d'aide sur le même sujet, celle des côtés permet de passer d'aide en aide, et celle du haut est pour remonter dans l'arborescence d'aide"]],
-		'Terminal':[["Hint 1 : Le mot de passe a un lien avec le nom d'utilisateur, c'est l'élément suivant de la suite", "Solution", "111221"], ["Hint 2", "blba 2"], ["Hint 3", "blba 3"]], 
-		'Mail':[]
-	}
+		'Explication':
+			[["Bonjour, bienvenue dans l'application hint, ici vous trouverez toute l'aide dont vous avez besoin. Par contre attention, garre au spoilers, ne venez ici qu'en cas d'extrême nécéssité."]], 
+		'Terminal':
+			[["Hint 1 : Le mot de passe pour entrer dans le PC du hacker est la suite de son identifiant", "Solution", "111221"], 
+			["Hint 2 : Quelques endroits importants dans le PC du hacker", "Les applications de l’ordinateur, chemin : “C:/Applications” et le dossier “Paramètres” présent dedans", "Le dossier “Important”, pas très bien caché :P", "Tient, des recettes de cuisine ?", "“C:/Documents/Programmation/ ... ”"],
+			["Hint 3 : Les identifiants de la boîte mail du hacker sont sûrement dans ce fichier “motsdepasses.txt” dans le fichier “Important”", "Le bon mot de passe est celui qui match avec le fragment donné par le boss", "Solution", "adf0mh456"],
+			["Hint 4, aide au code 1 : L’application JARVIS peut sûrement aider à trouver un mot de passe", "Solution", "489a6282A"],
+			["Hint 5, aide au code 2 : Certaines lettres des recettes de cuisine sont en majuscule, il faudrait essayer de les mettre bout à bout", "La phrase est : “code 2 ancêtre internet”, le code est probablement la réponse", "Solution", "arpanet"],
+			["Hint 6, aide au code 4 : les chiffres de la première ligne de “donnée_chiffrées.txt” correspondent à des lettres", "La première ligne donne “ASCII”, il faut donc convertir en ASCII le binaire présent dans le fichier", "Solution", "pbadC#gud"]],
+		'Mail':
+			[["Hint 1 : Certains mails ne contiennent aucunes informations nécessaires pour le jeu." ],
+			["Hint 2 : Notez votre mail et mot de passe!"],
+			["Hint 3 : Essayez d’entrer dans la boîte mail du hacker en vous déconnectant de la votre et en entrant les bons identifiants.","Pour accéder au mot de passe complet du hacker, allez sur le terminal."],
+			["Hint 4 : Lisez attentivement les messages sur la boite mail du hacker, certains ne fournissent aucunes informations importantes pour les énigmes.","Aucune énigme ne se cache derrière la liste de commande Castorama ."],
+			["Hint 5 : J'espère que vous n’avez pas négligé le message de la mamie! Lisez-le, vous ne le regretterez pas."," Notez les informations que vous trouvez importantes, elle vous seront demandées par l'assistant Jarvis sur le terminal du hacker.","Solution","Les mots à retenir sont: Durian, Glad0s, Brest"],
+			["Hint 6 : Le code 3 de réinitialisation du PC se trouve dans un mail du hacker."," Un mail contenant une photo...","Regardez plus attentivement la photo et essayez d’établir un rapport avec la citation.","Visages…","Comptez-les!","Convertissez le chiffre obtenu en binaire.","Solution","00001001"],
+			["Hint 7 : Le code 5 de réinitialisation du PC se trouve dans un mail du hacker","Cliquez sur le mail de réinitialisation du mot de passe.","La réponse est sous vos yeux!"]] 	
+		}
 
 	step = [] #Liste contenant les informations sur l'aide à recevoir (indice et clé de la liste d'aide)
 	menu = 0
