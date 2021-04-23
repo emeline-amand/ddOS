@@ -1,4 +1,4 @@
-import pygame, os, math
+import pygame, os, math, time
 from pygame.locals import *
 
 #Pour l'appli terminal
@@ -232,7 +232,6 @@ utilisateur = "Agent"
 g_countreturn=0
 
 #Variable globale ... globale
-g_gagne=False
 win=False
 
 def render(toBlit, firstPlan) :
@@ -1058,7 +1057,7 @@ def scrolling(_log, _ligne, _images, _path) :
 	return _log, _ligne
 
 def printDialogue(_log, _ligne, dialogue) :
-	"""Modifie log pour lui ajouter ce qu'il faut pour afficher un nouveau dialogue"""
+	"""Modifie log pour lui ajouter ce qu'il faut pour afficher un nouveau dialogue (JARVIS)"""
 	_log.append(dialogue[0]) #Afficher ce que dit l'IA
 	#saut de ligne \/
 	_ligne+=20
@@ -1650,6 +1649,137 @@ def reinitialiser(_images, m) :
 	return True, True, ""
 
 #=========================================================================#
+#================================== HINT =================================#
+#=========================================================================#
+
+def getString(h, s) :
+	"""Récupère la string stockée au bout du chemin spécifié en 2e paramètre"""
+	#Fonctionne de la même manière que goto() mais avec des listes aussi
+	for i in s :
+		h = h[i]
+	return h
+
+def gotolist(liste, path) :
+	pass
+
+def printCentered(string) :
+	"""Affiche au centre de l'écran le texte passé en paramètre"""
+
+	#==============================# Split la string en différentes lignes #==============================
+	liste = []
+	absoluteLineLength = 35
+	lineLength = absoluteLineLength
+	while len(string) >= absoluteLineLength :
+		#Petit bout de code pour ne pas couper au milieu des mots \/
+		if lineLength > len(string) : lineLength = len(string)
+		line = string[:lineLength]
+		if len(string) > absoluteLineLength : line = line.rsplit(" ", 1)
+		liste.append(line[0])
+		string = string[lineLength-len(line[1]):]
+		
+	#Dernière ligne (un peu spéciale) \/
+	liste.append(string)
+
+	#=================================# afficher la string #==============================#
+		#Quelques calculs douteux de coordonées pour afficher le texte toujours centré
+	y = screen_dim[1]/2-(len(liste)*40)/2
+	for line in liste :
+		text_width, text_height = hintFont.size(line)
+		screen.blit(hintFont.render(line, True, (0, 0, 0)), (screen_dim[0]//2-(text_width)//2, y))
+		y += 40
+	pygame.display.flip()
+	
+def Hint(_images) :
+	#Liste des aides disponibles
+	hints = { 
+		'Explication':[["Bonjour, bienvenue dans l'application hint, ici vous trouverez toute l'aide dont vous avez besoin. Par contre attention, garre au spoilers, ne venez ici qu'en cas d'extrême nécéssité.", "Pour naviguer à travers les aides, utilisez les flèches. Celle du bas permet d'obtenir plus d'aide sur le même sujet, celle des côtés permet de passer d'aide en aide, et celle du haut est pour remonter dans l'arborescence d'aide"]],
+		'Terminal':[["Hint 1 : Le mot de passe a un lien avec le nom d'utilisateur, c'est l'élément suivant de la suite", "Solution", "111221"], ["Hint 2", "blba 2"], ["Hint 3", "blba 3"]], 
+		'Mail':[]
+	}
+
+	step = [] #Liste contenant les informations sur l'aide à recevoir (indice et clé de la liste d'aide)
+	menu = 0
+	menuKeys = list(hints.keys())
+	step.append(menuKeys[menu])
+	text = "" #Text à afficher
+
+	appli = True
+	while appli :
+		#Gestion des événements
+		for event in pygame.event.get():
+			if event.type == QUIT: 
+				#Clic sur la croix pour fermer la fenêtre
+				continuer = False
+			elif event.type == MOUSEBUTTONDOWN: 
+				#Clic de souris
+				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "iconterminal"
+					_images = render(_images, (fen_terminal, fen_terminal_coords))
+					return _images, True
+				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "iconmessage"
+					_images = render(_images, (fen_message, fen_message_coords))
+					return _images, True
+				elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "iconhelp"
+					_images = render(_images, (fen_help, fen_help_coords))
+					return _images, True
+				elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur la croix en bas à droite
+					_images = render(_images, (fen_hint, fen_hint_coords))
+					return _images, True
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur la croix en bas à droite
+					return _images, False
+
+				#================================# Clic sur les flèches #================================#
+				elif event.pos[0]>175 and event.pos[0]<225 and event.pos[1]>520 and event.pos[1]<570 and event.button == 1 : #Si clic sur LEFT ARROW
+					if len(step) == 1 :
+						menu -= 1
+						if menu < 0 : menu = 2
+						step[0] = menuKeys[menu]
+					else :
+						if step[1] > 0 :
+							step[1] -= 1
+							step[2] = 0
+				elif event.pos[0]>1050 and event.pos[0]<1100 and event.pos[1]>520 and event.pos[1]<570 and event.button == 1 : #Si clic sur RIGHT ARROW
+					if len(step) == 1 :
+						menu += 1
+						if menu > 2 : menu = 0
+						step[0] = menuKeys[menu]
+					elif len(step) == 3 :
+						if step[1] < len(hints[step[0]])-1 :
+							step[1] += 1
+							step[2] = 0
+				elif event.pos[0]>615 and event.pos[0]<665 and event.pos[1]>795 and event.pos[1]<845 and event.button == 1 : #Si clic sur DOWN ARROW
+					if len(step) == 1 :
+						step.append(0)
+						step.append(0)
+					elif len(step) == 3 :
+						step[2] += 1
+						if step[2] >= len(hints[step[0]][step[1]]) :
+							step[2] = len(hints[step[0]][step[1]])-1
+				elif event.pos[0]>615 and event.pos[0]<665 and event.pos[1]>245 and event.pos[1]<295 and event.button == 1 : #Si clic sur UP ARROW
+					if len(step) == 3 :
+						if step[2] <= 0 :
+							del step[1]
+							del step[1]
+						else :
+							step[2] -= 1
+
+
+		render(_images, None)
+
+		if len(step) == 1 :
+			screen.blit(terminalFont.render("Choissisez une catégorie d'aide parmit les trois disponibles", True, (0, 0, 0)), (190, 215))
+			text = step[0]
+		elif len(step) == 3 :
+			screen.blit(terminalFont.render("Catégorie actuelle : "+step[0], True, (0, 0, 0)), (190, 215))
+			text = getString(hints, step)
+		printCentered(text)
+	return _images, True
+
+#=========================================================================#
 #======================= VARIABLES ET INITALISATIONS =====================#
 #=========================================================================#
 pygame.init()
@@ -1659,6 +1789,7 @@ pygame.font.init()
 messageFont = pygame.font.SysFont('Arial', 30)
 messageFontpetit = pygame.font.SysFont('Arial', 20)
 terminalFont = pygame.font.Font('img/callCode.ttf', 20)
+hintFont = pygame.font.Font('img/callCode.ttf', 40)
 
 #Ouverture de la fenêtre Pygame
 w = math.floor(pygame.display.Info().current_w/2-1280/2) #Calcule les coordonnées de la fenetre pygame en fonction de la taille de l'écran
@@ -1699,10 +1830,14 @@ fen_help = pygame.image.load("img/fen_help.png").convert()
 fen_help_dim = fen_help.get_size()
 fen_help_coords = ((screen_dim[0]-fen_help_dim[0])/2, (screen_dim[1]-fen_help_dim[1])/2)
 
+#Chargement de la fenêtre d'hint
+fen_hint = pygame.image.load("img/fen_hint.png").convert()
+fen_hint_dim = fen_hint.get_size()
+fen_hint_coords = ((screen_dim[0]-fen_hint_dim[0])/2, (screen_dim[1]-fen_hint_dim[1])/2)
+
 #Chargement de la case popup
 iconpopup = pygame.image.load("img/blanc.jfif").convert()
 iconpopup_dim = iconpopup.get_size()
-print(iconpopup_dim)
 iconpopup_coords=(1000,750) 
 
 #Chargement de l'image peinture
@@ -1739,6 +1874,9 @@ while continuer :
 			elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 				#Clic sur gauche sur "iconhelp"
 				images = render(images, (fen_help, fen_help_coords))
+			elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+				#Clic gauche sur la croix en bas à droite
+				images = render(images, (fen_hint, fen_hint_coords))
 			elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 				#Clic gauche sur la croix en bas à droite
 				continuer = False
@@ -1751,6 +1889,8 @@ while continuer :
 		images, continuer, g_path, g_log, g_ligne, g_text, g_appUsed = Terminal(images, g_path, g_log, g_ligne, g_text, g_appUsed)
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text = message(images, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text)
+	elif images[len(images)-1][0] == fen_hint:
+		images, continuer = Hint(images)
 
 	if g_appUsed == "win" and not(win) :
 		win = True
