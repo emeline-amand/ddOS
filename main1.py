@@ -405,7 +405,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					connexion=0
 					for i in range (len(_messages)):
 						# on regarde la position de la souris
-						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1: 
+						if 350<event.pos[0]<1132 and y<event.pos[1]<y+40 and connexion==0 and event.button == 1 : 
 							retour = 1
 							# efface texte à l'écran
 							render(_images, None)
