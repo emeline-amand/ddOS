@@ -233,6 +233,7 @@ g_countreturn=0
 
 #Variable globale ... globale
 g_gagne=False
+win=False
 
 def render(toBlit, firstPlan) :
 	"""Fonction qui affiche les _imageses spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'_imagese spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
@@ -1751,6 +1752,10 @@ while continuer :
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text = message(images, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text)
 
-if g_appUsed == "win" :
-	print("Victoire")
+	if g_appUsed == "win" and not(win) :
+		win = True
+		#Append le message puis popup
+
+
+
 pygame.quit()

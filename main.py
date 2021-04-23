@@ -1751,6 +1751,8 @@ while continuer :
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text = message(images, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text)
 
-if g_appUsed == "win" :
-	print("Victoire")
+	if g_appUsed == "win" :
+		print("Victoire")
+
+
 pygame.quit()
