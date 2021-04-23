@@ -343,9 +343,8 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			# on fait afficher ligne de séparation
 			y+=40
 			pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
-	
-	
-		pygame.display.flip()
+			
+	pygame.display.flip()
 		
 		
 	elif g_compte == 3:
@@ -387,9 +386,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 			lignereturny+=100
 			pygame.display.flip()
 
-			
 	
-
 	# pendant que l'appli=true, commun à toutes les applis
 	while appli :
 		for event in pygame.event.get(): #Attente des événements
@@ -641,9 +638,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					pygame.display.flip()
 					
 				# SI TOUCHE RETOUR CLIQUEE, retour sur la messagerie pendant qu'on est sur l'espace de connexion, lorsqu'on a oublié un mot de passe par exemple
-				if 822<event.pos[0]<900 and 620<event.pos[1]<660 and retour == 0 and event.button == 1:#retour == 0
-					print("works")
-					print(retour)
+				if 822<event.pos[0]<900 and 620<event.pos[1]<660 and retour == 0 and event.button == 1:
 					retour=1
 					g_countreturn=0
 					epaisseurchamp1=4
