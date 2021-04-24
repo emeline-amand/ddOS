@@ -3,16 +3,26 @@ from pygame.locals import *
 
 #Pour l'appli terminal
 files = {'C:':{
+	'Applications':{
+		'Subnautico.exe':'lexe',
+		'jarvis.exe':'exe', 
+		'Gogole_Chrome.exe':'lexe',
+		'Paramètres':{
+			'reinitialiser.exe':'exe',
+			'utilisateur.exe':'lexe',
+			'systeme.exe':'lexe',
+		},
+		'Discard.exe':'lexe'
+	},
 	'Documents':{
 		'Important':{
-			'motsdepasses.txt':'txt',
-			'motsdepasses.txt.':[
-				'motsdepasses.txt',
+			'motsdepasse.txt':'txt',
+			'motsdepasse.txt.':[
+				'motsdepasse.txt',
 				'Faire ESC pour quitter',
 				'',
 				'================================================================================',
 				'shjkeuiOE',
-				'a..0m..5.',
 				'agfOsh48t',
 				'adf0g5ec',
 				'adf0mh456',
@@ -24,14 +34,15 @@ files = {'C:':{
 				'af0mse5p',
 				'zfs0m345e',
 			],
-			'adresses_IP_volés':'locked',
-			'donnée_chiffrées.txt':'txt',
-			'donnée_chiffrées.txt.':[
-				'donnée_chiffrées.txt',
+			'adresses_IP_volees':'locked',
+			'donnee_chiffree.txt':'txt',
+			'donnee_chiffree.txt.':[
+				'donnee_chiffree.txt',
 				'Faire ESC pour quitter',
 				'',
 				'================================================================================',
-				'Code 4 : 1;19;3;9;9',
+				'1;19;3;9;9',
+				'Code 4 :',
 				'',
 				'0111 0000',
 				'0110 0010',
@@ -41,8 +52,8 @@ files = {'C:':{
 				'0010 0011',
 				'0110 0111',
 				'0111 0101',
-				'0110 1000',
-
+				'0110 0100',
+				''
 			],
 			'Émilie':'locked',
 		},
@@ -201,18 +212,7 @@ files = {'C:':{
 		'La_vérité_sur_le_drama_Vache_Qui_Rit.mp4':'mp4',
 		'Comment_sont_élevés_les_émeux.mp4':'mp4',
 		'Tuto_Programmer_en_C--.mp4':'mp4',
-	}, 
-	'Applications':{
-		'Subnautico.exe':'lexe',
-		'jarvis.exe':'exe', 
-		'Gogole_Chrome.exe':'lexe',
-		'Discard.exe':'lexe',
-		'Paramètres':{
-			'reinitialiser.exe':'exe',
-			'utilisateur.exe':'lexe',
-			'systeme.exe':'lexe',
-		}
-	}
+	},
 }}
 g_path = ""
 g_log = []
@@ -222,7 +222,7 @@ g_text = ""
 g_appUsed = ""
 
 #Pour l'appli message
-messages=[["de: Boss","Infos Hacker part 2",["Agent Wray, ","De notre côté nous avons découverts plusieurs choses. ","Certains fichiers du PC du hacker sont signalé par la mention ","[CORROMPU]. D'après nos analyses, ces dossiers ne contiennent ","aucunes informations essentielles à votre missions. ","Il ne sert donc à rien de les parcourir."]],["de: Boss","Infos Hacker",["Voici le peu d'informations que nous avons trouvé sur le hacker,","Son mail: neo.mitrax@mymail.com, avec le mot de passe : ","a**0m*h*5* (les * sont les caractères que nous n'avons pas réussi à ","décrypter à l'heure actuelle, c'est à vous de les trouver dans le PC ","du hacker.) elles vous seront utiles tout le long de la partie. Nous ","savons  que le hacker est citoyen français. Il aurait fait l'École 42 ","fut deuxième de sa promo. Cependant ses études prirent un autre ","tour à la mort de son père le 28 octobre 1997. Il entreprit des études ","d'arquéologue à l'Université de Massachusetts. Il s'installa ensuite à ","Brest, cette profession lui aurait permis de mettre en place son activité ","de hacker. A ce jour, il a hacké plusieurs banques dans différents pays. ","Il représente un danger pour tous,d'où la rapidité dont vous devez ","disposer pour supprimer les codes nucléaires de son ordinateur."]],["de: Boss","Règles du jeu",["Bonjour Agent,","L'heure est grave, le célèbre hacker connu sous le nom de ddOS","s'est emparé d'importants fichiers nucléaires.","Votre mission, si toute fois vous l'acceptez, est de pénétrer dans le PC ","du hacker à distance, récupérer ses fichiers nucléaires et les ","supprimer de son PC. Pour se faire l'équipe s'est mobilisée pour ","maintenir le PC du hacker hors service depuis chez lui. Voici votre ","mail: christopher.wray@fbi.com et votre mot de passe: Ly46fZer ","pour vous connecter à votre messagerie lors de cette mission. ","Prenez soin de les noter sur une feuille: vous serez amené à vous ","déconnecter de votre compte plusieurs fois. Cette feuille vous servira ","également à noter toutes les informations et mots de passe que","vous trouvez: tout se réutilise! ","Bonne chance, la survie de l'humanité dépend de vous Agent Wray."]],["de: FBI","Vacances",["Vous n'avez pas pris de vacances depuis plusieurs mois Agent Wray, ","Songez-y."]],["de: FBI","année 2021",["Meilleurs voeux agent Wray! C'est un plaisir d'être à vos côtés ","une années de plus!"]],["de: Boss","Nouvelle équipe",["Agent Wray,","Vous voici affecté à une nouvelle équipe sous mon commandement. ","Je ne fais pas de doutes sur le fait que nous nous entendrons bien. ","Monsieur Decopmann m'a beaucoup parlé de vous en bien.","Bienvenue dans l'équipe 007"]],["de: Boss","Contenu rapport",["Bonjour Agent Wray, le rapport que tu m'as remis ce matin sur l'affaire"," Jonhson était peu fourni. Je me permets donc de te rappeler ","les éléments clefs afin de faire des rapports plus efficaces.","","Étape 1 – Bien faire préciser la demande: Le destinataire du rapport ","et la situtation","Étape 2 – Rassembler et traiter l’information nécessaire","Étape 3 – Faire son plan","Étape 4 – Rédiger le rapport"]],["de: James Scott","travail",["Salut Agent Wray, j'ai retrouvé cet article du FBI..."," à ressortir quand tes coéquipiers râlent pour les missions en groupe ;)"," ","Le FBI considère cela comme essentiel à son succès aujourd’hui. ","Les groupes de travail se sont avérés être un moyen très efficace ","pour le FBI et les forces de l’ordre fédérales, étatiques et locales ","de s’unir pour traiter des problèmes de criminalité spécifiques ","et des menaces à la sécurité nationale."]]]
+messages=[["de: Boss","Règles du jeu",["Bonjour Agent,","L'heure est grave, le célèbre hacker connu sous le nom de ddOS","s'est emparé d'importants fichiers nucléaires.","Votre mission, si toute fois vous l'acceptez, est de pénétrer dans le PC ","du hacker à distance, récupérer ses fichiers nucléaires et les ","supprimer de son PC. Pour se faire l'équipe s'est mobilisée pour ","maintenir le PC du hacker hors service depuis chez lui. Voici votre ","mail: christopher.wray@fbi.com et votre mot de passe: Ly46fZer ","pour vous connecter à votre messagerie lors de cette mission. ","Prenez soin de les noter sur une feuille: vous serez amené à vous ","déconnecter de votre compte plusieurs fois. Cette feuille vous servira ","également à noter toutes les informations et mots de passe que","vous trouvez: tout se réutilise! ","Bonne chance, la survie de l'humanité dépend de vous Agent Wray."]],["de: Boss","Infos Hacker part 2",["Agent Wray, ","De notre côté nous avons découverts plusieurs choses. ","Certains fichiers du PC du hacker sont signalé par la mention ","[CORROMPU]. D'après nos analyses, ces dossiers ne contiennent ","aucunes informations essentielles à votre mission. ","Il ne sert donc à rien de les parcourir."]],["de: Boss","Infos Hacker",["Voici le peu d'informations que nous avons trouvé sur le hacker,","Son mail: neo.mitrax@mymail.com, avec le mot de passe : ","a**0m*h*5* (les * sont les caractères que nous n'avons pas réussi à ","décrypter à l'heure actuelle, c'est à vous de les trouver dans le PC ","du hacker.) elles vous seront utiles le long de la mission. Nous ","savons  que le hacker est un citoyen français. Il aurait fait l'École 42 ","et fut deuxième de sa promo. Cependant ses études prirent un autre ","tour à la mort de son père le 28 octobre 1997. Il entreprit des études ","d'arquéologue à l'Université de Massachusetts. Il s'installa ensuite à ","Brest, et devint concierge, ce qui lui a permis de mettre en place ses","activitées de hacker. A ce jour, il a hacké plusieurs banques dans","différents pays. Il représente un danger pour tous,d'où la rapidité dont","vous devez disposer pour supprimer les codes nucléaires de son", "ordinateur."]],["de: FBI","Vacances",["Vous n'avez pas pris de vacances depuis plusieurs mois Agent Wray, ","Songez-y."]],["de: FBI","année 2021",["Meilleurs voeux agent Wray! C'est un plaisir d'être à vos côtés ","une années de plus!"]],["de: Boss","Nouvelle équipe",["Agent Wray,","Vous voici affecté à une nouvelle équipe sous mon commandement. ","Je n'ai pas de doutes sur le fait que nous nous entendrons bien. ","Monsieur Decopmann m'a beaucoup parlé de vous en bien.","Bienvenue dans l'équipe 007"]],["de: Boss","Contenu rapport",["Bonjour Agent Wray, le rapport que tu m'as remis ce matin sur l'affaire"," Jonhson était peu fourni. Je me permets donc de te rappeler ","les éléments clefs afin de faire des rapports plus efficaces.","","Étape 1 – Bien faire préciser la demande: Le destinataire du rapport ","et la situtation","Étape 2 – Rassembler et traiter l’information nécessaire","Étape 3 – Faire son plan","Étape 4 – Rédiger le rapport"]],["de: James Scott","travail",["Salut Agent Wray, j'ai retrouvé cet article du FBI..."," à ressortir quand tes coéquipiers râlent pour les missions en groupe ;)"," ","Le FBI considère cela comme essentiel à son succès aujourd’hui. ","Les groupes de travail se sont avérés être un moyen très efficace ","pour le FBI et les forces de l’ordre fédérales, étatiques et locales ","de s’unir pour traiter des problèmes de criminalité spécifiques ","et des menaces à la sécurité nationale."]]]
 
 g_compte=1
 compte=1
@@ -275,7 +275,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 	#variable pour pas cliquer sur les autres mails pendant qu'on en lit un
 	reading= True
 	
-	messagesHacker=[["de: Mamie","Dernières vacances",["Coucou mon chéri, ","Comment vas-tu? ","Je sais que ton métier de concierge te prends beaucoup de temps. ","Je t'envoie donc un petit mail pour te remercier d'être allé à Brest ","avec moi durant ses dernières vacances. Cela m'a beaucoup touché ","que tu prennes du temps avec ta vieille mamie. Ne t'inquiètes ","pas pour ton chat Glad0s, je prends soin de lui, il va très bien et se ","plaît beaucoup ici! J'ai pris soin de t'envoyer un colis avec une ","douzaine de durian que j'ai trouvé ce matin au marché du village, ","tu les aimes tant! C'est dans ce marché de Brest que se trouve les ","fruits les plus exotiques! De quoi te faire voyager depuis chez toi :)","Je t'embrasse, ","","Ta Mamie "]],["de: DUVAL Jacques","Ampoules grillées",["Bonjour Monsieur le concierge","Les ampoules du couloir au troisième étage sont cassées. ","Veuillez appeler un électricien.","","Bien Cordialement,","DUVAL Jacques, trosième étage du bâtiment 2"]],["de: CASTORAMA","Votre livraison est en route!",["Nous vous informons que votre commande est en route!","Vous devriez la recevoir dans les jours suivants, merci d'avoir choisi ","Castorama!","","Votre cagnotte fidélité bénéficie de 200 points supplémentaires.","","Détails de la commande:","Tuyau pvc Compact Ø100 mm L.2 m x5","Enduit de façade rénovation chaux ton pierre 25 kg x2","Elagueuse sur perche électrique FPPS710 710w 18cm"]],["de: moi","Binaire",[]],["de: MyMail","Votre compte",["Bonjour,",""," Afin de vous aider à définir vos paramètres de confidentialité ","encore plus facilement, nous avons ajouté des suggestions dans ","votre Check-up Confidentialité. Par exemple, nous vous aidons à ","activer ou désactiver le partage de votre position, définir la durée ","pendant laquelle vous souhaitez conserver votre historique sur le Web ","et les applications et bien plus encore, directement depuis ","votre Check-up Confidentialité.","","Bonne journée! "]],["de: DEF CON","Invitation",["Nous sommes heureux de vous accueillir à cette 28ème édition de ","la DEF CON! En raison des conditions sanitaires actuelles, ","les conférences seront effectuées en nombre limités. Pour cela que ","vous devez réserver dès maintenant vos tickets. Si vous ne pouvez ","participer à une conférence, vous aurez cependant accès à un lien de ","connexion, pour pouvoir y assister depuis un ordinateur."," ","DATE: 8-11 août.","LIEU: Rio All Suite Hotel & Casino ","","À bientôt","Comité de la DEFCON"]],["de: Spotify","Nouvelle chanson de votre groupe préféré",["Twenty One Pilots a sorti un nouveau single durant la période difficile","que nous avons traversé.","Découvrez Level Of Concern sur votre plateforme favorite !","","TOP shook the world with the release of their 2015 LP BLURRYFACE, ","an album that would go to on sell over 7 millions copies worldwide and ","earn the band their first ever GRAMMY Award... ","Discover more about them on Spotify.","","Essayez Spotify Premium gratuitement pendant un mois. ","Bénéficiez du mode écoute libre, zapping illimité ","et de l'écoute hors connexion."]],["de: PC","Réinitialisation",["Bonjour! ","Merci d'avoir changé l'un des mots de passe de votre PC grâce ","à notre logiciel!","","nouveau mot de passe: oJrVfMbOtJ"]]]
+	messagesHacker=[["de: Mamie","Dernières vacances",["Coucou mon chéri, ","Comment vas-tu? ","Je sais que ton métier de concierge te prends beaucoup de temps. ","Je t'envoie donc un petit mail pour te remercier d'être allé à Brest ","avec moi durant ses dernières vacances. Cela m'a beaucoup touché ","que tu prennes du temps avec ta vieille mamie. Ne t'inquiètes ","pas pour ton chat Glad0s, je prends soin de lui, il va très bien et se ","plaît beaucoup ici! J'ai pris soin de t'envoyer un colis avec une ","douzaine de durian que j'ai trouvé ce matin au marché du village, ","tu les aimes tant! C'est dans ce marché de Brest que se trouve les ","fruits les plus exotiques! De quoi te faire voyager depuis chez toi :)","Je t'embrasse, ","","Ta Mamie "]],["de: DUVAL Jacques","Ampoules grillées",["Bonjour Monsieur le concierge","Les ampoules du couloir au troisième étage sont cassées. ","Veuillez appeler un électricien.","","Bien Cordialement,","DUVAL Jacques, trosième étage du bâtiment 2"]],["de: CASTORAMA","Votre livraison est en route!",["Nous vous informons que votre commande est en route!","Vous devriez la recevoir dans les jours suivants, merci d'avoir choisi ","Castorama!","","Votre cagnotte fidélité bénéficie de 200 points supplémentaires.","","Détails de la commande:","Tuyau pvc Compact Ø100 mm L.2 m x5","Enduit de façade rénovation chaux ton pierre 25 kg x2","Elagueuse sur perche électrique FPPS710 710w 18cm"]],["de: moi","int(img) -> binaire(int) -> str(binaire) and len(str) == 8",[]],["de: MyMail","Votre compte",["Bonjour,",""," Afin de vous aider à définir vos paramètres de confidentialité ","encore plus facilement, nous avons ajouté des suggestions dans ","votre Check-up Confidentialité. Par exemple, nous vous aidons à ","activer ou désactiver le partage de votre position, définir la durée ","pendant laquelle vous souhaitez conserver votre historique sur le Web ","et les applications et bien plus encore, directement depuis ","votre Check-up Confidentialité.","","Bonne journée! "]],["de: DEF CON","Invitation",["Nous sommes heureux de vous accueillir à cette 28ème édition de ","la DEF CON! En raison des conditions sanitaires actuelles, ","les conférences seront effectuées en nombre limités. Pour cela que ","vous devez réserver dès maintenant vos tickets. Si vous ne pouvez ", "pas participer à une conférence, vous aurez cependant accès à un lien","de connexion, pour pouvoir y assister depuis un ordinateur."," ","DATE: 8-11 août.","LIEU: Rio All Suite Hotel & Casino ","","À bientôt","Comité de la DEFCON"]],["de: Spotify","Nouvelle chanson de votre groupe préféré",["Twenty One Pilots a sorti un nouveau single durant la période difficile","que nous avons traversé.","Découvrez Level Of Concern sur votre plateforme favorite !","","TOP shook the world with the release of their 2015 LP BLURRYFACE, ","an album that would go to on sell over 7 millions copies worldwide and ","earn the band their first ever GRAMMY Award... ","Discover more about them on Spotify.","","Essayez Spotify Premium gratuitement pendant un mois. ","Bénéficiez du mode écoute libre, zapping illimité ","et de l'écoute hors connexion."]],["de: PC","Réinitialisation",["Bonjour! ","Merci d'avoir changé l'un des mots de passe de votre PC grâce ","à notre logiciel!","","Nouveau mot de passe, code 5 : oJrVfMbOtJ"]]]
 	
 	# on regarde sur quelle messagerie on se trouve: 1=agent; 2= Neo Mitrax(hacker); 3=fenetre de connexion
 	
@@ -709,17 +709,26 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 					
 				#quitter l'appli
 				if event.pos[0]>iconterminal_coords[0] and event.pos[0]<iconterminal_coords[0]+iconterminal_dim[0] and event.pos[1]>iconterminal_coords[1] and event.pos[1]<iconterminal_coords[1]+iconterminal_dim[1] and event.button == 1 : #Si clic sur icon (zone de clic définie par la position et taille de celui-ci)
-					#Clic sur gauche sur "icon"
+					#Clic gauche sur l'icone du termnial => quitte l'appli
 					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-					#Clic gauche sur icon2
+					#Clic gauche sur l'icone de message => quitte l'appli
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
+				elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic sur gauche sur "iconhelp" => quitte l'appli
+					_images = render(_images, (fen_help, fen_help_coords))
+					appli=False
+				elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur l'icone d'aide => quitte l'appli
+					_images = render(_images, (fen_hint, fen_hint_coords))
+					appli=False
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					#Clic gauche sur la croix en bas à droite  => quitte le jeu
+					_continuer = False
 					return _images, False, _messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text
-					
-					#Clic gauche sur la croix en bas à droite  => quitte le jeu quitter l'appli (c'est à dire fermer la fonction)
+
 			
 
 			# Pour pouvoir écrire son id et son pwd sur l'espace de connexion
@@ -800,8 +809,8 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								#on fait afficher ligne de séparation
 								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 							pygame.display.flip()
+							text = g_champ[0]
 							g_champ=[]
-							text = ""
 							connexion=0
 
 						#si id et pwd correspondent aux id et pwd de l'agent, on arrive sur la boite mail de l'agent
@@ -819,8 +828,9 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
 							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
+							
+							text = g_champ[0]
 							g_champ=[]
-							text = ""
 							y=250
 							for i in range (len(_messages)):
 							#on fait afficher l'émetteur des messages
@@ -849,8 +859,9 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							retour=0
 							connexion = 2
 							pygame.display.flip()
+							text = g_champ[0]
 							g_champ=[]
-							text = ""
+							screen.blit(messageFont.render(text, True, (0, 0, 0)), (lignex,ligney))
 					
 					pygame.display.flip()
 					
@@ -923,11 +934,12 @@ def popup(_popup, _info,_images):
 	"""Fais apparaître un popup à l'écran"""
 	_images = render(_images,(iconpopup,iconpopup_coords))
 	appli=True
-	y=780
+	y=760
+	_continuer = True
 
 	#on affiche le message du popup a l'écran
-	for i in range (5):
-		screen.blit(messageFontpetit.render(_info[i][0],True,(0,0,0)),(1000,y))
+	for i in range (len(_info)):
+		screen.blit(messageFontpetit.render(_info[i][0],True,(0,0,0)),(1010,y))
 		y=y+20
 	pygame.display.flip()
 
@@ -944,8 +956,12 @@ def popup(_popup, _info,_images):
 					_images = render(_images,(iconpopup,iconpopup_coords) )
 					appli=False
 					pygame.display.flip()
+				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
+					#Clic gauche sur la croix en bas à droite  => quitte le jeu
+					_continuer = False
+					appli = False
 
-	return _images, _popup
+	return _images, _popup, _continuer
 
 #=========================================================================#
 #=========================== PC HACKER/TERMINAL ==========================#
@@ -1103,6 +1119,10 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 					#Clic gauche sur "iconhelp" => quitte l'appli
 					_images = render(_images, (fen_help, fen_help_coords))
 					appli=False
+				elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur l'icone d'aide => quitte l'appli
+					_images = render(_images, (fen_hint, fen_hint_coords))
+					appli=False
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu
 					_continuer = False
@@ -1160,6 +1180,12 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 						elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 							#Clic gauche sur "iconhelp" => quitte l'appli
 							_images = render(_images, (fen_help, fen_help_coords))
+							appli=False
+							firstBoucle=False
+							break
+						elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+							#Clic gauche sur l'icone d'aide => quitte l'appli => Quitte l'appli
+							_images = render(_images, (fen_hint, fen_hint_coords))
 							appli=False
 							firstBoucle=False
 							break
@@ -1278,36 +1304,39 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 				items = goto(path).items()
 				#pour rendre la recherche d'executable plus rapide (un peu useless à cette échelle) \/
 				if input[0].find('.') != -1 :
+					#si il y a un "." qq part dans la commande alors split
 					extension_de_l_input = input[0].split('.')
 				else :
 					extension_de_l_input = [None, None]
+
+				found = [False, ""]
 				for item in items :
-					if extension_de_l_input[1] == "exe" and item[1] == "exe" : #si executable détecté
+					if extension_de_l_input[1] == "exe" and item[1] == "exe" : #si executable dans le dossier actuel
 						if item[0] == "jarvis.exe" and input[0] == "jarvis.exe" : #lance jarvis
+							found[0] = True
 							appli, _continuer, appUsed = jarvis(_images, 0)
 						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" : #lance réinitialiser
+							found[0] = True
 							appli, _continuer, appUsed = reinitialiser(_images, ",,,,")
 						else : #message d'erreur
-							log.append("Executable inexistant") 
-							ligne+=20
-							printLog(log, _images)
-							break
+							found[1] = "Executable inexistant"
 					elif extension_de_l_input[1] == "txt" and item[1] == "txt" : #si txt détecté
 						if item[0] == input[0] :
+							found[0] = True
 							appli, _continuer, appUsed = openTXT(goto(path+"/"+item[0]+"."), _images)
-							break
+						else :
+							found[1] = "Fichier texte manquant"
 					else : #message d'erreur
 						if extension_de_l_input[1] == "exe" :
-							log.append("Executable inexistant")
-							ligne+=20
+							found[1] = "Executable inexistant"
 						elif extension_de_l_input[1] == "txt" :
-							log.append("Fichier texte inexistant")
-							ligne+=20
+							found[1] = "Fichier texte manquant"
 						else :
-							log.append("Commande inexistante")
-							ligne+=20
-						printLog(log, _images)
-						break
+							found[1] = "Commande inexistante"
+				if not(found[0]) :
+					log.append(found[1])
+					ligne += 20
+					printLog(log, _images)
 						
 			screen.blit(terminalFont.render(path+" > "+text+"_", True, (0, 175, 0)), (125,ligne))
 			pygame.display.flip()
@@ -1370,6 +1399,11 @@ def jarvis(_images, step) :
 					_images = render(_images, (fen_help, fen_help_coords))
 					appli=False
 					return False, _continuer, "jarvis;"+str(current_dialogue)
+				elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur l'icone d'aide => quitte l'appli
+					_images = render(_images, (fen_hint, fen_hint_coords))
+					appli=False
+					return False, _continuer, "jarvis;"+str(current_dialogue)
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu
 					_continuer = False
@@ -1429,7 +1463,7 @@ def jarvis(_images, step) :
 				else : 
 					output = False
 			elif current_dialogue == 3 : #Si dialogue 4 "École"
-				if input == "École 42" or input == "école 42" or input == "42" :
+				if input == "École 42" or input == "école 42" or input == "42" or input == "Ecole 42" :
 					current_dialogue += 1
 					output = True
 				elif input == "back" :
@@ -1547,7 +1581,7 @@ def reinitialiser(_images, m) :
 		if i != 0 :
 			log[3+i] = "Mot de passe "+str(i+1)+" : "+mdp[i]
 	printLog(log, _images)
-	correctmdp = ["489a6282A", "arpanet", "0000 1001", "pbadC#gud", "oJrVfMbOtJ"] #liste des mdp attendus
+	correctmdp = ["489a6282A", "arpanet", "00001001", "pbadC#gud", "oJrVfMbOtJ"] #liste des mdp attendus
 	text = mdp[0]
 	screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 	pygame.display.flip()
@@ -1578,6 +1612,11 @@ def reinitialiser(_images, m) :
 				elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur "iconhelp" => quitte l'appli
 					_images = render(_images, (fen_help, fen_help_coords))
+					appli=False
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
+				elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
+					#Clic gauche sur l'icone d'aide => quitte l'appli
+					_images = render(_images, (fen_hint, fen_hint_coords))
 					appli=False
 					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
@@ -1632,17 +1671,38 @@ def reinitialiser(_images, m) :
 					screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 					pygame.display.flip()
 
+		#Si dernier mdp rentré
 		if currentInput > 4 :
+			MDPcorrect = True
+			mauvaisMDP = 0
 			#test si mdp sont bons
 			for i in range(len(mdp)) :
 				if mdp[i] != correctmdp[i] :
+					mauvaisMDP = i+1
+					MDPcorrect = False
 					break
-				return False, False, "win" #victoire
+			#Si mdp bons => victoire
+			if MDPcorrect :
+				#Animation de victoire
+				log = ["Réinitialisation en cours ."]
+				printLog(log, _images)
+				time.sleep(0.5)
+				log = ["Réinitialisation en cours .."]
+				printLog(log, _images)
+				time.sleep(0.5)
+				log = ["Réinitialisation en cours ..."]
+				printLog(log, _images)
+				time.sleep(0.5)
+				_images = render(_images, (fen_terminal, fen_terminal_coords))
+				pygame.display.flip()
+				time.sleep(1)
+				return False, True, "win" #victoire
+			#Sinon
 			currentInput = 0
 			text = mdp[currentInput]
 			ligne = 330 + currentInput*20
 			log[3+currentInput] = "Mot de passe "+str(1+currentInput)+" : "
-			log[9] = "Un ou plusieurs mot de passe sont incorrects, vérifez l'ordre et l'orthographe"
+			log[9] = "Le mot de passe "+str(mauvaisMDP)+" est incorrect, vérifez l'ordre et l'orthographe des codes"
 			printLog(log, _images)
 			screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 			pygame.display.flip()
@@ -1660,9 +1720,6 @@ def getString(h, s) :
 		h = h[i]
 	return h
 
-def gotolist(liste, path) :
-	pass
-
 def printCentered(string) :
 	"""Affiche au centre de l'écran le texte passé en paramètre"""
 
@@ -1678,7 +1735,7 @@ def printCentered(string) :
 		liste.append(line[0])
 		string = string[lineLength-len(line[1]):]
 		
-	#Dernière ligne (un peu spéciale) \/
+	#Dernière ligne de la string
 	liste.append(string)
 
 	#=================================# afficher la string #==============================#
@@ -1694,10 +1751,10 @@ def Hint(_images) :
 	#Liste des aides disponibles
 	hints = { 
 		'Explication':
-			[["Bonjour, bienvenue dans l'application hint, ici vous trouverez toute l'aide dont vous avez besoin. Par contre attention, garre au spoilers, ne venez ici qu'en cas d'extrême nécéssité."]], 
+			[["Bonjour, bienvenue dans l'application hint, ici vous trouverez toute l'aide dont vous avez besoin. Par contre attention, garre au spoilers, ne venez ici qu'en cas d'extrême nécéssité.", "Pour naviguer dans l'application, utilisez les quatres flèches sur les coins de la fenêtre. Les flèches des côtés permettent de naviguer entre les différentes aides d'une même catégorie, et celles du haut et bas permettent d'accéder à une des catégories lors du choix de celles-ci, soit d'accéder à des indices plus avancés d'une même aide"]], 
 		'Terminal':
 			[["Hint 1 : Le mot de passe pour entrer dans le PC du hacker est la suite de son identifiant", "Solution", "111221"], 
-			["Hint 2 : Quelques endroits importants dans le PC du hacker", "Les applications de l’ordinateur, chemin : “C:/Applications” et le dossier “Paramètres” présent dedans", "Le dossier “Important”, pas très bien caché :P", "Tient, des recettes de cuisine ?", "“C:/Documents/Programmation/ ... ”"],
+			["Hint 2 : Quelques endroits importants dans le PC du hacker", "Les applications de l’ordinateur, chemin : “C:/Applications”, notamment le dossier “Paramètres” présent dedans", "Le dossier “Important”, pas très bien caché :P", "Tient, des recettes de cuisine ?", "“C:/Documents/Programmation/ ... ”"],
 			["Hint 3 : Les identifiants de la boîte mail du hacker sont sûrement dans ce fichier “motsdepasses.txt” dans le fichier “Important”", "Le bon mot de passe est celui qui match avec le fragment donné par le boss", "Solution", "adf0mh456"],
 			["Hint 4, aide au code 1 : L’application JARVIS peut sûrement aider à trouver un mot de passe", "Solution", "489a6282A"],
 			["Hint 5, aide au code 2 : Certaines lettres des recettes de cuisine sont en majuscule, il faudrait essayer de les mettre bout à bout", "La phrase est : “code 2 ancêtre internet”, le code est probablement la réponse", "Solution", "arpanet"],
@@ -1740,7 +1797,7 @@ def Hint(_images) :
 					_images = render(_images, (fen_help, fen_help_coords))
 					return _images, True
 				elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
-					#Clic gauche sur la croix en bas à droite
+					#Clic gauche sur l'icone d'aide
 					_images = render(_images, (fen_hint, fen_hint_coords))
 					return _images, True
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
@@ -1786,10 +1843,10 @@ def Hint(_images) :
 		render(_images, None)
 
 		if len(step) == 1 :
-			screen.blit(terminalFont.render("Choissisez une catégorie d'aide parmit les trois disponibles", True, (0, 0, 0)), (190, 215))
+			screen.blit(terminalFont.render("Choissisez une catégorie d'aide parmit les trois disponibles", True, (0, 0, 0)), (190, 210))
 			text = step[0]
 		elif len(step) == 3 :
-			screen.blit(terminalFont.render("Catégorie actuelle : "+step[0], True, (0, 0, 0)), (190, 215))
+			screen.blit(terminalFont.render("Catégorie actuelle : "+step[0], True, (0, 0, 0)), (190, 210))
 			text = getString(hints, step)
 		printCentered(text)
 	return _images, True
@@ -1801,8 +1858,8 @@ pygame.init()
 pygame.font.init()
 
 #Polices
-messageFont = pygame.font.SysFont('Arial', 30)
-messageFontpetit = pygame.font.SysFont('Arial', 20)
+messageFont = pygame.font.SysFont('Arial', 20)
+messageFontpetit = pygame.font.SysFont('Arial', 10)
 terminalFont = pygame.font.Font('img/callCode.ttf', 20)
 hintFont = pygame.font.Font('img/callCode.ttf', 40)
 
@@ -1863,15 +1920,16 @@ peinture_coords = (490,240)
 images = [(peinture, peinture_coords), (background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords), (iconhelp, iconhelp_coords)] #Prépare la liste pour l'affichage des éléments
 pygame.key.set_repeat(400, 30) #Active la possibilité de rester appuyer sur une touche
 
+continuer = True
 
 #=========================================================================#
 #=================================== JEU =================================#
 #=========================================================================#
-g_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss"], [""], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["Cliquez ici pour fermer"]]
-images, iconpopup = popup(iconpopup, g_info, images)
+g_info = [["Vous avez reçu un nouveau message"], ["en provenance de Boss : Règle du jeu"], [""], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["          Fermer"]]
+images, iconpopup, continuer = popup(iconpopup, g_info, images)
 
 
-continuer = True
+
 while continuer :
 	#Gestion des événements
 	for event in pygame.event.get():
@@ -1900,7 +1958,7 @@ while continuer :
 	render(images, None)
 	pygame.display.flip()
 	#Appel des fonctions associés à l'application en premier plan
-	if images[len(images)-1][0] == fen_terminal:
+	if images[len(images)-1][0] == fen_terminal and win == False :
 		images, continuer, g_path, g_log, g_ligne, g_text, g_appUsed = Terminal(images, g_path, g_log, g_ligne, g_text, g_appUsed)
 	elif images[len(images)-1][0] == fen_message:
 		images, continuer, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text = message(images, messages, g_compte, compte, utilisateur, g_champ, g_countreturn, text)
@@ -1909,7 +1967,9 @@ while continuer :
 
 	if g_appUsed == "win" and not(win) :
 		win = True
-		#Append le message puis popup
+		messages.insert(0,["de: Boss", "Victoire!",["Et voilà, nous y sommes arrivés","grâce à vous Agent Wray! ","Vous avez réussi à sauver l’humanité d’un terrible hacker.","Le FBI vous remercie fortement !","","Nous espérons que vous avez pris plaisir à participer à ce jeu ","tout comme nous avons pris plaisir à le créer.","","Merci d’avoir joué <3 ;] -____- :3 :D UwU owo iwi","","A&E, les concepteurs, fondateurs, et créateurs de ddOS®"]])
+		g_info = [["Vous avez reçu un nouveau message"], ["en provenance dueBoss : Victoire!"], [""], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["          Fermer"]]
+		images, iconpopup, continuer = popup(iconpopup, g_info, images)
 
 
 
