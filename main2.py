@@ -3,6 +3,17 @@ from pygame.locals import *
 
 #Pour l'appli terminal
 files = {'C:':{
+	'Applications':{
+		'Subnautico.exe':'lexe',
+		'Paramètres':{
+			'reinitialiser.exe':'exe',
+			'utilisateur.exe':'lexe',
+			'systeme.exe':'lexe',
+		},
+		'jarvis.exe':'exe', 
+		'Gogole_Chrome.exe':'lexe',
+		'Discard.exe':'lexe'
+	},
 	'Documents':{
 		'Important':{
 			'motsdepasses.txt':'txt',
@@ -12,7 +23,6 @@ files = {'C:':{
 				'',
 				'================================================================================',
 				'shjkeuiOE',
-				'a..0m..5.',
 				'agfOsh48t',
 				'adf0g5ec',
 				'adf0mh456',
@@ -24,14 +34,14 @@ files = {'C:':{
 				'af0mse5p',
 				'zfs0m345e',
 			],
-			'adresses_IP_volés':'locked',
-			'donnée_chiffrées.txt':'txt',
-			'donnée_chiffrées.txt.':[
+			'adresses_IP_volées':'locked',
+			'données_chiffrées.txt':'txt',
+			'données_chiffrées.txt.':[
 				'donnée_chiffrées.txt',
 				'Faire ESC pour quitter',
 				'',
 				'================================================================================',
-				'Code 4 : 1;19;3;9;9',
+				'Code 4 :',
 				'',
 				'0111 0000',
 				'0110 0010',
@@ -41,8 +51,9 @@ files = {'C:':{
 				'0010 0011',
 				'0110 0111',
 				'0111 0101',
-				'0110 1000',
-
+				'0110 0100',
+				'',
+				'1;19;3;9;9'
 			],
 			'Émilie':'locked',
 		},
@@ -201,18 +212,7 @@ files = {'C:':{
 		'La_vérité_sur_le_drama_Vache_Qui_Rit.mp4':'mp4',
 		'Comment_sont_élevés_les_émeux.mp4':'mp4',
 		'Tuto_Programmer_en_C--.mp4':'mp4',
-	}, 
-	'Applications':{
-		'Subnautico.exe':'lexe',
-		'jarvis.exe':'exe', 
-		'Gogole_Chrome.exe':'lexe',
-		'Discard.exe':'lexe',
-		'Paramètres':{
-			'reinitialiser.exe':'exe',
-			'utilisateur.exe':'lexe',
-			'systeme.exe':'lexe',
-		}
-	}
+	},
 }}
 g_path = ""
 g_log = []
