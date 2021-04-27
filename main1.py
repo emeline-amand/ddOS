@@ -7,7 +7,7 @@ files = {'C:':{
 		'Subnautico.exe':'lexe',
 		'jarvis.exe':'exe', 
 		'Gogole_Chrome.exe':'lexe',
-		'Paramètres':{
+		'Parametres':{
 			'reinitialiser.exe':'exe',
 			'utilisateur.exe':'lexe',
 			'systeme.exe':'lexe',
@@ -107,7 +107,7 @@ files = {'C:':{
 		'Ni_Ki.png':'png',
 		'Woo_Yung.png':'png',
 	}, 
-	'Téléchargements':'locked', 
+	'Telechargements':'locked', 
 	'Musique':{
 		'Favoris':{
 			'Black Catcher - Vickeblanka':'mp3',
@@ -222,7 +222,7 @@ g_text = ""
 g_appUsed = ""
 
 #Pour l'appli message
-messages=[["de: Boss","Règles du jeu",["Bonjour Agent,","L'heure est grave, le célèbre hacker connu sous le nom de ddOS","s'est emparé d'importants fichiers nucléaires.","Votre mission, si toute fois vous l'acceptez, est de pénétrer dans le PC ","du hacker à distance, récupérer ses fichiers nucléaires et les ","supprimer de son PC. Pour se faire l'équipe s'est mobilisée pour ","maintenir le PC du hacker hors service depuis chez lui. Voici votre ","mail: christopher.wray@fbi.com et votre mot de passe: Ly46fZer ","pour vous connecter à votre messagerie lors de cette mission. ","Prenez soin de les noter sur une feuille: vous serez amené à vous ","déconnecter de votre compte plusieurs fois. Cette feuille vous servira ","également à noter toutes les informations et mots de passe que","vous trouvez: tout se réutilise! ","Bonne chance, la survie de l'humanité dépend de vous Agent Wray."]],["de: Boss","Infos Hacker part 2",["Agent Wray, ","De notre côté nous avons découverts plusieurs choses. ","Certains fichiers du PC du hacker sont signalé par la mention ","[CORROMPU]. D'après nos analyses, ces dossiers ne contiennent ","aucunes informations essentielles à votre mission. ","Il ne sert donc à rien de les parcourir."]],["de: Boss","Infos Hacker",["Voici le peu d'informations que nous avons trouvé sur le hacker,","Son mail: neo.mitrax@mymail.com, avec le mot de passe : ","a**0m*h*5* (les * sont les caractères que nous n'avons pas réussi à ","décrypter à l'heure actuelle, c'est à vous de les trouver dans le PC ","du hacker.) elles vous seront utiles le long de la mission. Nous ","savons  que le hacker est un citoyen français. Il aurait fait l'École 42 ","et fut deuxième de sa promo. Cependant ses études prirent un autre ","tour à la mort de son père le 28 octobre 1997. Il entreprit des études ","d'arquéologue à l'Université de Massachusetts. Il s'installa ensuite à ","Brest, et devint concierge, ce qui lui a permis de mettre en place ses","activitées de hacker. A ce jour, il a hacké plusieurs banques dans","différents pays. Il représente un danger pour tous,d'où la rapidité dont","vous devez disposer pour supprimer les codes nucléaires de son", "ordinateur."]],["de: FBI","Vacances",["Vous n'avez pas pris de vacances depuis plusieurs mois Agent Wray, ","Songez-y."]],["de: FBI","année 2021",["Meilleurs voeux agent Wray! C'est un plaisir d'être à vos côtés ","une années de plus!"]],["de: Boss","Nouvelle équipe",["Agent Wray,","Vous voici affecté à une nouvelle équipe sous mon commandement. ","Je n'ai pas de doutes sur le fait que nous nous entendrons bien. ","Monsieur Decopmann m'a beaucoup parlé de vous en bien.","Bienvenue dans l'équipe 007"]],["de: Boss","Contenu rapport",["Bonjour Agent Wray, le rapport que tu m'as remis ce matin sur l'affaire"," Jonhson était peu fourni. Je me permets donc de te rappeler ","les éléments clefs afin de faire des rapports plus efficaces.","","Étape 1 – Bien faire préciser la demande: Le destinataire du rapport ","et la situtation","Étape 2 – Rassembler et traiter l’information nécessaire","Étape 3 – Faire son plan","Étape 4 – Rédiger le rapport"]],["de: James Scott","travail",["Salut Agent Wray, j'ai retrouvé cet article du FBI..."," à ressortir quand tes coéquipiers râlent pour les missions en groupe ;)"," ","Le FBI considère cela comme essentiel à son succès aujourd’hui. ","Les groupes de travail se sont avérés être un moyen très efficace ","pour le FBI et les forces de l’ordre fédérales, étatiques et locales ","de s’unir pour traiter des problèmes de criminalité spécifiques ","et des menaces à la sécurité nationale."]]]
+messages=[["de: Boss","Règles du jeu",["Bonjour Agent,","L'heure est grave, le célèbre hacker connu sous le nom de ddOS","s'est emparé d'importants fichiers nucléaires.","Votre mission, si toute fois vous l'acceptez, est de pénétrer dans le PC ","du hacker à distance, il a des fichiers nucléaires. Réinitialisez son ","PC afin de les supprimer. Pour ce faire l'équipe s'est mobilisée pour ","maintenir le PC du hacker hors service depuis chez lui. Voici votre ","mail: christopher.wray@fbi.com et votre mot de passe: Ly46fZer ","pour vous connecter à votre messagerie lors de cette mission. ","Prenez soin de les noter sur une feuille: vous serez amené à vous ","déconnecter de votre compte plusieurs fois. Cette feuille vous servira ","également à noter toutes les informations et mots de passe que","vous trouvez: tout se réutilise! ","Bonne chance, la survie de l'humanité dépend de vous Agent Wray."]],["de: Boss","Infos Hacker part 2",["Agent Wray, ","De notre côté nous avons découverts plusieurs choses. ","Certains fichiers du PC du hacker sont signalé par la mention ","[CORROMPU]. D'après nos analyses, ces dossiers ne contiennent ","aucune information essentielle à votre mission. ","Il ne sert donc à rien de les parcourir."]],["de: Boss","Infos Hacker",["Voici le peu d'informations que nous avons trouvé sur le hacker,","Son mail: neo.mitrax@mymail.com, avec le mot de passe : ","a**0mh*5* (les * sont les caractères que nous n'avons pas réussi à ","décrypter à l'heure actuelle, c'est à vous de les trouver dans le PC ","du hacker.) elles vous seront utiles le long de la mission. Nous ","savons  que le hacker est un citoyen français. Il aurait fait l'École 42 ","et fut deuxième de sa promo. Cependant ses études prirent un autre ","tour à la mort de son père le 28 octobre 1997. Il entreprit des études ","d'archéologue à l'Université de Massachusetts. Il s'installa ensuite à ","Brest, et devint concierge, ce qui lui a permis de mettre en place ses","activitées de hacker. A ce jour, il a hacké plusieurs banques dans","différents pays. Il représente un danger pour tous,d'où la rapidité dont","vous devez disposer pour supprimer les codes nucléaires de son", "ordinateur."]],["de: FBI","Vacances",["Vous n'avez pas pris de vacances depuis plusieurs mois Agent Wray, ","Songez-y."]],["de: FBI","année 2021",["Meilleurs voeux agent Wray! C'est un plaisir d'être à vos côtés ","une année de plus!"]],["de: Boss","Nouvelle équipe",["Agent Wray,","Vous voici affecté à une nouvelle équipe sous mon commandement. ","Je n'ai pas de doutes sur le fait que nous nous entendrons bien. ","Monsieur Decopmann m'a beaucoup parlé de vous en bien.","Bienvenue dans l'équipe 007"]],["de: Boss","Contenu rapport",["Bonjour Agent Wray, le rapport que tu m'as remis ce matin sur l'affaire"," Jonhson était peu fourni. Je me permets donc de te rappeler ","les éléments clefs afin de faire des rapports plus efficaces.","","Étape 1 – Bien faire préciser la demande: Le destinataire du rapport ","et la situtation","Étape 2 – Rassembler et traiter l’information nécessaire","Étape 3 – Faire son plan","Étape 4 – Rédiger le rapport"]],["de: James Scott","travail",["Salut Agent Wray, j'ai retrouvé cet article du FBI..."," à ressortir quand tes coéquipiers râlent pour les missions en groupe ;)"," ","Le FBI considère cela comme essentiel à son succès aujourd’hui. ","Les groupes de travail se sont avérés être un moyen très efficace ","pour le FBI et les forces de l’ordre fédérales, étatiques et locales ","de s’unir pour traiter des problèmes de criminalité spécifiques ","et des menaces à la sécurité nationale."]]]
 
 g_compte=1
 compte=1
@@ -275,7 +275,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 	#variable pour pas cliquer sur les autres mails pendant qu'on en lit un
 	reading= True
 	
-	messagesHacker=[["de: Mamie","Dernières vacances",["Coucou mon chéri, ","Comment vas-tu? ","Je sais que ton métier de concierge te prends beaucoup de temps. ","Je t'envoie donc un petit mail pour te remercier d'être allé à Brest ","avec moi durant ses dernières vacances. Cela m'a beaucoup touché ","que tu prennes du temps avec ta vieille mamie. Ne t'inquiètes ","pas pour ton chat Glad0s, je prends soin de lui, il va très bien et se ","plaît beaucoup ici! J'ai pris soin de t'envoyer un colis avec une ","douzaine de durian que j'ai trouvé ce matin au marché du village, ","tu les aimes tant! C'est dans ce marché de Brest que se trouve les ","fruits les plus exotiques! De quoi te faire voyager depuis chez toi :)","Je t'embrasse, ","","Ta Mamie "]],["de: DUVAL Jacques","Ampoules grillées",["Bonjour Monsieur le concierge","Les ampoules du couloir au troisième étage sont cassées. ","Veuillez appeler un électricien.","","Bien Cordialement,","DUVAL Jacques, trosième étage du bâtiment 2"]],["de: CASTORAMA","Votre livraison est en route!",["Nous vous informons que votre commande est en route!","Vous devriez la recevoir dans les jours suivants, merci d'avoir choisi ","Castorama!","","Votre cagnotte fidélité bénéficie de 200 points supplémentaires.","","Détails de la commande:","Tuyau pvc Compact Ø100 mm L.2 m x5","Enduit de façade rénovation chaux ton pierre 25 kg x2","Elagueuse sur perche électrique FPPS710 710w 18cm"]],["de: moi","int(img) -> binaire(int) -> str(binaire) and len(str) == 8",[]],["de: MyMail","Votre compte",["Bonjour,",""," Afin de vous aider à définir vos paramètres de confidentialité ","encore plus facilement, nous avons ajouté des suggestions dans ","votre Check-up Confidentialité. Par exemple, nous vous aidons à ","activer ou désactiver le partage de votre position, définir la durée ","pendant laquelle vous souhaitez conserver votre historique sur le Web ","et les applications et bien plus encore, directement depuis ","votre Check-up Confidentialité.","","Bonne journée! "]],["de: DEF CON","Invitation",["Nous sommes heureux de vous accueillir à cette 28ème édition de ","la DEF CON! En raison des conditions sanitaires actuelles, ","les conférences seront effectuées en nombre limités. Pour cela que ","vous devez réserver dès maintenant vos tickets. Si vous ne pouvez ", "pas participer à une conférence, vous aurez cependant accès à un lien","de connexion, pour pouvoir y assister depuis un ordinateur."," ","DATE: 8-11 août.","LIEU: Rio All Suite Hotel & Casino ","","À bientôt","Comité de la DEFCON"]],["de: Spotify","Nouvelle chanson de votre groupe préféré",["Twenty One Pilots a sorti un nouveau single durant la période difficile","que nous avons traversé.","Découvrez Level Of Concern sur votre plateforme favorite !","","TOP shook the world with the release of their 2015 LP BLURRYFACE, ","an album that would go to on sell over 7 millions copies worldwide and ","earn the band their first ever GRAMMY Award... ","Discover more about them on Spotify.","","Essayez Spotify Premium gratuitement pendant un mois. ","Bénéficiez du mode écoute libre, zapping illimité ","et de l'écoute hors connexion."]],["de: PC","Réinitialisation",["Bonjour! ","Merci d'avoir changé l'un des mots de passe de votre PC grâce ","à notre logiciel!","","Nouveau mot de passe, code 5 : oJrVfMbOtJ"]]]
+	messagesHacker=[["de: Mamie","Dernières vacances",["Coucou mon chéri, ","Comment vas-tu? ","Je sais que ton métier de concierge te prends beaucoup de temps. ","Je t'envoie donc un petit mail pour te remercier d'être allé à Brest ","avec moi durant ses dernières vacances. Cela m'a beaucoup touché ","que tu prennes du temps avec ta vieille mamie. Ne t'inquiètes ","pas pour ton chat Glad0s, je prends soin de lui, il va très bien et se ","plaît beaucoup ici! J'ai pris soin de t'envoyer un colis avec une ","douzaine de durian que j'ai trouvé ce matin au marché du village, ","tu les aimes tant! C'est dans ce marché de Brest que se trouve les ","fruits les plus exotiques! De quoi te faire voyager depuis chez toi :)","Je t'embrasse, ","","Ta Mamie "]],["de: DUVAL Jacques","Ampoules grillées",["Bonjour Monsieur le concierge","Les ampoules du couloir au troisième étage sont cassées. ","Veuillez appeler un électricien.","","Bien Cordialement,","DUVAL Jacques, trosième étage du bâtiment 2"]],["de: CASTORAMA","Votre livraison est en route!",["Nous vous informons que votre commande est en route!","Vous devriez la recevoir dans les jours suivants, merci d'avoir choisi ","Castorama!","","Votre cagnotte fidélité bénéficie de 200 points supplémentaires.","","Détails de la commande:","Tuyau pvc Compact Ø100 mm L.2 m x5","Enduit de façade rénovation chaux ton pierre 25 kg x2","Elagueuse sur perche électrique FPPS710 710w 18cm"]],["de: moi","Photo",[]],["de: MyMail","Votre compte",["Bonjour,",""," Afin de vous aider à définir vos paramètres de confidentialité ","encore plus facilement, nous avons ajouté des suggestions dans ","votre Check-up Confidentialité. Par exemple, nous vous aidons à ","activer ou désactiver le partage de votre position, définir la durée ","pendant laquelle vous souhaitez conserver votre historique sur le Web ","et les applications et bien plus encore, directement depuis ","votre Check-up Confidentialité.","","Bonne journée! "]],["de: DEF CON","Invitation",["Nous sommes heureux de vous accueillir à cette 28ème édition de ","la DEF CON! En raison des conditions sanitaires actuelles, ","les conférences seront effectuées en nombre limités. Pour cela que ","vous devez réserver dès maintenant vos tickets. Si vous ne pouvez ", "pas participer à une conférence, vous aurez cependant accès à un lien","de connexion, pour pouvoir y assister depuis un ordinateur."," ","DATE: 8-11 août.","LIEU: Rio All Suite Hotel & Casino ","","À bientôt","Comité de la DEFCON"]],["de: PC","Réinitialisation",["Bonjour! ","Merci d'avoir changé l'un des mots de passe de votre PC grâce ","à notre logiciel!","","Nouveau mot de passe,","code 5 : oJrVfMbOtJ"]],["de: Moi","Table ASCII",[]]]
 	
 	# on regarde sur quelle messagerie on se trouve: 1=agent; 2= Neo Mitrax(hacker); 3=fenetre de connexion
 	
@@ -445,7 +445,8 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								# on fait afficher les éléments de la messagerie
 								pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
 								screen.blit(messageFontpetit.render("objet:  "+messagesHacker[i][1],True,(0,0,0)),(350,222))
-								screen.blit(messageFontpetit.render("“Le visage est l'image de l'âme.”",True,(0,0,0)),(600,800))
+								screen.blit(messageFontpetit.render("“Le visage est l'image de l'âme.”",True,(0,0,0)),(600,775))
+								screen.blit(messageFontpetit.render("int(img) → binaire(int) → str(binaire) and len(str) = = 8",True,(0,0,0)),(600,800))
 								screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
 								screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
 								screen.blit(messageFontpetit.render("Boîte principale",True,(0,0,0)),(160,350))
@@ -455,6 +456,23 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								reading= False
 								# refresh écran
 								pygame.display.flip()
+								
+							elif 350<event.pos[0]<800 and 530<event.pos[1]<570 and event.button == 1: # message intitulé binaire qui comprend une photo
+								# on met en premier plan l'image contenant la photo
+								render(_images, (ascii, ascii_coords))
+								# on fait afficher les éléments de la messagerie
+								pygame.draw.line(screen,(0,0,0), (340, 210), (340, 850), 2)
+								screen.blit(messageFontpetit.render("objet:  "+messagesHacker[i][1],True,(0,0,0)),(350,222))
+								screen.blit(messageFontpetit.render("Vous êtes connecté en  ",True,(0,0,0)),(160,222))
+								screen.blit(messageFontpetit.render("tant que:"+ utilisateur,True,(0,0,0)),(160,240))
+								screen.blit(messageFontpetit.render("Boîte principale",True,(0,0,0)),(160,350))
+								screen.blit(messageFontpetit.render("déconnexion ",True,(0,0,0)),(160,800))
+								connexion=1
+								photo=1
+								reading= False
+								# refresh écran
+								pygame.display.flip()
+								
 								
 							else:
 								# efface texte à l'écran
@@ -809,7 +827,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								#on fait afficher ligne de séparation
 								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 							pygame.display.flip()
-							text = g_champ[0]
+							text = ""
 							g_champ=[]
 							connexion=0
 
@@ -829,7 +847,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 							
-							text = g_champ[0]
+							text = ""
 							g_champ=[]
 							y=250
 							for i in range (len(_messages)):
@@ -1360,7 +1378,7 @@ def jarvis(_images, step) :
 		("Quatrième question : Quelle est votre musique préférée", (), "text"),
 		("Cinquième question : Quel votre fruit préféré ?", (), "text"),
 		("Sixième question : Où étiez-vous durant les dernières vacances ?", (), "text"),
-		("Septième question : Quelle était votre dernière profession ?", (), "text"),
+		("Septième question : Quelle est votre profession actuelle ?", (), "text"),
 		("Questions de sécurités répondues, voici le code n°1 : 489a6282A", ("  1 - Merci !", "  2 - Au revoir"), "qcm")
 	]
 	answer = "Réponse n°"
@@ -1751,19 +1769,19 @@ def Hint(_images) :
 	#Liste des aides disponibles
 	hints = { 
 		'Explication':
-			[["Bonjour, bienvenue dans l'application hint, ici vous trouverez toute l'aide dont vous avez besoin. Par contre attention, garre au spoilers, ne venez ici qu'en cas d'extrême nécéssité.", "Pour naviguer dans l'application, utilisez les quatres flèches sur les coins de la fenêtre. Les flèches des côtés permettent de naviguer entre les différentes aides d'une même catégorie, et celles du haut et bas permettent d'accéder à une des catégories lors du choix de celles-ci, soit d'accéder à des indices plus avancés d'une même aide"]], 
+			[["Bonjour, bienvenue dans l'application hint, ici vous trouverez toute l'aide dont vous avez besoin. Par contre attention, garre aux spoilers, ne venez ici qu'en cas d'extrême nécéssité.", "Pour naviguer dans l'application, utilisez les quatres flèches sur les coins de la fenêtre. Les flèches des côtés permettent de naviguer entre les différentes aides d'une même catégorie, et celles du haut et bas permettent d'accéder à une des catégories lors du choix de celles-ci, soit d'accéder à des indices plus avancés d'une même aide"]], 
 		'Terminal':
 			[["Hint 1 : Le mot de passe pour entrer dans le PC du hacker est la suite de son identifiant", "Solution", "111221"], 
-			["Hint 2 : Quelques endroits importants dans le PC du hacker", "Les applications de l’ordinateur, chemin : “C:/Applications”, notamment le dossier “Paramètres” présent dedans", "Le dossier “Important”, pas très bien caché :P", "Tient, des recettes de cuisine ?", "“C:/Documents/Programmation/ ... ”"],
+			["Hint 2 : Quelques endroits importants dans le PC du hacker", "Les applications de l’ordinateur, chemin : “C:/Applications”, notamment le dossier “Parametres” présent dedans", "Le dossier “Important”, pas très bien caché :P", "Tient, des recettes de cuisine ?", "“C:/Documents/Programmation/ ... ”"],
 			["Hint 3 : Les identifiants de la boîte mail du hacker sont sûrement dans ce fichier “motsdepasses.txt” dans le fichier “Important”", "Le bon mot de passe est celui qui match avec le fragment donné par le boss", "Solution", "adf0mh456"],
 			["Hint 4, aide au code 1 : L’application JARVIS peut sûrement aider à trouver un mot de passe", "Solution", "489a6282A"],
 			["Hint 5, aide au code 2 : Certaines lettres des recettes de cuisine sont en majuscule, il faudrait essayer de les mettre bout à bout", "La phrase est : “code 2 ancêtre internet”, le code est probablement la réponse", "Solution", "arpanet"],
-			["Hint 6, aide au code 4 : les chiffres de la première ligne de “donnée_chiffrées.txt” correspondent à des lettres", "La première ligne donne “ASCII”, il faut donc convertir en ASCII le binaire présent dans le fichier", "Solution", "pbadC#gud"]],
+			["Hint 6, aide au code 4 : les chiffres de la première ligne de “données_chiffrées.txt” correspondent à des lettres", "La première ligne donne “ASCII”, il faut donc convertir en ASCII le binaire présent dans le fichier", "Solution", "pbadC#gud"]],
 		'Mail':
-			[["Hint 1 : Certains mails ne contiennent aucunes informations nécessaires pour le jeu." ],
+			[["Hint 1 : Certains mails ne contiennent aucune information nécessaire pour le jeu." ],
 			["Hint 2 : Notez votre mail et mot de passe!"],
 			["Hint 3 : Essayez d’entrer dans la boîte mail du hacker en vous déconnectant de la votre et en entrant les bons identifiants.","Pour accéder au mot de passe complet du hacker, allez sur le terminal."],
-			["Hint 4 : Lisez attentivement les messages sur la boite mail du hacker, certains ne fournissent aucunes informations importantes pour les énigmes.","Aucune énigme ne se cache derrière la liste de commande Castorama ."],
+			["Hint 4 : Lisez attentivement les messages sur la boite mail du hacker, certains ne fournissent aucune information importante pour les énigmes.","Aucune énigme ne se cache derrière la liste de commande Castorama ."],
 			["Hint 5 : J'espère que vous n’avez pas négligé le message de la mamie! Lisez-le, vous ne le regretterez pas."," Notez les informations que vous trouvez importantes, elle vous seront demandées par l'assistant Jarvis sur le terminal du hacker.","Solution","Les mots à retenir sont: Durian, Glad0s, Brest"],
 			["Hint 6 : Le code 3 de réinitialisation du PC se trouve dans un mail du hacker."," Un mail contenant une photo...","Regardez plus attentivement la photo et essayez d’établir un rapport avec la citation.","Visages…","Comptez-les!","Convertissez le chiffre obtenu en binaire.","Solution","00001001"],
 			["Hint 7 : Le code 5 de réinitialisation du PC se trouve dans un mail du hacker","Cliquez sur le mail de réinitialisation du mot de passe.","La réponse est sous vos yeux!"]] 	
@@ -1843,7 +1861,7 @@ def Hint(_images) :
 		render(_images, None)
 
 		if len(step) == 1 :
-			screen.blit(terminalFont.render("Choissisez une catégorie d'aide parmit les trois disponibles", True, (0, 0, 0)), (190, 210))
+			screen.blit(terminalFont.render("Choissisez une catégorie d'aide parmis les trois disponibles", True, (0, 0, 0)), (190, 210))
 			text = step[0]
 		elif len(step) == 3 :
 			screen.blit(terminalFont.render("Catégorie actuelle : "+step[0], True, (0, 0, 0)), (190, 210))
@@ -1858,8 +1876,8 @@ pygame.init()
 pygame.font.init()
 
 #Polices
-messageFont = pygame.font.SysFont('Arial', 20)
-messageFontpetit = pygame.font.SysFont('Arial', 10)
+messageFont = pygame.font.SysFont('Arial', 30)
+messageFontpetit = pygame.font.SysFont('Arial', 17)
 terminalFont = pygame.font.Font('img/callCode.ttf', 20)
 hintFont = pygame.font.Font('img/callCode.ttf', 40)
 
@@ -1915,9 +1933,14 @@ iconpopup_coords=(1000,750)
 #Chargement de l'image peinture
 peinture = pygame.image.load("img/peinture.png").convert()
 peinture_dim = peinture.get_size()
-peinture_coords = (490,240)
+peinture_coords = (490,220)
 
-images = [(peinture, peinture_coords), (background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords), (iconhelp, iconhelp_coords)] #Prépare la liste pour l'affichage des éléments
+#Chargement de l'image table ascii
+ascii = pygame.image.load("img/ascii.jpg").convert()
+ascii_dim = ascii.get_size()
+ascii_coords = (490,220)
+
+images = [(ascii, ascii_coords),(peinture, peinture_coords), (background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords), (iconhelp, iconhelp_coords)] #Prépare la liste pour l'affichage des éléments
 pygame.key.set_repeat(400, 30) #Active la possibilité de rester appuyer sur une touche
 
 continuer = True
@@ -1968,7 +1991,7 @@ while continuer :
 	if g_appUsed == "win" and not(win) :
 		win = True
 		messages.insert(0,["de: Boss", "Victoire!",["Et voilà, nous y sommes arrivés","grâce à vous Agent Wray! ","Vous avez réussi à sauver l’humanité d’un terrible hacker.","Le FBI vous remercie fortement !","","Nous espérons que vous avez pris plaisir à participer à ce jeu ","tout comme nous avons pris plaisir à le créer.","","Merci d’avoir joué <3 ;] -____- :3 :D UwU owo iwi","","A&E, les concepteurs, fondateurs, et créateurs de ddOS®"]])
-		g_info = [["Vous avez reçu un nouveau message"], ["en provenance dueBoss : Victoire!"], [""], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["          Fermer"]]
+		g_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss : Victoire!"], [""], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["          Fermer"]]
 		images, iconpopup, continuer = popup(iconpopup, g_info, images)
 
 
