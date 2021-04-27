@@ -1776,7 +1776,7 @@ def Hint(_images) :
 			["Hint 3 : Les identifiants de la boîte mail du hacker sont sûrement dans ce fichier “motsdepasses.txt” dans le fichier “Important”", "Le bon mot de passe est celui qui match avec le fragment donné par le boss", "Solution", "adf0mh456"],
 			["Hint 4, aide au code 1 : L’application JARVIS peut sûrement aider à trouver un mot de passe", "Solution", "489a6282A"],
 			["Hint 5, aide au code 2 : Certaines lettres des recettes de cuisine sont en majuscule, il faudrait essayer de les mettre bout à bout", "La phrase est : “code 2 ancêtre internet”, le code est probablement la réponse", "Solution", "arpanet"],
-			["Hint 6, aide au code 4 : les chiffres de la première ligne de “données_chiffrées.txt” correspondent à des lettres", "La première ligne donne “ASCII”, il faut donc convertir en ASCII le binaire présent dans le fichier", "Solution", "pbadC#gud"]],
+			["Hint 6, aide au code 4 : les chiffres de la première ligne de “donnee_chiffree.txt” correspondent à des lettres", "La première ligne donne “ASCII”, il faut donc convertir en ASCII le binaire présent dans le fichier", "Solution", "pbadC#gud"]],
 		'Mail':
 			[["Hint 1 : Certains mails ne contiennent aucune information nécessaire pour le jeu." ],
 			["Hint 2 : Notez votre mail et mot de passe!"],
