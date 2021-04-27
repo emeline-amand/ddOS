@@ -1876,8 +1876,8 @@ pygame.init()
 pygame.font.init()
 
 #Polices
-messageFont = pygame.font.SysFont('Arial', 30)
-messageFontpetit = pygame.font.SysFont('Arial', 17)
+messageFont = pygame.font.SysFont('Arial', 24)
+messageFontpetit = pygame.font.SysFont('Arial', 15)
 terminalFont = pygame.font.Font('img/callCode.ttf', 20)
 hintFont = pygame.font.Font('img/callCode.ttf', 40)
 
@@ -1995,5 +1995,6 @@ while continuer :
 		images, iconpopup, continuer = popup(iconpopup, g_info, images)
 
 
-
 pygame.quit()
+
+#Ligne n°2000 yeeeeees
