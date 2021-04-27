@@ -827,7 +827,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								#on fait afficher ligne de séparation
 								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 							pygame.display.flip()
-							text = g_champ[0]
+							text = ""
 							g_champ=[]
 							connexion=0
 
@@ -847,7 +847,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 							
-							text = g_champ[0]
+							text = ""
 							g_champ=[]
 							y=250
 							for i in range (len(_messages)):
@@ -1991,7 +1991,7 @@ while continuer :
 	if g_appUsed == "win" and not(win) :
 		win = True
 		messages.insert(0,["de: Boss", "Victoire!",["Et voilà, nous y sommes arrivés","grâce à vous Agent Wray! ","Vous avez réussi à sauver l’humanité d’un terrible hacker.","Le FBI vous remercie fortement !","","Nous espérons que vous avez pris plaisir à participer à ce jeu ","tout comme nous avons pris plaisir à le créer.","","Merci d’avoir joué <3 ;] -____- :3 :D UwU owo iwi","","A&E, les concepteurs, fondateurs, et créateurs de ddOS®"]])
-		g_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss : Victoire!"], [""], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["          Fermer"]]
+		g_info = [["Vous avez reçu un nouveau message sur le compte Agent Wray"], ["en provenance du Boss : Victoire !"], [""], ["Veuillez vous connecter sur le bon compte pour le voir"], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["          Fermer"]]
 		images, iconpopup, continuer = popup(iconpopup, g_info, images)
 
 
