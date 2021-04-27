@@ -7,7 +7,7 @@ files = {'C:':{
 		'Subnautico.exe':'lexe',
 		'jarvis.exe':'exe', 
 		'Gogole_Chrome.exe':'lexe',
-		'Paramètres':{
+		'Parametres':{
 			'reinitialiser.exe':'exe',
 			'utilisateur.exe':'lexe',
 			'systeme.exe':'lexe',
@@ -107,7 +107,7 @@ files = {'C:':{
 		'Ni_Ki.png':'png',
 		'Woo_Yung.png':'png',
 	}, 
-	'Téléchargements':'locked', 
+	'Telechargements':'locked', 
 	'Musique':{
 		'Favoris':{
 			'Black Catcher - Vickeblanka':'mp3',
@@ -827,7 +827,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 								#on fait afficher ligne de séparation
 								pygame.draw.line(screen,(0,0,0),(340, y),(1130, y), 2)
 							pygame.display.flip()
-							text = g_champ[0]
+							text = ""
 							g_champ=[]
 							connexion=0
 
@@ -847,7 +847,7 @@ def message(_images, _messages, g_compte, compte, utilisateur, g_champ, g_countr
 							screen.blit(messageFont.render("émetteur: ",True,(0,0,0)),(350,212))
 							screen.blit(messageFont.render("objet: ",True,(0,0,0)),(600,212))
 							
-							text = g_champ[0]
+							text = ""
 							g_champ=[]
 							y=250
 							for i in range (len(_messages)):
@@ -1772,7 +1772,7 @@ def Hint(_images) :
 			[["Bonjour, bienvenue dans l'application hint, ici vous trouverez toute l'aide dont vous avez besoin. Par contre attention, garre aux spoilers, ne venez ici qu'en cas d'extrême nécéssité.", "Pour naviguer dans l'application, utilisez les quatres flèches sur les coins de la fenêtre. Les flèches des côtés permettent de naviguer entre les différentes aides d'une même catégorie, et celles du haut et bas permettent d'accéder à une des catégories lors du choix de celles-ci, soit d'accéder à des indices plus avancés d'une même aide"]], 
 		'Terminal':
 			[["Hint 1 : Le mot de passe pour entrer dans le PC du hacker est la suite de son identifiant", "Solution", "111221"], 
-			["Hint 2 : Quelques endroits importants dans le PC du hacker", "Les applications de l’ordinateur, chemin : “C:/Applications”, notamment le dossier “Paramètres” présent dedans", "Le dossier “Important”, pas très bien caché :P", "Tient, des recettes de cuisine ?", "“C:/Documents/Programmation/ ... ”"],
+			["Hint 2 : Quelques endroits importants dans le PC du hacker", "Les applications de l’ordinateur, chemin : “C:/Applications”, notamment le dossier “Parametres” présent dedans", "Le dossier “Important”, pas très bien caché :P", "Tient, des recettes de cuisine ?", "“C:/Documents/Programmation/ ... ”"],
 			["Hint 3 : Les identifiants de la boîte mail du hacker sont sûrement dans ce fichier “motsdepasses.txt” dans le fichier “Important”", "Le bon mot de passe est celui qui match avec le fragment donné par le boss", "Solution", "adf0mh456"],
 			["Hint 4, aide au code 1 : L’application JARVIS peut sûrement aider à trouver un mot de passe", "Solution", "489a6282A"],
 			["Hint 5, aide au code 2 : Certaines lettres des recettes de cuisine sont en majuscule, il faudrait essayer de les mettre bout à bout", "La phrase est : “code 2 ancêtre internet”, le code est probablement la réponse", "Solution", "arpanet"],
