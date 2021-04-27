@@ -1995,5 +1995,6 @@ while continuer :
 		images, iconpopup, continuer = popup(iconpopup, g_info, images)
 
 
-
 pygame.quit()
+
+#Ligne n°2000 yeeeeees
