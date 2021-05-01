@@ -235,7 +235,7 @@ g_countreturn=0
 win=False
 
 def render(toBlit, firstPlan) :
-	"""Fonction qui affiche les _imageses spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'_imagese spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
+	"""Fonction qui affiche les images spécfiée dans la liste de tuple en param2 dans l'ordre croissant des indices de la liste, sauf l'image spécifiée dans le tuple en param1, qui sera affiché en premier plan"""
 	#Si l'_imagese à mettre en 1er plan l'est déjà
 	if firstPlan==toBlit[len(toBlit)-1]:
 		#ne plus l'afficher
