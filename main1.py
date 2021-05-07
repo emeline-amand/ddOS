@@ -1309,9 +1309,9 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 					printLog(log, _images)
 				elif input[1] == "reinit":
 					if type(appUsed) == list : 
-						appli, _continuer, appUsed = reinitialiser(_images, appUsed[1])
+						appli, _continuer, appUsed, _images= reinitialiser(_images, appUsed[1])
 					else : 
-						appli, _continuer, appUsed = reinitialiser(_images, ",,,,")
+						appli, _continuer, appUsed, _images = reinitialiser(_images, ",,,,")
 					printLog(log, _images)
 				else :
 					log.append("Application inexistante")
@@ -1335,7 +1335,7 @@ def Terminal(_images, path, log, ligne, text, appUsed) :
 							appli, _continuer, appUsed = jarvis(_images, 0)
 						elif item[0] == "reinitialiser.exe" and input[0] == "reinitialiser.exe" : #lance réinitialiser
 							found[0] = True
-							appli, _continuer, appUsed = reinitialiser(_images, ",,,,")
+							appli, _continuer, appUsed, _images = reinitialiser(_images, ",,,,")
 						else : #message d'erreur
 							found[1] = "Executable inexistant"
 					elif extension_de_l_input[1] == "txt" and item[1] == "txt" : #si txt détecté
@@ -1621,26 +1621,26 @@ def reinitialiser(_images, m) :
 					#Clic sur gauche sur "terminal" => quitte l'appli
 					_images = render(_images, (fen_terminal, fen_terminal_coords))
 					appli=False
-					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4]), _images
 				elif event.pos[0]>iconmessage_coords[0] and event.pos[0]<iconmessage_coords[0]+iconmessage_dim[0] and event.pos[1]>iconmessage_coords[1] and event.pos[1]<iconmessage_coords[1]+iconmessage_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur "message" => quitte l'appli vers message
 					_images = render(_images, (fen_message, fen_message_coords))
 					appli=False
-					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4]), _images
 				elif event.pos[0]>iconhelp_coords[0] and event.pos[0]<iconhelp_coords[0]+iconhelp_dim[0] and event.pos[1]>iconhelp_coords[1] and event.pos[1]<iconhelp_coords[1]+iconhelp_dim[1] and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur "iconhelp" => quitte l'appli
 					_images = render(_images, (fen_help, fen_help_coords))
 					appli=False
-					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4]), _images
 				elif event.pos[0]>1245 and event.pos[0]<1265 and event.pos[1]>985 and event.pos[1]<1020 and event.button == 1 : #Si clic sur icon2 (zone de clic définie par la position et taille de celui-ci)
 					#Clic gauche sur l'icone d'aide => quitte l'appli
 					_images = render(_images, (fen_hint, fen_hint_coords))
 					appli=False
-					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4]), _images
 				elif event.pos[0]>1205 and event.pos[0]<1225 and event.pos[1]>989 and event.pos[1]<1010 and event.button == 1 :
 					#Clic gauche sur la croix en bas à droite  => quitte le jeu
 					_continuer = False
-					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4])
+					return False, _continuer, "reinit;"+str(mdp[0])+","+str(mdp[1])+","+str(mdp[2])+","+str(mdp[3])+","+str(mdp[4]), _images
 					
 			#Pour écrire
 			elif event.type == KEYDOWN:
@@ -1679,7 +1679,7 @@ def reinitialiser(_images, m) :
 					screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 					pygame.display.flip()
 				elif event.key == K_ESCAPE : 
-					return True, True, ""
+					return True, True, "", _images
 				else: #sinon
 					if len("Mot de passe ? : > "+text)<93 : #si la ligne ne dépasse pas la longueur maximale du terminal
 						text += event.unicode #ajouter le charactère associé à la touche appuyée au champ d'entrée
@@ -1711,10 +1711,10 @@ def reinitialiser(_images, m) :
 				log = ["Réinitialisation en cours ..."]
 				printLog(log, _images)
 				time.sleep(0.5)
-				_images = render(_images, (fen_terminal, fen_terminal_coords))
-				pygame.display.flip()
+				_images = [(ascii, ascii_coords),(peinture, peinture_coords), (background, (0,0)), (iconterminal, iconterminal_coords), (iconmessage, iconmessage_coords), (iconhelp, iconhelp_coords)]
+				render(_images, None)
 				time.sleep(1)
-				return False, True, "win" #victoire
+				return False, True, "win", _images #victoire
 			#Sinon
 			currentInput = 0
 			text = mdp[currentInput]
@@ -1725,7 +1725,7 @@ def reinitialiser(_images, m) :
 			screen.blit(terminalFont.render(text+"_", True, (0, 175, 0)), (313,ligne))
 			pygame.display.flip()
 
-	return True, True, ""
+	return True, True, "", _images
 
 #=========================================================================#
 #================================== HINT =================================#
@@ -1990,8 +1990,8 @@ while continuer :
 
 	if g_appUsed == "win" and not(win) :
 		win = True
-		messages.insert(0,["de: Boss", "Victoire!",["Et voilà, nous y sommes arrivés","grâce à vous Agent Wray! ","Vous avez réussi à sauver l’humanité d’un terrible hacker.","Le FBI vous remercie fortement !","","Nous espérons que vous avez pris plaisir à participer à ce jeu ","tout comme nous avons pris plaisir à le créer.","","Merci d’avoir joué <3 ;] -____- :3 :D UwU owo iwi","","A&E, les concepteurs, fondateurs, et créateurs de ddOS®"]])
-		g_info = [["Vous avez reçu un nouveau message"], ["en provenance du Boss : Victoire!"], [""], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["          Fermer"]]
+		messages.insert(0,["de: Boss", "Victoire!",["Et voilà, nous y sommes arrivés","grâce à vous Agent Wray! ","Vous avez réussi à sauver l’humanité d’un terrible hacker.","Le FBI vous remercie fortement !","","Nous espérons que vous avez pris plaisir à participer à ce jeu ","tout comme nous avons pris plaisir à le créer.","","Merci d’avoir joué au  best-seller de A&E corporation","<3 ;] -____- :3 :D UwU owo iwi","","A&E, les concepteurs, fondateurs, et créateurs de ddOS®"]])
+		g_info = [["Vous avez reçu un nouveau message sur le compte Agent Wray"], ["en provenance du Boss : Victoire !"], [""], ["Veuillez vous connecter sur le bon compte pour le voir"], ["Cliquez sur la boîte mail"], ["pour le consulter"], ["          Fermer"]]
 		images, iconpopup, continuer = popup(iconpopup, g_info, images)
 
 
